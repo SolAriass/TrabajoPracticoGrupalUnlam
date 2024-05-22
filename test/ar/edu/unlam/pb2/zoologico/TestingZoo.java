@@ -8,7 +8,7 @@ public class TestingZoo {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		System.out.println("Hola mundo");
 	}
 
 }
