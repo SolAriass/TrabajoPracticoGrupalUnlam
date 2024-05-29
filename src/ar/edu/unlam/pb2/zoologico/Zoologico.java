@@ -118,6 +118,18 @@ public class Zoologico implements IZoologico{
 
 
 
+	public Personal buscarPersonaPorId(Integer id) {
+		for(Personal persona: this.personas) {
+			if(persona.getIdentificacion().equals(id)) {
+				return persona;
+			}
+		}
+		return null;
+	}
+
+
+
+
 
 	
 	
