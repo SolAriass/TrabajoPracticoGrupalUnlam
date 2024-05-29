@@ -77,7 +77,7 @@ public class TestingZoo {
 		assertTrue(seAgrego);
 		assertEquals(hospital, this.zoo.getEstructuras().get(0));
 	}
-	
+
 	@Test
 	public void dadoQueExisteUnZoologicoConAnimalesQueSePuedaObtenerUnAnimalPorId() {
 		Integer codigoDeReconocimiento = 230;
@@ -91,13 +91,33 @@ public class TestingZoo {
 		Animal mono = new Mono(codigoDeReconocimiento, nombreAnimal, edad, peso, alimentacion, sexo, clase);
 		Animal monoDos = new Mono(530, "Cuco", 5, 9.5, TipoAlimentacion.OMNIVORO, TipoSexo.MASCULINO,
 				CategoriaAnimal.MAMIFERO);
-
 		this.zoo.agregarAnimalAlZoo(mono);
 		this.zoo.agregarAnimalAlZoo(monoDos);
-		
+
 		Animal animalObtenido = this.zoo.buscarAnimalPorId(codigoDeReconocimiento);
-		
+
 		assertEquals(mono, animalObtenido);
+	}
+
+	@Test
+	public void dadoQueExisteUnZoologicoConAnimalesQueAlBuscarUnAnimalPorIdInexistenteSeaNull() {
+		Integer codigoDeReconocimiento = 230;
+		String nombreAnimal = "Sergio Ramirez";
+		Integer edad = 3;
+		Double peso = 5.5;
+		TipoAlimentacion alimentacion = TipoAlimentacion.OMNIVORO;
+		TipoSexo sexo = TipoSexo.FEMENINO;
+		CategoriaAnimal clase = CategoriaAnimal.MAMIFERO;
+
+		Animal mono = new Mono(codigoDeReconocimiento, nombreAnimal, edad, peso, alimentacion, sexo, clase);
+		Animal monoDos = new Mono(530, "Cuco", 5, 9.5, TipoAlimentacion.OMNIVORO, TipoSexo.MASCULINO,
+				CategoriaAnimal.MAMIFERO);
+		this.zoo.agregarAnimalAlZoo(mono);
+		this.zoo.agregarAnimalAlZoo(monoDos);
+
+		Animal animalObtenido = this.zoo.buscarAnimalPorId(1);
+
+		assertNull(animalObtenido);
 	}
 
 	@Test
@@ -115,7 +135,23 @@ public class TestingZoo {
 		assertEquals(personalDos, personalObtenido);
 
 	}
-	
+
+	@Test
+	public void dadoQueExisteUnZoologicoConPersonalQueAlBuscarUnaPersonaPorIdInexistenteSeaNull() {
+		Integer identificacion = 23;
+		String nombreCompleto = "Jime Gomez";
+		Integer edad = 25;
+		Personal personal = new Veterinario(identificacion, nombreCompleto, edad);
+		Personal personalDos = new Veterinario(24, "Martin Perez", 20);
+		this.zoo.agregarPersonalAlZoo(personal);
+		this.zoo.agregarPersonalAlZoo(personalDos);
+
+		Personal personalObtenido = this.zoo.buscarPersonaPorId(10);
+
+		assertNull(personalObtenido);
+
+	}
+
 	@Test
 	public void dadoQueExisteUnZoologicoConEstructurasQueSePuedaObtenerLaEstructuraPorId() {
 		Integer codigoEstructural = 2234;
@@ -123,13 +159,29 @@ public class TestingZoo {
 
 		Estructura hospital = new HospitalVeterinario(codigoEstructural, nombreEstructura);
 		Estructura hospitalDos = new HospitalVeterinario(2500, "Hospitalinho");
-		
+
 		this.zoo.agregarEstructuraAlZoo(hospital);
 		this.zoo.agregarEstructuraAlZoo(hospitalDos);
-		
+
 		Estructura estructuraObtenida = this.zoo.buscarEstructuraPorId(2500);
-		
+
 		assertEquals(hospitalDos, estructuraObtenida);
+	}
+	
+	@Test
+	public void dadoQueExisteUnZoologicoConEstructurasQueAlBuscarUnaEstructuraPorIdInexistenteSeaNull() {
+		Integer codigoEstructural = 2234;
+		String nombreEstructura = "Hospitalcito";
+
+		Estructura hospital = new HospitalVeterinario(codigoEstructural, nombreEstructura);
+		Estructura hospitalDos = new HospitalVeterinario(2500, "Hospitalinho");
+
+		this.zoo.agregarEstructuraAlZoo(hospital);
+		this.zoo.agregarEstructuraAlZoo(hospitalDos);
+
+		Estructura estructuraObtenida = this.zoo.buscarEstructuraPorId(2000);
+
+		assertNull(estructuraObtenida);
 	}
 
 	@Test
@@ -153,7 +205,7 @@ public class TestingZoo {
 		assertEquals(1, animales.size());
 
 	}
-	
+
 	@Test
 	public void dadoQueExisteUnZoologicoConPersonalQueNoSePuedaAgregarDosPersonasConMismoCodigo() {
 		Integer identificacion = 23;
@@ -170,7 +222,7 @@ public class TestingZoo {
 		assertEquals(1, personas.size());
 
 	}
-	
+
 	@Test
 	public void dadoQueExisteUnZoologicoConEstructurasQueNoSePuedaAgregarDosEstructurasConMismoCodigo() {
 		Integer codigoEstructural = 2234;
@@ -178,7 +230,6 @@ public class TestingZoo {
 
 		Estructura hospital = new HospitalVeterinario(codigoEstructural, nombreEstructura);
 		Estructura hospitalDos = new HospitalVeterinario(codigoEstructural, "Hospitalinho");
-		
 
 		this.zoo.agregarEstructuraAlZoo(hospital);
 		this.zoo.agregarEstructuraAlZoo(hospitalDos);
