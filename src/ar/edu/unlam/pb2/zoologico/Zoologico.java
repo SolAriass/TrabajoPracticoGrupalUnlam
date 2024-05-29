@@ -204,6 +204,57 @@ public class Zoologico implements IZoologico{
 		return auxiliar;
 	}
 
+	@Override
+	public Personal encontrarSiExisteLaPersonaEnElZoo(Personal personal) {
+
+		Personal existente = null;
+		if (personal != null) {
+			for (Personal p : personas) {
+				if (p.equals(personal)) {
+					existente = personal;
+				}
+
+			}
+		}
+
+		return existente;
+	}
+	
+	
+	@Override
+	public Estructura encontrarSiExisteLaEstructuraEnElZoo(Estructura estructura) {
+
+		Estructura existente = null;
+		if (estructura != null) {
+			for (Estructura e : estructuras) {
+				if (e.equals(estructura)) {
+					existente = estructura;
+				}
+
+			}
+		}
+
+		return existente;
+	}
+	
+	
+
+	@Override
+	public Boolean agregarUnVeterinarioAUnHospital(Estructura estructura, Personal personal) {
+	
+		Boolean agregado = false;
+		if (this.encontrarSiExisteLaEstructuraEnElZoo(estructura) != null
+				&& this.encontrarSiExisteLaPersonaEnElZoo(personal) != null) {
+			if (estructura instanceof HospitalVeterinario && personal instanceof Veterinario) {
+				((HospitalVeterinario) estructura).agregarVeterinarioAlHospital(personal);
+				agregado = true;
+			}
+		}
+		
+		
+		return agregado;
+	}
+
 
 
 

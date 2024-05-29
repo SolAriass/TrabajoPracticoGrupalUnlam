@@ -363,6 +363,42 @@ public class TestingZoo {
 		}
 	
 	
+	 @Test
+		public void dadoQueExisteUnZoologicoConVeterinarioQueSePuedaAgregarAUnHospital() {
+
+			String nombreZoo = "Animalandia";
+
+			Zoologico zoo = new Zoologico(nombreZoo);
+
+			// DATOS DE PERSONAL
+			Integer identificacion = 23;
+			String nombreCompleto = "Jime Gomez";
+			Integer edad = 25;
+
+			Personal personal = new Veterinario(identificacion, nombreCompleto, edad);
+			Personal personal2 = new Veterinario(identificacion, nombreCompleto, edad);
+			Personal personal3 = new Veterinario(identificacion, nombreCompleto, edad);
+
+			// DATOS DE ESTRUCTURA
+			Integer codigoEstructural = 2234;
+			String nombreEstructura = "Hospitalcito";
+			// estado es algo que ya tiene dicha estructura
+
+			Estructura hospital = new HospitalVeterinario(codigoEstructural, nombreEstructura);
+
+			zoo.agregarEstructuraAlZoo(hospital);
+
+			zoo.agregarPersonalAlZoo(personal);
+			zoo.agregarPersonalAlZoo(personal2);
+			zoo.agregarPersonalAlZoo(personal3);
+
+			Boolean seAgrego = zoo.agregarUnVeterinarioAUnHospital(hospital, personal);
+
+			assertTrue(seAgrego);
+			assertEquals(personal, ((HospitalVeterinario) hospital).getVeterinarios().get(0));
+
+		}
+	 
 	
 	
 

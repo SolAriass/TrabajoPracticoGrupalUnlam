@@ -12,4 +12,7 @@ public interface IZoologico {
 	List<Animal> obtenerLosAnimalesConTipoAlimentacionHerbivora();
 	List<Animal> obtenerALosAnimalesSanos();
 	List<Animal> obtenerALosAnimalesEnfermos();
+	Boolean agregarUnVeterinarioAUnHospital(Estructura hospital, Personal personal);
+	 Estructura encontrarSiExisteLaEstructuraEnElZoo(Estructura estructura);
+	 Personal encontrarSiExisteLaPersonaEnElZoo(Personal personal);
 }
