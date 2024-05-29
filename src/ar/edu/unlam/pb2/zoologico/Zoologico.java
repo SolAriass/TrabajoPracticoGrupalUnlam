@@ -113,7 +113,7 @@ public class Zoologico implements IZoologico {
 
 	public Animal buscarAnimalPorId(Integer codigoDeReconocimiento) {
 		for (Animal animal : this.animales) {
-			if (animal.getCodigo().equals(codigoDeReconocimiento)) {
+			if (animal.getCodigoDeReconocimiento().equals(codigoDeReconocimiento)) {
 				return animal;
 			}
 		}
@@ -123,11 +123,11 @@ public class Zoologico implements IZoologico {
 
 	public Estructura buscarEstructuraPorId(Integer codigoEstructural) {
 		for (Estructura estructura : this.estructuras) {
-			if (estructura.getCodigo().equals(codigoEstructural)) {
+			if (estructura.getCodigoEstructural().equals(codigoEstructural)) {
 				return estructura;
 			}
 		}
-		
+
 		return null;
 	}
 

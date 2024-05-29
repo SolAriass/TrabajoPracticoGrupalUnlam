@@ -29,10 +29,12 @@ public class Estructura {
 		return Objects.equals(codigoEstructural, other.codigoEstructural);
 	}
 
-	public Integer getCodigo() {
+	public Integer getCodigoEstructural() {
 		return codigoEstructural;
 	}
-	
-	
+
+	public void setCodigoEstructural(Integer codigoEstructural) {
+		this.codigoEstructural = codigoEstructural;
+	}
 
 }

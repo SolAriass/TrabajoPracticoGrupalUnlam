@@ -236,6 +236,7 @@ public class TestingZoo {
 
 		List<Estructura> estructuras = this.zoo.getEstructuras();
 		assertEquals(1, estructuras.size());
+		
 
 	}
 }

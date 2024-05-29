@@ -3,12 +3,12 @@ package ar.edu.unlam.pb2.zoologico;
 import java.util.Objects;
 
 public class Animal {
-	
+
 	private Integer codigoDeReconocimiento;
 
 	public Animal(Integer codigoDeReconocimiento, String nombreAnimal, Integer edad, Double peso,
 			TipoAlimentacion alimentacion, TipoSexo sexo, CategoriaAnimal clase) {
-		
+
 		this.codigoDeReconocimiento = codigoDeReconocimiento;
 	}
 
@@ -29,10 +29,12 @@ public class Animal {
 		return Objects.equals(codigoDeReconocimiento, other.codigoDeReconocimiento);
 	}
 
-	public Integer getCodigo() {
+	public Integer getCodigoDeReconocimiento() {
 		return codigoDeReconocimiento;
 	}
 
-	
-	
+	public void setCodigoDeReconocimiento(Integer codigoDeReconocimiento) {
+		this.codigoDeReconocimiento = codigoDeReconocimiento;
+	}
+
 }
