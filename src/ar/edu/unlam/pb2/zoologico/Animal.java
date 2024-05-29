@@ -115,7 +115,7 @@ public class Animal {
 	}
 
 
-	public void setEstaDormido(Boolean estaDormido) {
+	public void dormir(Boolean estaDormido) {
 		this.estaDormido = estaDormido;
 	}
 

@@ -15,4 +15,5 @@ public interface IZoologico {
 	Boolean agregarUnVeterinarioAUnHospital(Estructura hospital, Personal personal);
 	 Estructura encontrarSiExisteLaEstructuraEnElZoo(Estructura estructura);
 	 Personal encontrarSiExisteLaPersonaEnElZoo(Personal personal);
+	 Boolean estanDormidosLosAnimales();
 }

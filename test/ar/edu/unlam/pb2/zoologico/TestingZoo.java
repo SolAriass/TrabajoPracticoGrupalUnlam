@@ -2,10 +2,10 @@ package ar.edu.unlam.pb2.zoologico;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import org.junit.Test;
-
 
 public class TestingZoo {
 	
@@ -543,8 +543,79 @@ public class TestingZoo {
 
 		}
 	 
+		@Test
+		public void dadoQueExisteUnZoologicoQueAlHacerseDeNocheLosAnimalesSeDuerman() {
+
+			String nombreZoo = "Animalandia";
+			LocalTime horario = LocalTime.of(20, 00);
+
+			Zoologico zoo = new Zoologico(nombreZoo);
+
+			Animal mapache = new Mapache(113, "pedro", 3, 1.3, TipoAlimentacion.CARNIVORO, TipoSexo.MASCULINO,
+					CategoriaAnimal.MAMIFERO);
+			Animal oso = new Oso(78, "winnie pooh", 7, 10.5, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+					CategoriaAnimal.MAMIFERO);
+			Animal tiburon = new Tiburon(90, "tiburoncin", 12, 20.0, TipoAlimentacion.CARNIVORO, TipoSexo.MASCULINO,
+					CategoriaAnimal.PEZ);
+			Animal serpiente = new Serpiente(1002, "thiago", 4, 2.5, TipoAlimentacion.CARNIVORO, TipoSexo.FEMENINO,
+					CategoriaAnimal.REPTIL);
+			Animal elefante = new Elefante(125, "dumbo", 9, 12.5, TipoAlimentacion.HERBIVORO, TipoSexo.MASCULINO,
+					CategoriaAnimal.MAMIFERO);
+			Animal panda = new Panda(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
+					CategoriaAnimal.MAMIFERO);
+
+			zoo.agregarAnimalAlZoo(mapache);
+			zoo.agregarAnimalAlZoo(oso);
+			zoo.agregarAnimalAlZoo(tiburon);
+			zoo.agregarAnimalAlZoo(serpiente);
+			zoo.agregarAnimalAlZoo(elefante);
+			zoo.agregarAnimalAlZoo(panda);
+
+			zoo.setHorarioZoo(horario);
+			Boolean estanDormidos = zoo.estanDormidosLosAnimales();
+
+			assertTrue(estanDormidos);
+
+		}
+
+		@Test
+		public void dadoQueExisteUnZoologicoQueAlHacerDeDiaParaQueDespiertenLosAnimales() {
+
+			String nombreZoo = "Animalandia";
+			LocalTime horario = LocalTime.of(8, 00);
+
+			Zoologico zoo = new Zoologico(nombreZoo);
+
+			Animal mapache = new Mapache(113, "pedro", 3, 1.3, TipoAlimentacion.CARNIVORO, TipoSexo.MASCULINO,
+					CategoriaAnimal.MAMIFERO);
+			Animal oso = new Oso(78, "winnie pooh", 7, 10.5, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+					CategoriaAnimal.MAMIFERO);
+			Animal tiburon = new Tiburon(90, "tiburoncin", 12, 20.0, TipoAlimentacion.CARNIVORO, TipoSexo.MASCULINO,
+					CategoriaAnimal.PEZ);
+			Animal serpiente = new Serpiente(1002, "thiago", 4, 2.5, TipoAlimentacion.CARNIVORO, TipoSexo.FEMENINO,
+					CategoriaAnimal.REPTIL);
+			Animal elefante = new Elefante(125, "dumbo", 9, 12.5, TipoAlimentacion.HERBIVORO, TipoSexo.MASCULINO,
+					CategoriaAnimal.MAMIFERO);
+			Animal panda = new Panda(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
+					CategoriaAnimal.MAMIFERO);
+
+			zoo.agregarAnimalAlZoo(mapache);
+			zoo.agregarAnimalAlZoo(oso);
+			zoo.agregarAnimalAlZoo(tiburon);
+			zoo.agregarAnimalAlZoo(serpiente);
+			zoo.agregarAnimalAlZoo(elefante);
+			zoo.agregarAnimalAlZoo(panda);
+
+			zoo.setHorarioZoo(horario);
+			Boolean estanDormidos = zoo.estanDormidosLosAnimales();
+
+			assertFalse(estanDormidos);
+
+		}
 	 
-	 
+		
+		
+		
 	 
 
 }

@@ -2,6 +2,7 @@ package ar.edu.unlam.pb2.zoologico;
 
 import java.util.List;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Zoologico implements IZoologico{
@@ -12,6 +13,7 @@ public class Zoologico implements IZoologico{
 	private List<Animal> animales;
 	private List<Personal> personas;
 	private List<Estructura> estructuras;
+	private LocalTime horarioZoo;
 	
 
 	public Zoologico(String nombreZoo) {
@@ -21,10 +23,31 @@ public class Zoologico implements IZoologico{
 		this.animales = new ArrayList<>();
 		this.personas = new ArrayList<>();
 		this.estructuras = new ArrayList<>();
+		this.horarioZoo = LocalTime.of(18, 00);
 	}
 	
 	
 	
+	
+	
+
+	public LocalTime getHorarioZoo() {
+		return horarioZoo;
+	}
+
+
+
+
+
+
+	public void setHorarioZoo(LocalTime horarioZoo) {
+		this.horarioZoo = horarioZoo;
+	}
+
+
+
+
+
 
 	public String getNombreZoo() {
 		return nombreZoo;
@@ -253,6 +276,33 @@ public class Zoologico implements IZoologico{
 		
 		
 		return agregado;
+	}
+
+
+
+
+
+
+	@Override
+	public Boolean estanDormidosLosAnimales() {
+		Boolean dormidos = false;
+		LocalTime horarioDeDormir = LocalTime.of(20, 00);
+		LocalTime horarioDeDespertar = LocalTime.of(8, 00);
+		if (this.getHorarioZoo().isAfter(horarioDeDormir) || this.getHorarioZoo().equals(horarioDeDormir)
+				|| this.getHorarioZoo().isBefore(horarioDeDespertar)) {
+			for (Animal animal : animales) {
+				animal.dormir(true);
+				dormidos = true;
+			}
+
+		} else {
+			for (Animal animal : animales) {
+				animal.dormir(false);
+				dormidos = false;
+			}
+		}
+		return dormidos;
+	
 	}
 
 
