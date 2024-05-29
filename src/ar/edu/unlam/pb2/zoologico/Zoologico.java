@@ -1,6 +1,7 @@
 package ar.edu.unlam.pb2.zoologico;
 
 import java.util.List;
+
 import java.util.ArrayList;
 
 public class Zoologico implements IZoologico{
@@ -114,6 +115,29 @@ public class Zoologico implements IZoologico{
 	public void setEstructuras(List<Estructura> estructuras) {
 		this.estructuras = estructuras;
 	}
+
+
+
+
+	@Override
+	public List<Animal> obtenerLosAnimalesConTipoAlimentacionOmnivora() {
+		
+		List<Animal> listaAuxiliar = new ArrayList<>();
+
+		for (Animal animal : animales) {
+			if (animal.getTipoAlimentacion().equals(TipoAlimentacion.OMNIVORO)) {
+				listaAuxiliar.add(animal);
+			}
+		}
+
+		
+		return listaAuxiliar;
+	}
+
+
+
+
+
 
 
 
