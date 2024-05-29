@@ -111,4 +111,24 @@ public class Zoologico implements IZoologico {
 		return null;
 	}
 
+	public Animal buscarAnimalPorId(Integer codigoDeReconocimiento) {
+		for (Animal animal : this.animales) {
+			if (animal.getCodigo().equals(codigoDeReconocimiento)) {
+				return animal;
+			}
+		}
+
+		return null;
+	}
+
+	public Estructura buscarEstructuraPorId(Integer codigoEstructural) {
+		for (Estructura estructura : this.estructuras) {
+			if (estructura.getCodigo().equals(codigoEstructural)) {
+				return estructura;
+			}
+		}
+		
+		return null;
+	}
+
 }

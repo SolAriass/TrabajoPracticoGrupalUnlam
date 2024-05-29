@@ -77,6 +77,28 @@ public class TestingZoo {
 		assertTrue(seAgrego);
 		assertEquals(hospital, this.zoo.getEstructuras().get(0));
 	}
+	
+	@Test
+	public void dadoQueExisteUnZoologicoConAnimalesQueSePuedaObtenerUnAnimalPorId() {
+		Integer codigoDeReconocimiento = 230;
+		String nombreAnimal = "Sergio Ramirez";
+		Integer edad = 3;
+		Double peso = 5.5;
+		TipoAlimentacion alimentacion = TipoAlimentacion.OMNIVORO;
+		TipoSexo sexo = TipoSexo.FEMENINO;
+		CategoriaAnimal clase = CategoriaAnimal.MAMIFERO;
+
+		Animal mono = new Mono(codigoDeReconocimiento, nombreAnimal, edad, peso, alimentacion, sexo, clase);
+		Animal monoDos = new Mono(530, "Cuco", 5, 9.5, TipoAlimentacion.OMNIVORO, TipoSexo.MASCULINO,
+				CategoriaAnimal.MAMIFERO);
+
+		this.zoo.agregarAnimalAlZoo(mono);
+		this.zoo.agregarAnimalAlZoo(monoDos);
+		
+		Animal animalObtenido = this.zoo.buscarAnimalPorId(codigoDeReconocimiento);
+		
+		assertEquals(mono, animalObtenido);
+	}
 
 	@Test
 	public void dadoQueExisteUnZoologicoConPersonalQueSePuedaObtenerLaPersonaPorId() {
@@ -92,6 +114,22 @@ public class TestingZoo {
 
 		assertEquals(personalDos, personalObtenido);
 
+	}
+	
+	@Test
+	public void dadoQueExisteUnZoologicoConEstructurasQueSePuedaObtenerLaEstructuraPorId() {
+		Integer codigoEstructural = 2234;
+		String nombreEstructura = "Hospitalcito";
+
+		Estructura hospital = new HospitalVeterinario(codigoEstructural, nombreEstructura);
+		Estructura hospitalDos = new HospitalVeterinario(2500, "Hospitalinho");
+		
+		this.zoo.agregarEstructuraAlZoo(hospital);
+		this.zoo.agregarEstructuraAlZoo(hospitalDos);
+		
+		Estructura estructuraObtenida = this.zoo.buscarEstructuraPorId(2500);
+		
+		assertEquals(hospitalDos, estructuraObtenida);
 	}
 
 	@Test

@@ -29,6 +29,10 @@ public class Animal {
 		return Objects.equals(codigoDeReconocimiento, other.codigoDeReconocimiento);
 	}
 
+	public Integer getCodigo() {
+		return codigoDeReconocimiento;
+	}
+
 	
 	
 }
