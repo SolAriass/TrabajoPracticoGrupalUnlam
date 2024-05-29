@@ -95,7 +95,7 @@ public class Zoologico implements IZoologico {
 		return false;
 	}
 
-	private Animal obtenerAnimal(Animal animalBuscado) {
+	public Animal obtenerAnimal(Animal animalBuscado) {
 
 		for (Animal animal : animales) {
 			if (animal.equals(animalBuscado)) {
@@ -106,7 +106,7 @@ public class Zoologico implements IZoologico {
 		return null;
 	}
 
-	private Estructura obtenerEstructura(Estructura estructuraBuscada) {
+	public Estructura obtenerEstructura(Estructura estructuraBuscada) {
 
 		for (Estructura estructura : estructuras) {
 			if (estructura.equals(estructuraBuscada)) {
@@ -125,6 +125,33 @@ public class Zoologico implements IZoologico {
 		}
 		
 		return null;
+	}
+
+	public List<Animal> obtenerLosAnimalesDeUnaCategoria(CategoriaAnimal categoria) {
+	
+		List<Animal> listaAuxiliar = new ArrayList<>();
+
+		for (Animal animal : animales) {
+			if (animal.getCategoriaAnimal().equals(categoria)) {
+				listaAuxiliar.add(animal);
+			}
+		}
+
+		return listaAuxiliar;
+	}
+
+	public List<Animal> obtenerLosAnimalesDeUnSexo(TipoSexo sexo) {
+
+		List<Animal> listaAuxiliar = new ArrayList<>();
+
+		for (Animal animal : animales) {
+			if (animal.getTipoSexo().equals(sexo)) {
+				listaAuxiliar.add(animal);
+			}
+		}
+
+		return listaAuxiliar;
+		
 	}
 
 }

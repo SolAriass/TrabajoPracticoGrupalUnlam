@@ -2,6 +2,8 @@ package ar.edu.unlam.pb2.zoologico;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
 public class TestingZoo {
@@ -212,9 +214,69 @@ public class TestingZoo {
 		
 	}
 	
+
+	@Test
+	public void dadoQueExisteUnZoologicoConAnimalesPodemosObtenerTodosLosDeUnaMismaCategoria() {
+			
+		String nombreZoo = "Animalandia";
+		Zoologico zoo = new Zoologico(nombreZoo);
+		
+		Animal mono = new Mono(513, "mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO, CategoriaAnimal.MAMIFERO);
+		Animal mapache = new Mapache(113, "pedro", 3, 1.3, TipoAlimentacion.CARNIVORO, TipoSexo.MASCULINO, CategoriaAnimal.MAMIFERO);
+		Animal oso = new Oso(78, "winnie pooh", 7, 10.5, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO, CategoriaAnimal.MAMIFERO);
+		Animal tiburon = new Tiburon(90, "tiburoncin", 12, 20.0, TipoAlimentacion.CARNIVORO, TipoSexo.MASCULINO, CategoriaAnimal.PEZ);
+		Animal serpiente = new Serpiente(1002, "thiago", 4, 2.5, TipoAlimentacion.CARNIVORO, TipoSexo.FEMENINO, CategoriaAnimal.REPTIL);
+		Animal elefante = new Elefante(125, "dumbo", 9, 12.5, TipoAlimentacion.HERBIVORO, TipoSexo.MASCULINO, CategoriaAnimal.MAMIFERO);
+		
+		zoo.agregarAnimalAlZoo(mono);
+		zoo.agregarAnimalAlZoo(mapache);
+		zoo.agregarAnimalAlZoo(oso);
+		zoo.agregarAnimalAlZoo(tiburon);
+		zoo.agregarAnimalAlZoo(serpiente);
+		zoo.agregarAnimalAlZoo(elefante);
+		
+		List <Animal> animalesMamiferos = zoo.obtenerLosAnimalesDeUnaCategoria(CategoriaAnimal.MAMIFERO);
+		
+		Integer tamañoEsperado = 4;
+		
+		assertEquals((int) tamañoEsperado, animalesMamiferos.size());
+		assertEquals(mono, animalesMamiferos.get(0));
+		assertEquals(mapache, animalesMamiferos.get(1));
+		assertEquals(oso, animalesMamiferos.get(2));
+		assertEquals(elefante, animalesMamiferos.get(3));
+
+	}
 	
-	
-	
+	@Test
+	public void dadoQueExisteUnZoologicoConAnimalesPodemosObtenerTodosLosDeUnMismoSexo() {
+
+		String nombreZoo = "Animalandia";
+		Zoologico zoo = new Zoologico(nombreZoo);
+		
+		Animal mono = new Mono(513, "mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO, CategoriaAnimal.MAMIFERO);
+		Animal mapache = new Mapache(113, "pedro", 3, 1.3, TipoAlimentacion.CARNIVORO, TipoSexo.MASCULINO, CategoriaAnimal.MAMIFERO);
+		Animal oso = new Oso(78, "winnie pooh", 7, 10.5, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO, CategoriaAnimal.MAMIFERO);
+		Animal tiburon = new Tiburon(90, "tiburoncin", 12, 20.0, TipoAlimentacion.CARNIVORO, TipoSexo.MASCULINO, CategoriaAnimal.PEZ);
+		Animal serpiente = new Serpiente(1002, "thiago", 4, 2.5, TipoAlimentacion.CARNIVORO, TipoSexo.FEMENINO, CategoriaAnimal.REPTIL);
+		Animal elefante = new Elefante(125, "dumbo", 9, 12.5, TipoAlimentacion.HERBIVORO, TipoSexo.MASCULINO, CategoriaAnimal.MAMIFERO);
+		
+		zoo.agregarAnimalAlZoo(mono);
+		zoo.agregarAnimalAlZoo(mapache);
+		zoo.agregarAnimalAlZoo(oso);
+		zoo.agregarAnimalAlZoo(tiburon);
+		zoo.agregarAnimalAlZoo(serpiente);
+		zoo.agregarAnimalAlZoo(elefante);
+
+		List <Animal> animalesHembras = zoo.obtenerLosAnimalesDeUnSexo(TipoSexo.FEMENINO);
+		
+		Integer tamañoEsperado = 3;
+		
+		assertEquals((int) tamañoEsperado, animalesHembras.size());
+		assertEquals(mono, animalesHembras.get(0));
+		assertEquals(oso, animalesHembras.get(1));
+		assertEquals(serpiente, animalesHembras.get(2));
+		
+	}
 	
 	
 
