@@ -14,6 +14,7 @@ public class Zoologico implements IZoologico{
 	private List<Personal> personas;
 	private List<Estructura> estructuras;
 	private LocalTime horarioZoo;
+	private List<RegistroAlimentacion> registrosDeAlimentacion;
 	
 
 	public Zoologico(String nombreZoo) {
@@ -24,6 +25,7 @@ public class Zoologico implements IZoologico{
 		this.personas = new ArrayList<>();
 		this.estructuras = new ArrayList<>();
 		this.horarioZoo = LocalTime.of(18, 00);
+		this.registrosDeAlimentacion = new ArrayList<>();
 	}
 	
 	
@@ -304,6 +306,147 @@ public class Zoologico implements IZoologico{
 		return dormidos;
 	
 	}
+
+
+
+
+
+	@Override
+	public RegistroAlimentacion cargarAlimentacion(Personal personal, Animal animal, Comida comida, Integer cantidadComida) {
+		RegistroAlimentacion registro = null;
+		
+		if(this.encontrarSiExisteLaPersonaEnElZoo(personal) != null && this.encontrarSiExisteElAnimalEnElZoo(animal) != null 
+				&& personal instanceof Veterinario) {
+			if(((Veterinario) personal).alimentar(animal, comida, cantidadComida) == true) {
+				registro = new RegistroAlimentacion(personal, animal, comida, cantidadComida);
+				registrosDeAlimentacion.add(registro);	
+			}	
+		}
+		
+		return registro;
+	}
+	
+	
+
+
+	public List<RegistroAlimentacion> getRegistrosDeAlimentacion() {
+		return registrosDeAlimentacion;
+	}
+
+
+
+
+
+
+	public void setRegistrosDeAlimentacion(List<RegistroAlimentacion> registrosDeAlimentacion) {
+		this.registrosDeAlimentacion = registrosDeAlimentacion;
+	}
+
+
+
+
+
+	@Override
+	public Animal encontrarSiExisteElAnimalEnElZoo(Animal animal) {
+	
+		Animal existente = null;
+		if (animal != null) {
+			for (Animal a : animales) {
+				if (a.equals(animal)) {
+					existente = animal;
+				}
+
+			}
+		}
+		
+		
+		
+		return existente;
+	}
+
+
+
+
+
+	@Override
+	public List<Animal> conocerLosAnimalesAlimentadosPorUnVeterinario(Personal personal) {
+
+		List <Animal> auxiliar = new ArrayList<>();
+		
+		for(RegistroAlimentacion registro : registrosDeAlimentacion) {
+			if(registro.getPersonal().equals(personal)) {
+				auxiliar.add(registro.getAnimal());
+			}
+		}
+		
+		
+		
+		return auxiliar;
+	}
+
+
+
+
+
+	@Override
+	public List<Personal> conocerLosVeterinariosQueAlimentaronAUnAnimalEspecifico(Animal animal) {
+		
+		List <Personal> auxiliar = new ArrayList<>();
+		
+		for(RegistroAlimentacion registro : registrosDeAlimentacion) {
+			if(registro.getAnimal().equals(animal)) {
+				auxiliar.add(registro.getPersonal());
+			}
+		}
+		
+		
+		return auxiliar;
+	}
+
+
+
+
+
+	@Override
+	public List<Animal> conocerALosAnimalesQueConsumieronComidaDeTipoPlanta() {
+		
+		List <Animal> auxiliar = new ArrayList<>();
+		
+		for(RegistroAlimentacion registro : registrosDeAlimentacion) {
+			if(registro.getComida().equals(Comida.PLANTA)) {
+				auxiliar.add(registro.getAnimal());
+			}
+		}
+		
+		
+		
+		return auxiliar;
+	}
+
+
+
+
+
+	@Override
+	public List<Animal> conocerALosAnimalesQueConsumieronComidaDeTipoCarne() {
+		
+		List <Animal> auxiliar = new ArrayList<>();
+		
+		for(RegistroAlimentacion registro : registrosDeAlimentacion) {
+			if(registro.getComida().equals(Comida.CARNE)) {
+				auxiliar.add(registro.getAnimal());
+			}
+		}
+		
+		
+		return auxiliar;
+	}
+
+
+
+
+
+	
 
 
 

@@ -13,7 +13,13 @@ public interface IZoologico {
 	List<Animal> obtenerALosAnimalesSanos();
 	List<Animal> obtenerALosAnimalesEnfermos();
 	Boolean agregarUnVeterinarioAUnHospital(Estructura hospital, Personal personal);
-	 Estructura encontrarSiExisteLaEstructuraEnElZoo(Estructura estructura);
-	 Personal encontrarSiExisteLaPersonaEnElZoo(Personal personal);
-	 Boolean estanDormidosLosAnimales();
+	Estructura encontrarSiExisteLaEstructuraEnElZoo(Estructura estructura);
+	Personal encontrarSiExisteLaPersonaEnElZoo(Personal personal);
+	Boolean estanDormidosLosAnimales();
+	Animal encontrarSiExisteElAnimalEnElZoo(Animal animal);
+	RegistroAlimentacion cargarAlimentacion(Personal personal, Animal animal, Comida comida, Integer cantidadComida);
+	List<Animal> conocerLosAnimalesAlimentadosPorUnVeterinario(Personal personal);
+	List<Personal> conocerLosVeterinariosQueAlimentaronAUnAnimalEspecifico(Animal animal);
+	List<Animal> conocerALosAnimalesQueConsumieronComidaDeTipoPlanta();
+	List<Animal> conocerALosAnimalesQueConsumieronComidaDeTipoCarne();
 }
