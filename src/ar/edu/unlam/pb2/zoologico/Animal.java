@@ -105,7 +105,7 @@ public class Animal {
 	}
 
 
-	public void setEstaEnfermo(Boolean estaEnfermo) {
+	public void enfermar(Boolean estaEnfermo) {
 		this.estaEnfermo = estaEnfermo;
 	}
 

@@ -10,4 +10,6 @@ public interface IZoologico {
 	List<Animal> obtenerLosAnimalesConTipoAlimentacionOmnivora();
 	List<Animal> obtenerLosAnimalesConTipoAlimentacionCarnivora();
 	List<Animal> obtenerLosAnimalesConTipoAlimentacionHerbivora();
+	List<Animal> obtenerALosAnimalesSanos();
+	List<Animal> obtenerALosAnimalesEnfermos();
 }

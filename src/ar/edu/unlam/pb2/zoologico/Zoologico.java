@@ -174,6 +174,39 @@ public class Zoologico implements IZoologico{
 
 
 
+	@Override
+	public List<Animal> obtenerALosAnimalesSanos() {
+		
+		List<Animal> auxiliar = new ArrayList<>();
+
+		for (Animal animal : animales) {
+			if (animal.getEstaEnfermo() == false) {
+				auxiliar.add(animal);
+			}
+		}
+		return auxiliar;
+	}
+
+
+
+
+	@Override
+	public List<Animal> obtenerALosAnimalesEnfermos() {
+		
+		List<Animal> auxiliar = new ArrayList<>();
+
+		for (Animal animal : animales) {
+			if (animal.getEstaEnfermo() == true) {
+				auxiliar.add(animal);
+			}
+		}
+		
+		return auxiliar;
+	}
+
+
+
+
 
 
 
