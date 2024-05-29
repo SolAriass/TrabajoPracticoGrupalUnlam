@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+
 public class TestingZoo {
 	
 	
@@ -400,6 +401,150 @@ public class TestingZoo {
 		}
 	 
 	
-	
+	 @Test
+		public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaAgregarOtroPersonalQueNoSeaVeterinario() {
+
+			String nombreZoo = "Animalandia";
+
+			Zoologico zoo = new Zoologico(nombreZoo);
+
+			// DATOS DE PERSONAL
+			Integer identificacion = 23;
+			String nombreCompleto = "Jime Gomez";
+			Integer edad = 25;
+
+			Personal personal = new Mantenimiento(identificacion, nombreCompleto, edad);
+			Personal personal2 = new Veterinario(identificacion, nombreCompleto, edad);
+			Personal personal3 = new Veterinario(identificacion, nombreCompleto, edad);
+
+			// DATOS DE ESTRUCTURA
+			Integer codigoEstructural = 2234;
+			String nombreEstructura = "Hospitalcito";
+			// estado es algo que ya tiene dicha estructura
+
+			Estructura hospital = new HospitalVeterinario(codigoEstructural, nombreEstructura);
+
+			zoo.agregarEstructuraAlZoo(hospital);
+
+			zoo.agregarPersonalAlZoo(personal);
+			zoo.agregarPersonalAlZoo(personal2);
+			zoo.agregarPersonalAlZoo(personal3);
+
+			Boolean seAgrego = zoo.agregarUnVeterinarioAUnHospital(hospital, personal);
+
+			assertFalse(seAgrego);
+
+		}
+	 
+	 @Test
+		public void dadoQueExisteUnZoologicoConVeterinarioQueNoSePuedaAgregarEnOtraEstructuraQueNoSeaUnHospital() {
+
+			String nombreZoo = "Animalandia";
+
+			Zoologico zoo = new Zoologico(nombreZoo);
+
+			// DATOS DE PERSONAL
+			Integer identificacion = 23;
+			String nombreCompleto = "Jime Gomez";
+			Integer edad = 25;
+
+			Personal personal = new Mantenimiento(identificacion, nombreCompleto, edad);
+			Personal personal2 = new Veterinario(identificacion, nombreCompleto, edad);
+			Personal personal3 = new Veterinario(identificacion, nombreCompleto, edad);
+
+			// DATOS DE ESTRUCTURA
+			Integer codigoEstructural = 2234;
+			String nombreEstructura = "Hospitalcito";
+			// estado es algo que ya tiene dicha estructura
+
+			Estructura hospital = new HospitalVeterinario(codigoEstructural, nombreEstructura);
+			Estructura hospital2 = new Habitat(codigoEstructural, nombreEstructura);
+
+			zoo.agregarEstructuraAlZoo(hospital);
+			zoo.agregarEstructuraAlZoo(hospital2);
+
+			zoo.agregarPersonalAlZoo(personal);
+			zoo.agregarPersonalAlZoo(personal2);
+			zoo.agregarPersonalAlZoo(personal3);
+
+			Boolean seAgrego = zoo.agregarUnVeterinarioAUnHospital(hospital2, personal);
+
+			assertFalse(seAgrego);
+
+		}
+	 
+	 
+	 @Test
+		public void dadoQueExisteUnZoologicoConVeterinarioQueNoSePuedaAgregarAUnHospitalInexistente() {
+
+			String nombreZoo = "Animalandia";
+
+			Zoologico zoo = new Zoologico(nombreZoo);
+
+			// DATOS DE PERSONAL
+			Integer identificacion = 23;
+			String nombreCompleto = "Jime Gomez";
+			Integer edad = 25;
+
+			Personal personal = new Veterinario(identificacion, nombreCompleto, edad);
+			Personal personal2 = new Veterinario(identificacion, nombreCompleto, edad);
+			Personal personal3 = new Veterinario(identificacion, nombreCompleto, edad);
+
+			// DATOS DE ESTRUCTURA
+			Integer codigoEstructural = 2234;
+			String nombreEstructura = "Hospitalcito";
+			// estado es algo que ya tiene dicha estructura
+
+			Estructura hospital = new HospitalVeterinario(codigoEstructural, nombreEstructura);
+
+			zoo.agregarPersonalAlZoo(personal);
+			zoo.agregarPersonalAlZoo(personal2);
+			zoo.agregarPersonalAlZoo(personal3);
+
+			Boolean seAgrego = zoo.agregarUnVeterinarioAUnHospital(hospital, personal);
+
+			assertFalse(seAgrego);
+			assertEquals(null, zoo.encontrarSiExisteLaEstructuraEnElZoo(hospital));
+
+		}
+
+		@Test
+		public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaAgregarUnVeterinarioInexistente() {
+
+			String nombreZoo = "Animalandia";
+
+			Zoologico zoo = new Zoologico(nombreZoo);
+
+			// DATOS DE PERSONAL
+			Integer identificacion = 23;
+			String nombreCompleto = "Jime Gomez";
+			Integer edad = 25;
+
+			Personal personal = new Veterinario(identificacion, nombreCompleto, edad);
+			Personal personal2 = new Veterinario(identificacion, nombreCompleto, edad);
+			Personal personal3 = new Veterinario(identificacion, nombreCompleto, edad);
+
+			// DATOS DE ESTRUCTURA
+			Integer codigoEstructural = 2234;
+			String nombreEstructura = "Hospitalcito";
+			// estado es algo que ya tiene dicha estructura
+
+			Estructura hospital = new HospitalVeterinario(codigoEstructural, nombreEstructura);
+
+			zoo.agregarEstructuraAlZoo(hospital);
+
+			zoo.agregarPersonalAlZoo(personal2);
+			zoo.agregarPersonalAlZoo(personal3);
+
+			Boolean seAgrego = zoo.agregarUnVeterinarioAUnHospital(hospital, personal);
+
+			assertFalse(seAgrego);
+			assertEquals(null, zoo.encontrarSiExisteLaPersonaEnElZoo(personal));
+
+		}
+	 
+	 
+	 
+	 
 
 }
