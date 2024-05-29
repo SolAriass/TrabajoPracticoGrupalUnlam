@@ -79,7 +79,7 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoConAnimalesQueSePuedaObtenerUnAnimalPorId() {
+	public void dadoQueExisteUnZoologicoConAnimalesQueSePuedaObtenerUnAnimalPorId() throws AnimalNoEncontradoException {
 		Integer codigoDeReconocimiento = 230;
 		String nombreAnimal = "Sergio Ramirez";
 		Integer edad = 3;
@@ -99,8 +99,9 @@ public class TestingZoo {
 		assertEquals(mono, animalObtenido);
 	}
 
-	@Test
-	public void dadoQueExisteUnZoologicoConAnimalesQueAlBuscarUnAnimalPorIdInexistenteSeaNull() {
+	@Test(expected = AnimalNoEncontradoException.class)
+	public void dadoQueExisteUnZoologicoConAnimalesQueAlBuscarUnAnimalPorIdInexistenteArrojeUnaException()
+			throws AnimalNoEncontradoException {
 		Integer codigoDeReconocimiento = 230;
 		String nombreAnimal = "Sergio Ramirez";
 		Integer edad = 3;
@@ -116,12 +117,11 @@ public class TestingZoo {
 		this.zoo.agregarAnimalAlZoo(monoDos);
 
 		Animal animalObtenido = this.zoo.buscarAnimalPorId(1);
-
-		assertNull(animalObtenido);
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoConPersonalQueSePuedaObtenerLaPersonaPorId() {
+	public void dadoQueExisteUnZoologicoConPersonalQueSePuedaObtenerLaPersonaPorId()
+			throws PersonaNoEncontradaException {
 		Integer identificacion = 23;
 		String nombreCompleto = "Jime Gomez";
 		Integer edad = 25;
@@ -136,8 +136,8 @@ public class TestingZoo {
 
 	}
 
-	@Test
-	public void dadoQueExisteUnZoologicoConPersonalQueAlBuscarUnaPersonaPorIdInexistenteSeaNull() {
+	@Test(expected = PersonaNoEncontradaException.class)
+	public void dadoQueExisteUnZoologicoConPersonalQueAlBuscarUnaPersonaPorIdInexistenteSeaNull() throws PersonaNoEncontradaException {
 		Integer identificacion = 23;
 		String nombreCompleto = "Jime Gomez";
 		Integer edad = 25;
@@ -147,13 +147,11 @@ public class TestingZoo {
 		this.zoo.agregarPersonalAlZoo(personalDos);
 
 		Personal personalObtenido = this.zoo.buscarPersonaPorId(10);
-
-		assertNull(personalObtenido);
-
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoConEstructurasQueSePuedaObtenerLaEstructuraPorId() {
+	public void dadoQueExisteUnZoologicoConEstructurasQueSePuedaObtenerLaEstructuraPorId()
+			throws EstructuraNoEncontradaException {
 		Integer codigoEstructural = 2234;
 		String nombreEstructura = "Hospitalcito";
 
@@ -167,9 +165,10 @@ public class TestingZoo {
 
 		assertEquals(hospitalDos, estructuraObtenida);
 	}
-	
-	@Test
-	public void dadoQueExisteUnZoologicoConEstructurasQueAlBuscarUnaEstructuraPorIdInexistenteSeaNull() {
+
+	@Test(expected = EstructuraNoEncontradaException.class)
+	public void dadoQueExisteUnZoologicoConEstructurasQueAlBuscarUnaEstructuraPorIdInexistenteSeaNull()
+			throws EstructuraNoEncontradaException {
 		Integer codigoEstructural = 2234;
 		String nombreEstructura = "Hospitalcito";
 
@@ -180,8 +179,6 @@ public class TestingZoo {
 		this.zoo.agregarEstructuraAlZoo(hospitalDos);
 
 		Estructura estructuraObtenida = this.zoo.buscarEstructuraPorId(2000);
-
-		assertNull(estructuraObtenida);
 	}
 
 	@Test
@@ -236,7 +233,6 @@ public class TestingZoo {
 
 		List<Estructura> estructuras = this.zoo.getEstructuras();
 		assertEquals(1, estructuras.size());
-		
 
 	}
 }

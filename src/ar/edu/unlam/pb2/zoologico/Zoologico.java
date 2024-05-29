@@ -102,33 +102,37 @@ public class Zoologico implements IZoologico {
 		this.estructuras = estructuras;
 	}
 
-	public Personal buscarPersonaPorId(Integer id) {
+	@Override
+	public Personal buscarPersonaPorId(Integer id) throws PersonaNoEncontradaException {
 		for (Personal persona : this.personas) {
 			if (persona.getIdentificacion().equals(id)) {
 				return persona;
 			}
 		}
-		return null;
+		
+		throw new PersonaNoEncontradaException();
 	}
 
-	public Animal buscarAnimalPorId(Integer codigoDeReconocimiento) {
+	@Override
+	public Animal buscarAnimalPorId(Integer codigoDeReconocimiento) throws AnimalNoEncontradoException {
 		for (Animal animal : this.animales) {
 			if (animal.getCodigoDeReconocimiento().equals(codigoDeReconocimiento)) {
 				return animal;
 			}
 		}
 
-		return null;
+		throw new AnimalNoEncontradoException();
 	}
 
-	public Estructura buscarEstructuraPorId(Integer codigoEstructural) {
+	@Override
+	public Estructura buscarEstructuraPorId(Integer codigoEstructural) throws EstructuraNoEncontradaException {
 		for (Estructura estructura : this.estructuras) {
 			if (estructura.getCodigoEstructural().equals(codigoEstructural)) {
 				return estructura;
 			}
 		}
 
-		return null;
+		throw new EstructuraNoEncontradaException();
 	}
 
 }
