@@ -8,4 +8,9 @@ public class Elefante extends Animal {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+    public Animal crearCria(Integer idCria, String nombreCria, TipoSexo sexo) {
+        return new Elefante(idCria, nombreCria, 0, 1.5, this.getTipoAlimentacion(), sexo, this.getCategoriaAnimal());
+    }
+
 }

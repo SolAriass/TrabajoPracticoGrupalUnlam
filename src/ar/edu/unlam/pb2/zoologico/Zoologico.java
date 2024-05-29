@@ -86,8 +86,8 @@ public class Zoologico implements IZoologico {
 
 	public Boolean agregarAnimalAlHabitat(Animal animal, Estructura habitat) {
 
-		if (habitat instanceof Habitat && this.obtenerAnimal(animal) != null
-				&& this.obtenerEstructura(habitat) != null) {
+		if (habitat instanceof Habitat && animales.contains(animal)
+				&& estructuras.contains(habitat)) {
 			Habitat habitatVerificado = (Habitat) habitat;
 			return habitatVerificado.agregarAnimal(animal);
 		}
@@ -126,6 +126,15 @@ public class Zoologico implements IZoologico {
 		
 		return null;
 	}
+	
+	public Animal obtenerAnimalDeUnHabitatPorCodigo(Integer codigo, Estructura habitat) {
+		if (habitat instanceof Habitat) {
+			Habitat habitatVerificado = (Habitat) habitat;
+			return habitatVerificado.obtenerAnimalPorCodigo(codigo);
+		}
+		
+		return null;
+	} 
 
 	public List<Animal> obtenerLosAnimalesDeUnaCategoria(CategoriaAnimal categoria) {
 	
@@ -153,5 +162,21 @@ public class Zoologico implements IZoologico {
 		return listaAuxiliar;
 		
 	}
+
+	public Boolean reproducirDosAnimalesDeUnHabitat(Animal progenitor1,
+			Animal progenitor2, Estructura habitat, Integer idCria, String nombreCria) {
+
+		if (habitat instanceof Habitat && !progenitor1.getTipoSexo().equals(progenitor2.getTipoSexo())) {
+			Habitat habitatVerificado = (Habitat) habitat;
+			Animal cria = habitatVerificado.reproducirAnimales(progenitor1, progenitor2, idCria, nombreCria);
+			this.agregarAnimalAlZoo(cria);
+			return this.agregarAnimalAlHabitat(cria, habitatVerificado);	
+		}
+		
+		return false;
+		
+	}
+
+
 
 }

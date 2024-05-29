@@ -1,5 +1,6 @@
 package ar.edu.unlam.pb2.zoologico;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Habitat extends Estructura {
 	private ArrayList<Animal> animales;
@@ -36,5 +37,25 @@ public class Habitat extends Estructura {
 
 		return null;
 	}
+	
+		public Animal obtenerAnimalPorCodigo(Integer codigo) {
+			for (Animal animal : animales) {
+				if (animal.getCodigoDeReconocimiento().equals(codigo)) {
+					return animal;
+				}
+			}
+
+			return null;
+	}
+
+	public Animal reproducirAnimales(Animal progenitor1, Animal progenitor2, Integer idCria, String nombreCria) {
+		
+		Random sexoAleatorio = new Random();
+		TipoSexo sexo = sexoAleatorio.nextBoolean() ? TipoSexo.MASCULINO : TipoSexo.FEMENINO;
+
+		return progenitor1.crearCria(idCria, nombreCria, sexo);
+
+	}
+
 
 }

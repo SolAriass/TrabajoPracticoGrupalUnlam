@@ -278,6 +278,102 @@ public class TestingZoo {
 		
 	}
 	
-	
+	@Test
+	public void dadoQueExisteUnZoologicoConHabitatsSusAnimalesePuedenReproducir () {
+		
+		String nombreZoo = "Animalandia";
+		Zoologico zoo = new Zoologico(nombreZoo);
 
+		Integer codigoEstructural = 123;
+		String nombreEstructura = "Isla de los monos";
+		Integer maximoAnimales = 4;
+		Estructura habitatMonos = new Habitat(codigoEstructural, nombreEstructura, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(habitatMonos);
+
+		Animal mona = new Mono(513, "Mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+		zoo.agregarAnimalAlZoo(mona);
+		zoo.agregarAnimalAlHabitat (mona, habitatMonos);
+		
+		Animal mono = new Mono(514, "Mono Mario", 6, 8.9, TipoAlimentacion.OMNIVORO, TipoSexo.MASCULINO,
+				CategoriaAnimal.MAMIFERO);
+		zoo.agregarAnimalAlZoo(mono);
+		zoo.agregarAnimalAlHabitat (mono, habitatMonos);
+		
+		Integer idCria = 515;
+		String nombreCria = "monito bebé";
+		Boolean seReproducieron = zoo.reproducirDosAnimalesDeUnHabitat(mona, mono, habitatMonos, idCria, nombreCria);
+		Animal cria = zoo.obtenerAnimalDeUnHabitatPorCodigo(idCria, habitatMonos);
+		String nombreObtenido = cria.getNombreAnimal();
+		
+		assertTrue(seReproducieron);
+		assertNotNull(cria);
+		assertEquals(nombreCria, nombreObtenido);
+
+	}
+	
+	@Test
+	public void dadoQueExisteUnZoologicoConHabitatsSusAnimalesNoSePuedenReproducirSiSonDelMismoSexo () {
+		
+		String nombreZoo = "Animalandia";
+		Zoologico zoo = new Zoologico(nombreZoo);
+
+		Integer codigoEstructural = 123;
+		String nombreEstructura = "Isla de los monos";
+		Integer maximoAnimales = 4;
+		Estructura habitatMonos = new Habitat(codigoEstructural, nombreEstructura, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(habitatMonos);
+
+		Animal mona = new Mono(513, "Mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+		zoo.agregarAnimalAlZoo(mona);
+		zoo.agregarAnimalAlHabitat (mona, habitatMonos);
+		
+		Animal mono = new Mono(514, "Mona Rosa", 6, 8.9, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+		zoo.agregarAnimalAlZoo(mono);
+		zoo.agregarAnimalAlHabitat (mono, habitatMonos);
+		
+		Integer idCria = 515;
+		String nombreCria = "monito bebé";
+		Boolean seReproducieron = zoo.reproducirDosAnimalesDeUnHabitat(mona, mono, habitatMonos, idCria, nombreCria);
+		Animal cria = zoo.obtenerAnimalDeUnHabitatPorCodigo(idCria, habitatMonos);
+		
+		assertFalse(seReproducieron);
+		assertNull(cria);
+		
+	}
+
+	@Test
+	public void dadoQueExisteUnZoologicoConHabitatsSusAnimalesNoSePuedenReproducirSiElHabitatYaEstaLleno () {
+		
+		String nombreZoo = "Animalandia";
+		Zoologico zoo = new Zoologico(nombreZoo);
+
+		Integer codigoEstructural = 123;
+		String nombreEstructura = "Isla de los monos";
+		Integer maximoAnimales = 2;
+		Estructura habitatMonos = new Habitat(codigoEstructural, nombreEstructura, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(habitatMonos);
+
+		Animal mona = new Mono(513, "Mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+		zoo.agregarAnimalAlZoo(mona);
+		zoo.agregarAnimalAlHabitat (mona, habitatMonos);
+		
+		Animal mono = new Mono(514, "Mona Rosa", 6, 8.9, TipoAlimentacion.OMNIVORO, TipoSexo.MASCULINO,
+				CategoriaAnimal.MAMIFERO);
+		zoo.agregarAnimalAlZoo(mono);
+		zoo.agregarAnimalAlHabitat (mono, habitatMonos);
+		
+		Integer idCria = 515;
+		String nombreCria = "monito bebé";
+		Boolean seReproducieron = zoo.reproducirDosAnimalesDeUnHabitat(mona, mono, habitatMonos, idCria, nombreCria);
+		Animal cria = zoo.obtenerAnimalDeUnHabitatPorCodigo(idCria, habitatMonos);
+		
+		assertFalse(seReproducieron);
+		assertNull(cria);
+
+	}
+	
 }

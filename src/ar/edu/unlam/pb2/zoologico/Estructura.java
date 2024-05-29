@@ -12,4 +12,7 @@ public class Estructura {
 		this.nombreEstructura = nombreEstructura;
 	}
 
+
+
+
 }

@@ -7,7 +7,9 @@ public class Mono extends Animal {
 		super(codigoDeReconocimiento, nombreAnimal, edad, peso, alimentacion, sexo, clase);
 	}
 
-	
-	
-	
+	@Override
+    public Animal crearCria(Integer idCria, String nombreCria, TipoSexo sexo) {
+        return new Mono(idCria, nombreCria, 0, 1.5, this.getTipoAlimentacion(), sexo, this.getCategoriaAnimal());
+    }
+
 }

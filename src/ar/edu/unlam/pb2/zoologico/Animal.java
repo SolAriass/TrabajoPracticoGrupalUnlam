@@ -1,6 +1,6 @@
 package ar.edu.unlam.pb2.zoologico;
 
-public class Animal {
+public abstract class Animal {
 	private Integer codigoDeReconocimiento;
 	private String nombreAnimal;
 	private Integer edad;
@@ -37,7 +37,56 @@ public class Animal {
 	public void setTipoSexo(TipoSexo tipoSexo) {
 		this.tipoSexo = tipoSexo;
 	}
+
+	public TipoAlimentacion getTipoAlimentacion() {
+		return tipoAlimentacion;
+	}
+
+	public void setTipoAlimentacion(TipoAlimentacion tipoAlimentacion) {
+		this.tipoAlimentacion = tipoAlimentacion;
+	}
 	
+	public Integer getCodigoDeReconocimiento() {
+		return codigoDeReconocimiento;
+	}
+
+	public void setCodigoDeReconocimiento(Integer codigoDeReconocimiento) {
+		this.codigoDeReconocimiento = codigoDeReconocimiento;
+	}
+
+	public String getNombreAnimal() {
+		return nombreAnimal;
+	}
+
+	public void setNombreAnimal(String nombreAnimal) {
+		this.nombreAnimal = nombreAnimal;
+	}
+
+	public Integer getEdad() {
+		return edad;
+	}
+
+	public void setEdad(Integer edad) {
+		this.edad = edad;
+	}
+
+	public Double getPeso() {
+		return peso;
+	}
+
+	public void setPeso(Double peso) {
+		this.peso = peso;
+	}
+
+	public Boolean getEstaEnfermo() {
+		return estaEnfermo;
+	}
+
+	public void setEstaEnfermo(Boolean estaEnfermo) {
+		this.estaEnfermo = estaEnfermo;
+	}
+
+	public abstract Animal crearCria (Integer idCria, String nombreCria, TipoSexo sexo);
 	
 
 }

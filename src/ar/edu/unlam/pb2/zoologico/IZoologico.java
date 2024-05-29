@@ -13,5 +13,6 @@ public interface IZoologico {
 	Animal obtenerAnimalDeUnHabitat(Animal animal, Estructura habitat);
 	List<Animal> obtenerLosAnimalesDeUnaCategoria(CategoriaAnimal categoria);
 	List<Animal> obtenerLosAnimalesDeUnSexo(TipoSexo sexo);
+	Boolean reproducirDosAnimalesDeUnHabitat(Animal progenitor1, Animal progenitor2, Estructura habitat, Integer idCria, String nombreCria);
 	
 }
