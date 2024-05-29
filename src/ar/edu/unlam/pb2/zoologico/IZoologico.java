@@ -8,4 +8,6 @@ public interface IZoologico {
 	Boolean agregarPersonalAlZoo(Personal persona);
 	Boolean agregarEstructuraAlZoo(Estructura estructura);
 	List<Animal> obtenerLosAnimalesConTipoAlimentacionOmnivora();
+	List<Animal> obtenerLosAnimalesConTipoAlimentacionCarnivora();
+	List<Animal> obtenerLosAnimalesConTipoAlimentacionHerbivora();
 }

@@ -137,6 +137,43 @@ public class Zoologico implements IZoologico{
 
 
 
+	@Override
+	public List<Animal> obtenerLosAnimalesConTipoAlimentacionCarnivora() {
+		
+		List<Animal> listaAuxiliar = new ArrayList<>();
+
+		for (Animal animal : animales) {
+			if (animal.getTipoAlimentacion().equals(TipoAlimentacion.CARNIVORO)) {
+				listaAuxiliar.add(animal);
+			}
+		}
+		
+		
+		return listaAuxiliar;
+	}
+
+
+
+
+	@Override
+	public List<Animal> obtenerLosAnimalesConTipoAlimentacionHerbivora() {
+
+		List<Animal> listaAuxiliar = new ArrayList<>();
+
+		for (Animal animal : animales) {
+			if (animal.getTipoAlimentacion().equals(TipoAlimentacion.HERBIVORO)) {
+				listaAuxiliar.add(animal);
+			}
+		}
+		
+		
+		
+		return listaAuxiliar;
+	}
+
+
+
+
 
 
 
