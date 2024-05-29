@@ -166,7 +166,8 @@ public class Zoologico implements IZoologico {
 	public Boolean reproducirDosAnimalesDeUnHabitat(Animal progenitor1,
 			Animal progenitor2, Estructura habitat, Integer idCria, String nombreCria) {
 
-		if (habitat instanceof Habitat && !progenitor1.getTipoSexo().equals(progenitor2.getTipoSexo())) {
+		if (habitat instanceof Habitat && !progenitor1.getTipoSexo().equals(progenitor2.getTipoSexo())
+				&& obtenerAnimalDeUnHabitat(progenitor1, habitat) != null &&  obtenerAnimalDeUnHabitat(progenitor2, habitat) != null) {
 			Habitat habitatVerificado = (Habitat) habitat;
 			Animal cria = habitatVerificado.reproducirAnimales(progenitor1, progenitor2, idCria, nombreCria);
 			this.agregarAnimalAlZoo(cria);
