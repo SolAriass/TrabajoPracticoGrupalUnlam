@@ -1,11 +1,16 @@
 package ar.edu.unlam.pb2.zoologico;
 
+import java.util.List;
+
 public interface IZoologico {
 	
 	Boolean agregarAnimalAlZoo(Animal animal);
-	Boolean agregarPersonalAlZoo(Personal persona);
+	Boolean agregarPersonalAlZoo(Persona persona);
 	Boolean agregarEstructuraAlZoo(Estructura estructura);
-	Personal buscarPersonaPorId(Integer id) throws PersonaNoEncontradaException;
+	Persona buscarPersonaPorId(Integer id) throws PersonaNoEncontradaException;
 	Animal buscarAnimalPorId(Integer codigoDeReconocimiento) throws AnimalNoEncontradoException;
 	Estructura buscarEstructuraPorId(Integer codigoEstructural) throws EstructuraNoEncontradaException;
+	Boolean agregarAnimalAlHabitat(Animal animal, Estructura habitat);
+	Animal obtenerAnimalDeUnHabitatPorCodigo(Integer codigo, Estructura habitat);
+	List<Animal> obtenerAnimalesDeUnHabitat(Estructura habitat);
 }

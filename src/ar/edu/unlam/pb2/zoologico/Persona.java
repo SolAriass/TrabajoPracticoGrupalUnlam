@@ -2,13 +2,13 @@ package ar.edu.unlam.pb2.zoologico;
 
 import java.util.Objects;
 
-public class Personal {
+public class Persona {
 
 	private Integer identificacion;
 	private String nombreCompleto;
 	private Integer edad;
 
-	public Personal(Integer identificacion, String nombreCompleto, Integer edad) {
+	public Persona(Integer identificacion, String nombreCompleto, Integer edad) {
 		this.identificacion = identificacion;
 		this.nombreCompleto = nombreCompleto;
 		this.edad = edad;
@@ -35,7 +35,7 @@ public class Personal {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Personal other = (Personal) obj;
+		Persona other = (Persona) obj;
 		return Objects.equals(identificacion, other.identificacion);
 	}
 

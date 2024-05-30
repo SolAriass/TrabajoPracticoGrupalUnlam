@@ -5,11 +5,14 @@ import java.util.Objects;
 public class Animal {
 
 	private Integer codigoDeReconocimiento;
+	private Integer edad;
+	private Habitat habitat;
 
 	public Animal(Integer codigoDeReconocimiento, String nombreAnimal, Integer edad, Double peso,
 			TipoAlimentacion alimentacion, TipoSexo sexo, CategoriaAnimal clase) {
 
 		this.codigoDeReconocimiento = codigoDeReconocimiento;
+		this.edad = edad;
 	}
 
 	@Override
@@ -35,6 +38,18 @@ public class Animal {
 
 	public void setCodigoDeReconocimiento(Integer codigoDeReconocimiento) {
 		this.codigoDeReconocimiento = codigoDeReconocimiento;
+	}
+
+	public Integer getEdad() {
+		return this.edad;
+	}
+
+	public Habitat getHabitat() {
+		return this.habitat;
+	}
+
+	public void setHabitat(Estructura habitat) {
+		this.habitat = (Habitat) habitat;
 	}
 
 }

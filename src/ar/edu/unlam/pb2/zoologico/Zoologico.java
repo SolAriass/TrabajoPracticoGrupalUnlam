@@ -1,7 +1,9 @@
 package ar.edu.unlam.pb2.zoologico;
 
 import java.util.List;
+import java.util.TreeSet;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Zoologico implements IZoologico {
 
@@ -9,7 +11,7 @@ public class Zoologico implements IZoologico {
 	private Boolean seEncuentraAbierto;
 	private Boolean estaLimpio;
 	private List<Animal> animales;
-	private List<Personal> personas;
+	private List<Persona> personas;
 	private List<Estructura> estructuras;
 
 	public Zoologico(String nombreZoo) {
@@ -66,9 +68,9 @@ public class Zoologico implements IZoologico {
 	}
 
 	@Override
-	public Boolean agregarPersonalAlZoo(Personal persona) {
+	public Boolean agregarPersonalAlZoo(Persona persona) {
 
-		for (Personal p : this.personas) {
+		for (Persona p : this.personas) {
 			if (p.equals(persona)) {
 				return false;
 			}
@@ -76,11 +78,11 @@ public class Zoologico implements IZoologico {
 		return personas.add(persona);
 	}
 
-	public List<Personal> getPersonas() {
+	public List<Persona> getPersonas() {
 		return personas;
 	}
 
-	public void setPersonas(List<Personal> personas) {
+	public void setPersonas(List<Persona> personas) {
 		this.personas = personas;
 	}
 
@@ -103,13 +105,13 @@ public class Zoologico implements IZoologico {
 	}
 
 	@Override
-	public Personal buscarPersonaPorId(Integer id) throws PersonaNoEncontradaException {
-		for (Personal persona : this.personas) {
+	public Persona buscarPersonaPorId(Integer id) throws PersonaNoEncontradaException {
+		for (Persona persona : this.personas) {
 			if (persona.getIdentificacion().equals(id)) {
 				return persona;
 			}
 		}
-		
+
 		throw new PersonaNoEncontradaException();
 	}
 
@@ -133,6 +135,53 @@ public class Zoologico implements IZoologico {
 		}
 
 		throw new EstructuraNoEncontradaException();
+	}
+
+	@Override
+	public Boolean agregarAnimalAlHabitat(Animal animal, Estructura habitat) {
+
+		if (habitat instanceof Habitat && animales.contains(animal) && estructuras.contains(habitat)) {
+			Habitat habitatVerificado = (Habitat) habitat;
+			 if(habitatVerificado.agregarAnimal(animal)) {
+				 animal.setHabitat(habitat);
+				 return true;
+			 }
+		}
+
+		return false;
+	}
+
+	@Override
+	public Animal obtenerAnimalDeUnHabitatPorCodigo(Integer codigo, Estructura habitat) {
+		if (habitat instanceof Habitat) {
+			Habitat habitatVerificado = (Habitat) habitat;
+			return habitatVerificado.obtenerAnimalPorCodigo(codigo);
+		}
+
+		return null;
+	}
+
+	@Override
+	public List<Animal> obtenerAnimalesDeUnHabitat(Estructura habitat) {
+		List<Animal> animales = new ArrayList<>();
+
+		for (Animal animal : this.animales) {
+			if (animal.getHabitat().equals(habitat)) {
+				animales.add(animal);
+			}
+		}
+
+		return animales;
+	}
+
+	public TreeSet<Animal> obtenerAnimalesDeUnHabitatOrdenadosOrdenEspecifico(Comparator<Animal> OrdenEspecifico,
+			Estructura habitatMonos) {
+		TreeSet<Animal> animalesNoRepetidos = new TreeSet<Animal>(OrdenEspecifico);
+		List<Animal> animales = this.obtenerAnimalesDeUnHabitat(habitatMonos);
+
+		animalesNoRepetidos.addAll(animales);
+
+		return animalesNoRepetidos;
 	}
 
 }
