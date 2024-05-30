@@ -57,5 +57,15 @@ public class Habitat extends Estructura {
 
 	}
 
+	public ArrayList<Animal> getAnimales() {
+		return animales;
+	}
+
+	public void setAnimales(ArrayList<Animal> animales) {
+		this.animales = animales;
+	}
+	
+	
+
 
 }

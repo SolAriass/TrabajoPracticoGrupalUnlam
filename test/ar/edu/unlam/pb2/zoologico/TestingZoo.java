@@ -46,6 +46,31 @@ public class TestingZoo {
 		assertEquals(mono, zoo.getAnimales().get(0));
 
 	}
+	
+	@Test
+	public void dadoQueExisteUnZoologicoQueNoSePuedaAgregarElMismoAnimalDosVeces() {
+
+		String nombreZoo = "Animalandia";
+
+		Zoologico zoo = new Zoologico(nombreZoo);
+
+		Integer codigoDeReconocimiento = 230;
+		String nombreAnimal = "Sergio Ramirez";
+		Integer edad = 3;
+		Double peso = 5.5;
+		TipoAlimentacion alimentacion = TipoAlimentacion.OMNIVORO;
+		// estar enfermo es algo que ya tiene el mono, por defecto esta sano
+		TipoSexo sexo = TipoSexo.FEMENINO;
+		CategoriaAnimal clase = CategoriaAnimal.MAMIFERO;
+
+		Animal mono = new Mono(codigoDeReconocimiento, nombreAnimal, edad, peso, alimentacion, sexo, clase);
+
+		Boolean seAgrego = zoo.agregarAnimalAlZoo(mono);
+
+		assertTrue(seAgrego);
+		assertEquals(mono, zoo.getAnimales().get(0));
+
+	}
 
 	@Test
 	public void dadoQueExisteUnZoologicoQueSePuedanAgregarPersonasAlMismo() {
@@ -58,13 +83,32 @@ public class TestingZoo {
 		String nombreCompleto = "Jime Gomez";
 		Integer edad = 25;
 
-		Personal personal = new Veterinario(identificacion, nombreCompleto, edad);
+		Persona personal = new Veterinario(identificacion, nombreCompleto, edad);
 
-		Boolean seAgrego = zoo.agregarPersonalAlZoo(personal);
+		Boolean seAgrego = zoo.agregarPersonaAlZoo(personal);
 
 		assertTrue(seAgrego);
 		assertEquals(personal, zoo.getPersonas().get(0));
 
+	}
+	
+	@Test
+	public void dadoQueExisteUnZoologicoNoSePuedenAgregarPersonasSiEstasSonMenores() {
+
+		String nombreZoo = "Animalandia";
+
+		Zoologico zoo = new Zoologico(nombreZoo);
+
+		Integer identificacion = 23;
+		String nombreCompleto = "Jime Gomez";
+		Integer edad = 15;
+
+		Persona personal = new Veterinario(identificacion, nombreCompleto, edad);
+
+		Boolean seAgrego = zoo.agregarPersonaAlZoo(personal);
+
+		assertFalse(seAgrego);
+		
 	}
 
 	@Test
@@ -413,5 +457,194 @@ public class TestingZoo {
 		assertNull(cria);
 		
 	}
+	
+	@Test
+	public void dadoQueExisteUnZoologicoConVeterinariosQueEstanEnHospitalesPodemosObtenerUnVeterinarioDeUnHospital() {
+
+		String nombreZoo = "Animalandia";
+		Zoologico zoo = new Zoologico(nombreZoo);
+		
+        Persona veterinario = new Veterinario(23, "Luis Alvarez", 34);
+        zoo.agregarPersonaAlZoo(veterinario);
+ 
+		Integer codigoHospital = 2234;
+		String nombreHospital= "Hospitalcito";
+		Estructura hospital = new HospitalVeterinario(codigoHospital, nombreHospital);
+		zoo.agregarEstructuraAlZoo(hospital);
+        zoo.agregarUnVeterinarioAUnHospital(hospital, veterinario);
+	
+		Veterinario veterinarioObtenido = zoo.obtenerVeterinarioDeUnHospital(veterinario, hospital);		
+		assertEquals(veterinario, veterinarioObtenido);
+
+	}
+	
+	
+	@Test 
+    public void dadoQueExisteUnZoologicoConUnHospitalQueSePuedaCrearUnRegistroDeTratamientoAlCurarUnVeterinarioAUnAnimal() {
+
+        String nombreZoo = "Animalandia";
+        Zoologico zoo = new Zoologico(nombreZoo);
+
+        Animal oso = new Oso(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
+                CategoriaAnimal.MAMIFERO);
+        zoo.agregarAnimalAlZoo(oso);
+        
+		Integer codigoHabitat = 123;
+		String nombreHabitat ="Bosque de los osos";
+		Integer maximoAnimales = 4;
+		Estructura bosqueOsos = new Habitat(codigoHabitat, nombreHabitat, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(bosqueOsos);    
+        zoo.agregarAnimalAlHabitat(oso, bosqueOsos);
+
+        Persona veterinario = new Veterinario(23, "Luis Alvarez", 34);
+        zoo.agregarPersonaAlZoo(veterinario);
+ 
+		Integer codigoHospital = 2234;
+		String nombreHospital= "Hospitalcito";
+		Estructura hospital = new HospitalVeterinario(codigoHospital, nombreHospital);
+		zoo.agregarEstructuraAlZoo(hospital);
+        zoo.agregarUnVeterinarioAUnHospital(hospital, veterinario);
+
+        oso.setEstaEnfermo(true);
+        
+		RegistroTratamiento registro = zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, veterinario, oso,  bosqueOsos);
+		assertNotNull(registro);
+		assertFalse(oso.getEstaEnfermo());
+		assertEquals(veterinario, registro.getVeterinario());
+
+    }
+	
+	@Test 
+    public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiYaEstaSano() {
+
+        String nombreZoo = "Animalandia";
+        Zoologico zoo = new Zoologico(nombreZoo);
+
+        Animal oso = new Oso(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
+                CategoriaAnimal.MAMIFERO);
+        zoo.agregarAnimalAlZoo(oso);
+        
+		Integer codigoHabitat = 123;
+		String nombreHabitat ="Bosque de los osos";
+		Integer maximoAnimales = 4;
+		Estructura bosqueOsos = new Habitat(codigoHabitat, nombreHabitat, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(bosqueOsos);    
+        zoo.agregarAnimalAlHabitat(oso, bosqueOsos);
+
+        Persona veterinario = new Veterinario(23, "Luis Alvarez", 34);
+        zoo.agregarPersonaAlZoo(veterinario);
+ 
+		Integer codigoHospital = 2234;
+		String nombreHospital= "Hospitalcito";
+		Estructura hospital = new HospitalVeterinario(codigoHospital, nombreHospital);
+		zoo.agregarEstructuraAlZoo(hospital);
+        zoo.agregarUnVeterinarioAUnHospital(hospital, veterinario);
+        
+		RegistroTratamiento registro = zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, veterinario, oso,  bosqueOsos);
+		assertNull(registro);
+
+    }
+	
+	@Test 
+    public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiLaPersonaQueAtiendeNoEsUnVeterinario() {
+
+        String nombreZoo = "Animalandia";
+        Zoologico zoo = new Zoologico(nombreZoo);
+
+        Animal oso = new Oso(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
+                CategoriaAnimal.MAMIFERO);
+        zoo.agregarAnimalAlZoo(oso);
+        
+		Integer codigoHabitat = 123;
+		String nombreHabitat ="Bosque de los osos";
+		Integer maximoAnimales = 4;
+		Estructura bosqueOsos = new Habitat(codigoHabitat, nombreHabitat, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(bosqueOsos);    
+        zoo.agregarAnimalAlHabitat(oso, bosqueOsos);
+
+        Persona visitante = new Visitante(23, "Luis Alvarez", 34);
+        zoo.agregarPersonaAlZoo(visitante);
+ 
+		Integer codigoHospital = 2234;
+		String nombreHospital= "Hospitalcito";
+		Estructura hospital = new HospitalVeterinario(codigoHospital, nombreHospital);
+		zoo.agregarEstructuraAlZoo(hospital);
+        zoo.agregarUnVeterinarioAUnHospital(hospital, visitante);
+        
+		RegistroTratamiento registro = zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, visitante, oso,  bosqueOsos);
+		assertNull(registro);
+
+    }
+	
+	@Test 
+    public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiElVeterinarioNoEstaEnElZoologico() {
+
+        String nombreZoo = "Animalandia";
+        Zoologico zoo = new Zoologico(nombreZoo);
+
+        Animal oso = new Oso(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
+                CategoriaAnimal.MAMIFERO);
+        zoo.agregarAnimalAlZoo(oso);
+        
+		Integer codigoHabitat = 123;
+		String nombreHabitat ="Bosque de los osos";
+		Integer maximoAnimales = 4;
+		Estructura bosqueOsos = new Habitat(codigoHabitat, nombreHabitat, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(bosqueOsos);    
+        zoo.agregarAnimalAlHabitat(oso, bosqueOsos);
+
+        Persona veterinario = new Veterinario(23, "Luis Alvarez", 34);
+ 
+		Integer codigoHospital = 2234;
+		String nombreHospital= "Hospitalcito";
+		Estructura hospital = new HospitalVeterinario(codigoHospital, nombreHospital);
+		zoo.agregarEstructuraAlZoo(hospital);
+        
+		RegistroTratamiento registro = zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, veterinario, oso,  bosqueOsos);
+		assertNull(registro);
+
+    }
+	
+	@Test 
+    public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiElVeterinarioNoEstaEnElHospital() {
+
+        String nombreZoo = "Animalandia";
+        Zoologico zoo = new Zoologico(nombreZoo);
+
+        Animal oso = new Oso(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
+                CategoriaAnimal.MAMIFERO);
+        zoo.agregarAnimalAlZoo(oso);
+        
+		Integer codigoHabitat = 123;
+		String nombreHabitat ="Bosque de los osos";
+		Integer maximoAnimales = 4;
+		Estructura bosqueOsos = new Habitat(codigoHabitat, nombreHabitat, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(bosqueOsos);    
+        zoo.agregarAnimalAlHabitat(oso, bosqueOsos);
+
+        Persona veterinario = new Veterinario(23, "Luis Alvarez", 34);
+ 
+		Integer codigoHospital = 2234;
+		String nombreHospital= "Hospitalcito";
+		Estructura hospital = new HospitalVeterinario(codigoHospital, nombreHospital);
+		zoo.agregarEstructuraAlZoo(hospital);
+        
+		RegistroTratamiento registro = zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, veterinario, oso,  bosqueOsos);
+		assertNull(registro);
+
+    }
+	
+	
+	@Test 
+    public void dadoQueExisteUnZoologicoConUnHospitalSePuedenObtenerTodosLosAnimalesQueTratoUnVeterinarioParticular() {
+
+
+    }
+	
+	@Test 
+    public void dadoQueExisteUnZoologicoConUnHospitalSePuedenObtenerTodosLosVeterinariosQueAtendieronAUnAnimalParticular() {
+
+
+    }
 	
 }

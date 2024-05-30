@@ -3,7 +3,7 @@ package ar.edu.unlam.pb2.zoologico;
 public abstract class Animal {
 	private Integer codigoDeReconocimiento;
 	private String nombreAnimal;
-	private Integer edad;
+	private Integer edad; 
 	private Double peso;
 	private TipoAlimentacion tipoAlimentacion;
 	private TipoSexo tipoSexo;
