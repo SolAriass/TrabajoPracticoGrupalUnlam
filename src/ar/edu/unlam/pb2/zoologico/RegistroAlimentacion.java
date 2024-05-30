@@ -2,10 +2,10 @@ package ar.edu.unlam.pb2.zoologico;
 
 public class RegistroAlimentacion {
 
-	Personal personal;
-	Animal animal;
-	Comida comida;
-	Integer cantidadComida;
+	private Personal personal;
+	private Animal animal;
+	private Comida comida;
+	private Integer cantidadComida;
 	
 	public RegistroAlimentacion(Personal personal, Animal animal, Comida comida, Integer cantidadComida) {
 		this.personal = personal;

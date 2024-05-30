@@ -10,8 +10,8 @@ public interface IZoologico {
 	List<Animal> obtenerLosAnimalesConTipoAlimentacionOmnivora();
 	List<Animal> obtenerLosAnimalesConTipoAlimentacionCarnivora();
 	List<Animal> obtenerLosAnimalesConTipoAlimentacionHerbivora();
-	List<Animal> obtenerALosAnimalesSanos();
-	List<Animal> obtenerALosAnimalesEnfermos();
+	List<Animal> obtenerALosAnimalesConTemperaturaNeutral();
+	List<Animal> obtenerALosAnimalesEnfermosPorTemperaturaBaja();
 	Boolean agregarUnVeterinarioAUnHospital(Estructura hospital, Personal personal);
 	Estructura encontrarSiExisteLaEstructuraEnElZoo(Estructura estructura);
 	Personal encontrarSiExisteLaPersonaEnElZoo(Personal personal);
@@ -22,4 +22,5 @@ public interface IZoologico {
 	List<Personal> conocerLosVeterinariosQueAlimentaronAUnAnimalEspecifico(Animal animal);
 	List<Animal> conocerALosAnimalesQueConsumieronComidaDeTipoPlanta();
 	List<Animal> conocerALosAnimalesQueConsumieronComidaDeTipoCarne();
+	List<Animal> obtenerALosAnimalesEnfermosPorAlimentacionIncorrecta();
 }

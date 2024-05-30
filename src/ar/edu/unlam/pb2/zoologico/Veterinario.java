@@ -26,7 +26,7 @@ public class Veterinario extends Personal {
 				alimentado = true;
 				
 			} else {
-				animal.enfermar(true);
+				animal.setEstaEnfermo(true);
 				alimentado = false;
 			}
 
