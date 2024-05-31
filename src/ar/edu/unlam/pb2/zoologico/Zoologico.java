@@ -8,11 +8,9 @@ public class Zoologico implements IZoologico {
 	private String nombreZoo;
 	private Boolean seEncuentraAbierto;
 	private Boolean estaLimpio;
-	private static Double precioEntrada;
 	private List<Animal> animales;
 	private List<Persona> personas;
 	private List<Estructura> estructuras;
-	
 
 	public Zoologico(String nombreZoo) {
 		this.nombreZoo = nombreZoo;
@@ -21,7 +19,7 @@ public class Zoologico implements IZoologico {
 		this.animales = new ArrayList<>();
 		this.personas = new ArrayList<>();
 		this.estructuras = new ArrayList<>();
-		precioEntrada = 2500.0;
+
 	}
 
 	public String getNombreZoo() {
@@ -64,11 +62,11 @@ public class Zoologico implements IZoologico {
 	@Override
 	public Boolean agregarPersonaAlZoo(Persona persona) {
 		Boolean personaAgregada = false;
-		
-		if(persona.getEdad()>= 18) {
+
+		if (persona.getEdad() >= 18) {
 			if (persona instanceof Visitante) {
 				personaAgregada = this.agregarVisitante((Visitante) persona);
-			}else {
+			} else {
 				personaAgregada = personas.add(persona);
 			}
 		}
@@ -76,9 +74,9 @@ public class Zoologico implements IZoologico {
 	}
 
 	private Boolean agregarVisitante(Visitante visitante) {
-		Boolean visitanteAgregado =false;
-		Boleto boleto = new Boleto();
-		if (visitante.getDineroQueDispone()>=boleto.getValor()) {
+		Boolean visitanteAgregado = false;
+		if (visitante.getDineroQueDispone() >= Boleto.getValor()) {
+			visitante.setBoleto(new Boleto());
 			visitanteAgregado = personas.add(visitante);
 		}
 		return visitanteAgregado;
@@ -105,21 +103,63 @@ public class Zoologico implements IZoologico {
 		this.estructuras = estructuras;
 	}
 
-//	public Boolean comprarEntrada(Persona visitante) {
-//		Boolean visitanteCompro=false;
-//		if (visitante.getEdad()>= 18 && visitante.getDineroQueDispone()>= getPrecioEntrada()) {
-//			
-//		}
-//		return visitanteCompro;
-//	}
+	public Boolean agregarVariosVisitantes(List<Persona> visitantesAIngresar) {
 
-
-	public static Double getPrecioEntrada() {
-		return precioEntrada;
+		if (this.sonTodosInstanciaDeVisitante(visitantesAIngresar)) {
+			if (this.verificarQueAlMenosUnoSeaMayorDeEdad(visitantesAIngresar)
+					&& this.verificarQueTenganLaPlataSuficiente(visitantesAIngresar)) {
+				return personas.addAll(visitantesAIngresar);
+			}
+		}
+		return false;
 	}
 
-	public static void setPrecioEntrada(Double precioEntrada) {
-		Zoologico.precioEntrada = precioEntrada;
+	private Boolean sonTodosInstanciaDeVisitante(List<Persona> visitantesAIngresar) {
+		for (Persona persona : visitantesAIngresar) {
+			if (!(persona instanceof Visitante)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean verificarQueTenganLaPlataSuficiente(List<Persona> visitantesAIngresar) {
+		Double dineroTotal = 0.0;
+		Visitante visitante = null;
+		for (Persona persona : visitantesAIngresar) {
+			visitante = (Visitante) persona;
+			dineroTotal += visitante.getDineroQueDispone();
+		}
+		Double dineroNecesario = Boleto.getValor() * visitantesAIngresar.size();
+		if (dineroTotal >= dineroNecesario) {
+			return true;
+		}
+		return false;
+	}
+
+//	private boolean verificarQueTodosTenganLaPlataSuficiente(List<Persona> visitantesAIngresar) {
+//		Visitante visitante = null;
+//		Boolean tienePlataSuficiente=false;
+//		Boleto boleto = new Boleto();
+//		for (Persona persona : visitantesAIngresar) {
+//			if (persona instanceof Visitante) {
+//				visitante = (Visitante) persona;
+//				if (visitante.getDineroQueDispone()>=boleto.getValor()) {
+//					tienePlataSuficiente=true;
+//				}
+//			}
+//			
+//		}
+//		return false;
+//	}
+
+	private boolean verificarQueAlMenosUnoSeaMayorDeEdad(List<Persona> visitantesAIngresar) {
+		for (Persona persona : visitantesAIngresar) {
+			if (persona.getEdad() >= 18) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

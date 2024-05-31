@@ -1,12 +1,11 @@
 package ar.edu.unlam.pb2.zoologico;
 
 public class Boleto {
-	Integer ID=1;
-	Double valor;
+	private static Integer ID=1;
+	private final static Double VALOR=2500.0;
 
 	public Boleto() {
-		this.ID++;
-		this.valor=Zoologico.getPrecioEntrada();
+		ID++;
 	}
 
 	public Integer getID() {
@@ -17,12 +16,9 @@ public class Boleto {
 		ID = iD;
 	}
 
-	public Double getValor() {
-		return valor;
+	public static Double getValor() {
+		return VALOR;
 	}
 
-	public void setValor(Double valor) {
-		this.valor = valor;
-	}
 
 }
