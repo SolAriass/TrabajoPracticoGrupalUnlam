@@ -2,6 +2,14 @@ package ar.edu.unlam.pb2.zoologico;
 
 import java.util.List;
 
+import ar.edu.unlam.pb2.zoologico.excepciones.NoFueCreadoElRegistroExcepcion;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarAlVeterinarioAlHospitalException;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarAnimalInexistenteException;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarEstructuraInexistenteExcepcion;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarPersonaInexistenteException;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarPersonalInvalidoExcepcion;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAlimentarException;
+
 public interface IZoologico {
 	
 	Boolean agregarAnimalAlZoo(Animal animal) throws NoSePudoAgregarAnimalInexistenteException;
@@ -23,4 +31,5 @@ public interface IZoologico {
 	List<Animal> conocerALosAnimalesQueConsumieronComidaDeTipoPlanta();
 	List<Animal> conocerALosAnimalesQueConsumieronComidaDeTipoCarne();
 	List<Animal> obtenerALosAnimalesEnfermosPorAlimentacionIncorrecta();
+	List<RegistroAlimentacion> conocerLosRegistrosQueContenganUnAnimalEspecifico(Animal animal);
 }

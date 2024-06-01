@@ -2,6 +2,15 @@ package ar.edu.unlam.pb2.zoologico;
 
 import java.util.List;
 
+import ar.edu.unlam.pb2.zoologico.excepciones.NoFueCreadoElRegistroExcepcion;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarAlVeterinarioAlHospitalException;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarAnimalInexistenteException;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarEstructuraInexistenteExcepcion;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarPersonaInexistenteException;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarPersonalInvalidoExcepcion;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAlimentarException;
+import ar.edu.unlam.pb2.zoologico.excepciones.VeterinarioNuloExcepcion;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -350,57 +359,71 @@ public class Zoologico implements IZoologico {
 	@Override
 	public List<Persona> conocerLosVeterinariosQueAlimentaronAUnAnimalEspecifico(Animal animal) {
 
-		List<Persona> auxiliar = new ArrayList<>();
+		List<Persona> auxiliarPersona = new ArrayList<>();
 
 		for (RegistroAlimentacion registro : registrosDeAlimentacion) {
 			if (registro.getAnimal().equals(animal)) {
-				auxiliar.add(registro.getPersonal());
+				auxiliarPersona.add(registro.getPersonal());
 			}
 		}
 
-		return auxiliar;
+		return auxiliarPersona;
 	}
 
 	@Override
 	public List<Animal> conocerALosAnimalesQueConsumieronComidaDeTipoPlanta() {
 
-		List<Animal> auxiliar = new ArrayList<>();
+		List<Animal> auxiliarAnimal = new ArrayList<>();
 
 		for (RegistroAlimentacion registro : registrosDeAlimentacion) {
 			if (registro.getComida().equals(Comida.PLANTA)) {
-				auxiliar.add(registro.getAnimal());
+				auxiliarAnimal.add(registro.getAnimal());
 			}
 		}
 
-		return auxiliar;
+		return auxiliarAnimal;
 	}
 
 	@Override
 	public List<Animal> conocerALosAnimalesQueConsumieronComidaDeTipoCarne() {
 
-		List<Animal> auxiliar = new ArrayList<>();
+		List<Animal> auxiliarAnimal = new ArrayList<>();
 
 		for (RegistroAlimentacion registro : registrosDeAlimentacion) {
 			if (registro.getComida().equals(Comida.CARNE)) {
-				auxiliar.add(registro.getAnimal());
+				auxiliarAnimal.add(registro.getAnimal());
 			}
 		}
 
-		return auxiliar;
+		return auxiliarAnimal;
 	}
 
 	@Override
 	public List<Animal> obtenerALosAnimalesEnfermosPorAlimentacionIncorrecta() {
 
-		List<Animal> auxiliar = new ArrayList<>();
+		List<Animal> auxiliarAnimalEnfermo = new ArrayList<>();
 
 		for (Animal animal : animales) {
 			if (animal.getEstaEnfermo() == true && animal.getAlimentacionInapropiada() == true) {
-				auxiliar.add(animal);
+				auxiliarAnimalEnfermo.add(animal);
 			}
 		}
 
-		return auxiliar;
+		return auxiliarAnimalEnfermo;
+	}
+
+	@Override
+	public List<RegistroAlimentacion> conocerLosRegistrosQueContenganUnAnimalEspecifico(Animal animal) {
+
+		List<RegistroAlimentacion> auxiliarRegistro = new ArrayList<>();
+
+		for (RegistroAlimentacion registro : registrosDeAlimentacion) {
+			if (registro.getAnimal().equals(animal)) {
+				auxiliarRegistro.add(registro);
+			}
+		}
+
+		return auxiliarRegistro;
 	}
 
 }

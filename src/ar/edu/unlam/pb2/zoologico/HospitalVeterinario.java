@@ -1,6 +1,9 @@
 package ar.edu.unlam.pb2.zoologico;
 
 import java.util.List;
+
+import ar.edu.unlam.pb2.zoologico.excepciones.VeterinarioNuloExcepcion;
+
 import java.util.ArrayList;
 
 public class HospitalVeterinario extends Estructura {

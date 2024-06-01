@@ -8,6 +8,14 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.unlam.pb2.zoologico.excepciones.NoFueCreadoElRegistroExcepcion;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarAlVeterinarioAlHospitalException;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarAnimalInexistenteException;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarEstructuraInexistenteExcepcion;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarPersonaInexistenteException;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarPersonalInvalidoExcepcion;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAlimentarException;
+
 public class TestingZoo {
 
 	@Test
@@ -400,8 +408,6 @@ public class TestingZoo {
 		Integer edad = 25;
 
 		Persona personal = new Veterinario(identificacion, nombreCompleto, edad);
-		Persona personal2 = new Veterinario(identificacion, nombreCompleto, edad);
-		Persona personal3 = new Veterinario(identificacion, nombreCompleto, edad);
 
 		// DATOS DE ESTRUCTURA
 		Integer codigoEstructural = 2234;
@@ -413,8 +419,6 @@ public class TestingZoo {
 		zoo.agregarEstructuraAlZoo(hospital);
 
 		zoo.agregarPersonalAlZoo(personal);
-		zoo.agregarPersonalAlZoo(personal2);
-		zoo.agregarPersonalAlZoo(personal3);
 
 		Boolean seAgrego = zoo.agregarUnVeterinarioAUnHospital(hospital, personal);
 
@@ -438,8 +442,6 @@ public class TestingZoo {
 		Integer edad = 25;
 
 		Persona personal = new Mantenimiento(identificacion, nombreCompleto, edad);
-		Persona personal2 = new Veterinario(identificacion, nombreCompleto, edad);
-		Persona personal3 = new Veterinario(identificacion, nombreCompleto, edad);
 
 		// DATOS DE ESTRUCTURA
 		Integer codigoEstructural = 2234;
@@ -451,8 +453,6 @@ public class TestingZoo {
 		zoo.agregarEstructuraAlZoo(hospital);
 
 		zoo.agregarPersonalAlZoo(personal);
-		zoo.agregarPersonalAlZoo(personal2);
-		zoo.agregarPersonalAlZoo(personal3);
 
 		Boolean seAgrego = zoo.agregarUnVeterinarioAUnHospital(hospital, personal);
 	}
@@ -471,26 +471,20 @@ public class TestingZoo {
 		String nombreCompleto = "Jime Gomez";
 		Integer edad = 25;
 
-		Persona personal = new Mantenimiento(identificacion, nombreCompleto, edad);
-		Persona personal2 = new Veterinario(identificacion, nombreCompleto, edad);
-		Persona personal3 = new Veterinario(identificacion, nombreCompleto, edad);
+		Persona personal = new Veterinario(identificacion, nombreCompleto, edad);
 
 		// DATOS DE ESTRUCTURA
 		Integer codigoEstructural = 2234;
 		String nombreEstructura = "Hospitalcito";
 		// estado es algo que ya tiene dicha estructura
 
-		Estructura hospital = new HospitalVeterinario(codigoEstructural, nombreEstructura);
-		Estructura hospital2 = new Habitat(codigoEstructural, nombreEstructura);
+		Estructura hospital = new Habitat(codigoEstructural, nombreEstructura);
 
 		zoo.agregarEstructuraAlZoo(hospital);
-		zoo.agregarEstructuraAlZoo(hospital2);
 
 		zoo.agregarPersonalAlZoo(personal);
-		zoo.agregarPersonalAlZoo(personal2);
-		zoo.agregarPersonalAlZoo(personal3);
 
-		Boolean seAgrego = zoo.agregarUnVeterinarioAUnHospital(hospital2, personal);
+		Boolean seAgrego = zoo.agregarUnVeterinarioAUnHospital(hospital, personal);
 
 	}
 
@@ -509,8 +503,6 @@ public class TestingZoo {
 		Integer edad = 25;
 
 		Persona personal = new Veterinario(identificacion, nombreCompleto, edad);
-		Persona personal2 = new Veterinario(identificacion, nombreCompleto, edad);
-		Persona personal3 = new Veterinario(identificacion, nombreCompleto, edad);
 
 		// DATOS DE ESTRUCTURA
 		Integer codigoEstructural = 2234;
@@ -520,8 +512,6 @@ public class TestingZoo {
 		Estructura hospital = new HospitalVeterinario(codigoEstructural, nombreEstructura);
 
 		zoo.agregarPersonalAlZoo(personal);
-		zoo.agregarPersonalAlZoo(personal2);
-		zoo.agregarPersonalAlZoo(personal3);
 
 		Boolean seAgrego = zoo.agregarUnVeterinarioAUnHospital(hospital, personal);
 
@@ -803,11 +793,9 @@ public class TestingZoo {
 
 		RegistroAlimentacion registroNuevo = zoo.cargarAlimentacion(personal, panda, comida, cantidadComida);
 
-	
-
 	}
 
-	//REVISAR
+	// REVISAR
 	@Test
 	public void dadoQueExisteUnZoologicoConAnimalesConocerALosQueSeEnfermaronPorHaberSidoAlimentadosConComidaNoApta()
 			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
@@ -841,9 +829,9 @@ public class TestingZoo {
 		zoo.cargarAlimentacion(personal, mapache, Comida.PLANTA, 1);
 		zoo.cargarAlimentacion(personal, elefante, Comida.CARNE, 5);
 		zoo.cargarAlimentacion(personal, mono, Comida.PLANTA, 2);
-		
-		
-		//el mono se enfermo por otro motivo y no fue agregado ya que su causa no fue por mala alimentacion
+
+		// el mono se enfermo por otro motivo y no fue agregado ya que su causa no fue
+		// por mala alimentacion
 		mono.setEstaEnfermo(true);
 
 		List<Animal> animalesEnfermosPorComida = zoo.obtenerALosAnimalesEnfermosPorAlimentacionIncorrecta();
@@ -1087,6 +1075,133 @@ public class TestingZoo {
 		Integer tamañoObtenido = animalesQueComenCarne.size();
 
 		assertEquals(tamañoEsperado, tamañoObtenido);
+	}
+
+	@Test
+	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerLosRegistrosQueContenganUnAnimalEspecifico()
+			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException {
+
+		String nombreZoo = "Animalandia";
+
+		Zoologico zoo = new Zoologico(nombreZoo);
+
+		// estar enfermo es algo que ya tiene el mono, por defecto esta sano
+
+		Animal panda = new Panda(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+
+		Animal mono = new Mono(230, "Sergio Ramirez", 3, 5.5, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+
+		Animal mapache = new Mapache(113, "pedro", 3, 1.3, TipoAlimentacion.CARNIVORO, TipoSexo.MASCULINO,
+				CategoriaAnimal.MAMIFERO);
+
+		Animal oso = new Oso(78, "winnie pooh", 7, 10.5, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+
+		Animal tiburon = new Tiburon(90, "tiburoncin", 12, 20.0, TipoAlimentacion.CARNIVORO, TipoSexo.MASCULINO,
+				CategoriaAnimal.PEZ);
+
+		Animal serpiente = new Serpiente(1002, "thiago", 4, 2.5, TipoAlimentacion.CARNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.REPTIL);
+
+		Animal elefante = new Elefante(125, "dumbo", 9, 12.5, TipoAlimentacion.HERBIVORO, TipoSexo.MASCULINO,
+				CategoriaAnimal.MAMIFERO);
+
+		Persona veterinario1 = new Veterinario(23, "Luis Alvarez", 34);
+		Persona veterinario2 = new Veterinario(77, "Thiago Funes", 54);
+		Persona veterinario3 = new Veterinario(231, "Camila Alvarez", 44);
+
+		zoo.agregarAnimalAlZoo(panda);
+		zoo.agregarAnimalAlZoo(mono);
+		zoo.agregarAnimalAlZoo(mapache);
+		zoo.agregarAnimalAlZoo(oso);
+		zoo.agregarAnimalAlZoo(tiburon);
+		zoo.agregarAnimalAlZoo(serpiente);
+		zoo.agregarAnimalAlZoo(elefante);
+
+		zoo.agregarPersonalAlZoo(veterinario1);
+		zoo.agregarPersonalAlZoo(veterinario2);
+		zoo.agregarPersonalAlZoo(veterinario3);
+
+		RegistroAlimentacion registro1 = zoo.cargarAlimentacion(veterinario1, panda, Comida.PLANTA, 3);
+		RegistroAlimentacion registro2 = zoo.cargarAlimentacion(veterinario1, panda, Comida.PLANTA, 1);
+		RegistroAlimentacion registro3 = zoo.cargarAlimentacion(veterinario2, panda, Comida.PLANTA, 5);
+		RegistroAlimentacion registro4 = zoo.cargarAlimentacion(veterinario3, panda, Comida.PLANTA, 2);
+		RegistroAlimentacion registro5 = zoo.cargarAlimentacion(veterinario3, elefante, Comida.PLANTA, 2);
+
+		List<RegistroAlimentacion> registrosQueContengan = zoo.conocerLosRegistrosQueContenganUnAnimalEspecifico(panda);
+
+		Integer tamañoEsperado = 4;
+		Integer tamañoObtenido = registrosQueContengan.size();
+
+		assertEquals(tamañoEsperado, tamañoObtenido);
+		assertEquals(registro1, registrosQueContengan.get(0));
+		assertEquals(registro2, registrosQueContengan.get(1));
+		assertEquals(registro3, registrosQueContengan.get(2));
+		assertEquals(registro4, registrosQueContengan.get(3));
+
+	}
+
+	@Test
+	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerSiElPesoDelAnimalAumentoAlSerAlimentadoConSuComidaCorrespondiente()
+			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException {
+
+		String nombreZoo = "Animalandia";
+
+		Zoologico zoo = new Zoologico(nombreZoo);
+
+		// estar enfermo es algo que ya tiene el mono, por defecto esta sano
+
+		Animal panda = new Panda(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+
+		Animal mono = new Mono(230, "Sergio Ramirez", 3, 5.5, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+
+		Animal mapache = new Mapache(113, "pedro", 3, 1.3, TipoAlimentacion.CARNIVORO, TipoSexo.MASCULINO,
+				CategoriaAnimal.MAMIFERO);
+
+		Animal oso = new Oso(78, "winnie pooh", 7, 10.5, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+
+		Animal tiburon = new Tiburon(90, "tiburoncin", 12, 20.0, TipoAlimentacion.CARNIVORO, TipoSexo.MASCULINO,
+				CategoriaAnimal.PEZ);
+
+		Animal serpiente = new Serpiente(1002, "thiago", 4, 2.5, TipoAlimentacion.CARNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.REPTIL);
+
+		Animal elefante = new Elefante(125, "dumbo", 9, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.MASCULINO,
+				CategoriaAnimal.MAMIFERO);
+
+		Persona veterinario1 = new Veterinario(23, "Luis Alvarez", 34);
+		Persona veterinario2 = new Veterinario(77, "Thiago Funes", 54);
+		Persona veterinario3 = new Veterinario(231, "Camila Alvarez", 44);
+
+		zoo.agregarAnimalAlZoo(panda);
+		zoo.agregarAnimalAlZoo(mono);
+		zoo.agregarAnimalAlZoo(mapache);
+		zoo.agregarAnimalAlZoo(oso);
+		zoo.agregarAnimalAlZoo(tiburon);
+		zoo.agregarAnimalAlZoo(serpiente);
+		zoo.agregarAnimalAlZoo(elefante);
+		
+		zoo.agregarPersonalAlZoo(veterinario1);
+		zoo.agregarPersonalAlZoo(veterinario2);
+		zoo.agregarPersonalAlZoo(veterinario3);
+
+		zoo.cargarAlimentacion(veterinario1, panda, Comida.PLANTA, 3);
+		zoo.cargarAlimentacion(veterinario1, panda, Comida.PLANTA, 1);
+		zoo.cargarAlimentacion(veterinario2, panda, Comida.PLANTA, 5);
+		zoo.cargarAlimentacion(veterinario3, panda, Comida.PLANTA, 2);
+		zoo.cargarAlimentacion(veterinario3, elefante, Comida.PLANTA, 2);
+		
+		Double pesoObtenidoAnimalAlAlimentarse = zoo.getRegistrosDeAlimentacion().get(4).getAnimal().getPeso();
+		Double pesoEsperado = 40.0;
+		
+		assertEquals(pesoEsperado, pesoObtenidoAnimalAlAlimentarse);
 	}
 
 }
