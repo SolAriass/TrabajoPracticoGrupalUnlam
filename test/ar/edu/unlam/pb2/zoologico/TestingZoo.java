@@ -2,9 +2,19 @@ package ar.edu.unlam.pb2.zoologico;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import ar.edu.unlam.pb2.zoologico.excepciones.EspecieDiferenteException;
+import ar.edu.unlam.pb2.zoologico.excepciones.EstadoDelObjetoEsIncorrectoException;
+import ar.edu.unlam.pb2.zoologico.excepciones.HabitatLlenoException;
+import ar.edu.unlam.pb2.zoologico.excepciones.InstanciaIncorrectaException;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoExisteObjetoDondeSeBuscaException;
+import ar.edu.unlam.pb2.zoologico.excepciones.NoSePuedenAgregarMenoresDeEdadException;
+import ar.edu.unlam.pb2.zoologico.excepciones.ProgenitoresDelMismoSexoException;
+import ar.edu.unlam.pb2.zoologico.excepciones.ProgenitoresEnDistintoHabitatException;
 
 public class TestingZoo {
 
@@ -73,7 +83,7 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoQueSePuedanAgregarPersonasAlMismo() {
+	public void dadoQueExisteUnZoologicoQueSePuedanAgregarPersonasAlMismo() throws Exception {
 
 		String nombreZoo = "Animalandia";
 
@@ -92,8 +102,8 @@ public class TestingZoo {
 
 	}
 	
-	@Test
-	public void dadoQueExisteUnZoologicoNoSePuedenAgregarPersonasSiEstasSonMenores() {
+	@Test (expected = NoSePuedenAgregarMenoresDeEdadException.class)
+	public void dadoQueExisteUnZoologicoNoSePuedenAgregarPersonasSiEstasSonMenores() throws NoSePuedenAgregarMenoresDeEdadException {
 
 		String nombreZoo = "Animalandia";
 
@@ -132,7 +142,7 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoConAnimalesEstosSePuedenIngresarAHabitats() {
+	public void dadoQueExisteUnZoologicoConAnimalesEstosSePuedenIngresarAHabitats() throws Exception {
 
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
@@ -156,7 +166,7 @@ public class TestingZoo {
 	}
 	
 	@Test
-	public void dadoQueExisteUnZoologicoConAnimalesDentroDeHabitatsPodemosObtenerUnAnimalDeUnHabitatParticular() {
+	public void dadoQueExisteUnZoologicoConAnimalesDentroDeHabitatsPodemosObtenerUnAnimalDeUnHabitatParticular() throws Exception {
 
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
@@ -177,15 +187,55 @@ public class TestingZoo {
 	
 		zoo.agregarAnimalAlHabitat (mono1, habitatMonos); // Solo el mono 1 fue agregado
 		Animal primerAnimalObtenido = zoo.obtenerAnimalDeUnHabitat(mono1, habitatMonos);
-		Animal segundoAnimalObtenido = zoo.obtenerAnimalDeUnHabitat(mono2, habitatMonos);
 		
 		assertEquals(mono1, primerAnimalObtenido);
-		assertNull(segundoAnimalObtenido);
+		
+	}
+	
+	@Test (expected = NoExisteObjetoDondeSeBuscaException.class)
+	public void dadoQueExisteUnZoologicoConAnimalesDentroDeHabitatsNoPodemosAgregarAnimalesSiElHabitatNoEstaEnElZoologico() throws NoExisteObjetoDondeSeBuscaException, Exception {
+
+		String nombreZoo = "Animalandia";
+		Zoologico zoo = new Zoologico(nombreZoo);
+
+		Integer codigoEstructural = 123;
+		String nombreEstructura = "Isla de los monos";
+		Integer maximoAnimales = 4;
+		Estructura habitatMonos = new Habitat(codigoEstructural, nombreEstructura, maximoAnimales);
+
+		Animal mono1 = new Mono(513, "Mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+		zoo.agregarAnimalAlZoo(mono1);
+		
+		Animal mono2 = new Mono(514, "Mono Mario", 6, 8.9, TipoAlimentacion.OMNIVORO, TipoSexo.MASCULINO,
+				CategoriaAnimal.MAMIFERO);
+		zoo.agregarAnimalAlZoo(mono2);
+	
+		zoo.agregarAnimalAlHabitat (mono1, habitatMonos); // Solo el mono 1 fue agregado
 
 	}
 	
-	@Test
-	public void dadoQueExisteUnZoologicoConHabitatsEstosNoDebenAlbergarDistintasEspecies() {
+	@Test (expected = NoExisteObjetoDondeSeBuscaException.class)
+	public void dadoQueExisteUnZoologicoConAnimalesDentroDeHabitatsNoPodemosAgregarAnimalesSiNoEstanEnElZoologico() throws NoExisteObjetoDondeSeBuscaException, Exception {
+
+		String nombreZoo = "Animalandia";
+		Zoologico zoo = new Zoologico(nombreZoo);
+
+		Integer codigoEstructural = 123;
+		String nombreEstructura = "Isla de los monos";
+		Integer maximoAnimales = 4;
+		Estructura habitatMonos = new Habitat(codigoEstructural, nombreEstructura, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(habitatMonos);
+
+		Animal mono1 = new Mono(513, "Mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+
+		zoo.agregarAnimalAlHabitat (mono1, habitatMonos); 
+
+	}
+	
+	@Test (expected = EspecieDiferenteException.class)
+	public void dadoQueExisteUnZoologicoConHabitatsEstosNoDebenAlbergarDistintasEspecies() throws EspecieDiferenteException, Exception {
 
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
@@ -212,8 +262,8 @@ public class TestingZoo {
 		
 	}
 	
-	@Test
-	public void dadoQueExisteUnZoologicoConHabitatsNoSePuedenIngresarMasAnimalesSiEsteEstaLleno() {
+	@Test (expected = HabitatLlenoException.class)
+	public void dadoQueExisteUnZoologicoConHabitatsNoSePuedenIngresarMasAnimalesSiEsteEstaLleno() throws HabitatLlenoException, Exception {
 
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
@@ -244,17 +294,11 @@ public class TestingZoo {
 				CategoriaAnimal.MAMIFERO);
 		zoo.agregarAnimalAlZoo(mono5);
 		
-		Boolean seAgregoElPrimero = zoo.agregarAnimalAlHabitat (mono1, habitatMonos);
-		Boolean seAgregoElSegundo = zoo.agregarAnimalAlHabitat (mono2, habitatMonos);
-		Boolean seAgregoElTercero = zoo.agregarAnimalAlHabitat (mono3, habitatMonos);
-		Boolean seAgregoElCuarto = zoo.agregarAnimalAlHabitat (mono4, habitatMonos);
-		Boolean seAgregoElQuinto = zoo.agregarAnimalAlHabitat (mono5, habitatMonos);
-		
-		assertTrue(seAgregoElPrimero);
-		assertTrue(seAgregoElSegundo);
-		assertTrue(seAgregoElTercero);
-		assertTrue(seAgregoElCuarto);
-		assertFalse(seAgregoElQuinto);
+		zoo.agregarAnimalAlHabitat (mono1, habitatMonos);
+		zoo.agregarAnimalAlHabitat (mono2, habitatMonos);
+		zoo.agregarAnimalAlHabitat (mono3, habitatMonos);
+		zoo.agregarAnimalAlHabitat (mono4, habitatMonos);
+		zoo.agregarAnimalAlHabitat (mono5, habitatMonos);
 		
 	}
 	
@@ -322,8 +366,8 @@ public class TestingZoo {
 		
 	}
 	
-	@Test
-	public void dadoQueExisteUnZoologicoConHabitatsSusAnimalesePuedenReproducir () {
+	@Test 
+	public void dadoQueExisteUnZoologicoConHabitatsSusAnimalesePuedenReproducir () throws Exception {
 		
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
@@ -356,8 +400,8 @@ public class TestingZoo {
 
 	}
 	
-	@Test
-	public void dadoQueExisteUnZoologicoConHabitatsSusAnimalesNoSePuedenReproducirSiSonDelMismoSexo () {
+	@Test (expected = ProgenitoresDelMismoSexoException.class)
+	public void dadoQueExisteUnZoologicoConHabitatsSusAnimalesNoSePuedenReproducirSiSonDelMismoSexo () throws ProgenitoresDelMismoSexoException, Exception {
 		
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
@@ -380,16 +424,13 @@ public class TestingZoo {
 		
 		Integer idCria = 515;
 		String nombreCria = "monito bebé";
-		Boolean seReproducieron = zoo.reproducirDosAnimalesDeUnHabitat(mona, mono, habitatMonos, idCria, nombreCria);
-		Animal cria = zoo.obtenerAnimalDeUnHabitatPorCodigo(idCria, habitatMonos);
-		
-		assertFalse(seReproducieron);
-		assertNull(cria);
+		zoo.reproducirDosAnimalesDeUnHabitat(mona, mono, habitatMonos, idCria, nombreCria);
+		zoo.obtenerAnimalDeUnHabitatPorCodigo(idCria, habitatMonos);
 		
 	}
 
-	@Test
-	public void dadoQueExisteUnZoologicoConHabitatsSusAnimalesNoSePuedenReproducirSiElHabitatYaEstaLleno () {
+	@Test (expected = HabitatLlenoException.class)
+	public void dadoQueExisteUnZoologicoConHabitatsSusAnimalesNoSePuedenReproducirSiElHabitatYaEstaLleno () throws HabitatLlenoException, Exception {
 		
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
@@ -412,16 +453,12 @@ public class TestingZoo {
 		
 		Integer idCria = 515;
 		String nombreCria = "monito bebé";
-		Boolean seReproducieron = zoo.reproducirDosAnimalesDeUnHabitat(mona, mono, habitatMonos, idCria, nombreCria);
-		Animal cria = zoo.obtenerAnimalDeUnHabitatPorCodigo(idCria, habitatMonos);
-		
-		assertFalse(seReproducieron);
-		assertNull(cria);
+		zoo.reproducirDosAnimalesDeUnHabitat(mona, mono, habitatMonos, idCria, nombreCria);
 
 	}
 	
-	@Test
-	public void dadoQueExisteUnZoologicoConHabitatsSusAnimalesNoSePuedenReproducirSiEstanEnDistintoHabitat () {
+	@Test (expected = ProgenitoresEnDistintoHabitatException.class)
+	public void dadoQueExisteUnZoologicoConHabitatsSusAnimalesNoSePuedenReproducirSiEstanEnDistintoHabitat () throws ProgenitoresEnDistintoHabitatException, Exception {
 		
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
@@ -450,16 +487,12 @@ public class TestingZoo {
 		
 		Integer idCria = 515;
 		String nombreCria = "monito bebé";
-		Boolean seReproducieron = zoo.reproducirDosAnimalesDeUnHabitat(mona, mono, habitatMonos1, idCria, nombreCria);
-		Animal cria = zoo.obtenerAnimalDeUnHabitatPorCodigo(idCria, habitatMonos1);
-		
-		assertFalse(seReproducieron);
-		assertNull(cria);
+		zoo.reproducirDosAnimalesDeUnHabitat(mona, mono, habitatMonos1, idCria, nombreCria);
 		
 	}
 	
-	@Test
-	public void dadoQueExisteUnZoologicoConVeterinariosQueEstanEnHospitalesPodemosObtenerUnVeterinarioDeUnHospital() {
+	@Test 
+	public void dadoQueExisteUnZoologicoConVeterinariosQueEstanEnHospitalesPodemosObtenerUnVeterinarioDeUnHospital() throws Exception {
 
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
@@ -478,9 +511,8 @@ public class TestingZoo {
 
 	}
 	
-	
 	@Test 
-    public void dadoQueExisteUnZoologicoConUnHospitalQueSePuedaCrearUnRegistroDeTratamientoAlCurarUnVeterinarioAUnAnimal() {
+    public void dadoQueExisteUnZoologicoConUnHospitalQueSePuedaCrearUnRegistroDeTratamientoAlCurarUnVeterinarioAUnAnimal() throws Exception {
 
         String nombreZoo = "Animalandia";
         Zoologico zoo = new Zoologico(nombreZoo);
@@ -514,8 +546,8 @@ public class TestingZoo {
 
     }
 	
-	@Test 
-    public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiYaEstaSano() {
+	@Test (expected = EstadoDelObjetoEsIncorrectoException.class)
+    public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiYaEstaSano() throws EstadoDelObjetoEsIncorrectoException, Exception {
 
         String nombreZoo = "Animalandia";
         Zoologico zoo = new Zoologico(nombreZoo);
@@ -540,13 +572,12 @@ public class TestingZoo {
 		zoo.agregarEstructuraAlZoo(hospital);
         zoo.agregarUnVeterinarioAUnHospital(hospital, veterinario);
         
-		RegistroTratamiento registro = zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, veterinario, oso,  bosqueOsos);
-		assertNull(registro);
+		zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, veterinario, oso,  bosqueOsos);
 
     }
 	
-	@Test 
-    public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiLaPersonaQueAtiendeNoEsUnVeterinario() {
+	@Test (expected = InstanciaIncorrectaException.class)
+    public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiLaPersonaQueAtiendeNoEsUnVeterinario() throws InstanciaIncorrectaException, Exception {
 
         String nombreZoo = "Animalandia";
         Zoologico zoo = new Zoologico(nombreZoo);
@@ -562,51 +593,21 @@ public class TestingZoo {
 		zoo.agregarEstructuraAlZoo(bosqueOsos);    
         zoo.agregarAnimalAlHabitat(oso, bosqueOsos);
 
-        Persona visitante = new Visitante(23, "Luis Alvarez", 34);
-        zoo.agregarPersonaAlZoo(visitante);
+        Persona empleadoMantenimiento = new EmpleadoMantenimiento(23, "Luis Alvarez", 34);
+        zoo.agregarPersonaAlZoo(empleadoMantenimiento);
  
 		Integer codigoHospital = 2234;
 		String nombreHospital= "Hospitalcito";
 		Estructura hospital = new HospitalVeterinario(codigoHospital, nombreHospital);
 		zoo.agregarEstructuraAlZoo(hospital);
-        zoo.agregarUnVeterinarioAUnHospital(hospital, visitante);
+        zoo.agregarUnVeterinarioAUnHospital(hospital, empleadoMantenimiento);
         
-		RegistroTratamiento registro = zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, visitante, oso,  bosqueOsos);
-		assertNull(registro);
+		zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, empleadoMantenimiento, oso,  bosqueOsos);
 
     }
 	
-	@Test 
-    public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiElVeterinarioNoEstaEnElZoologico() {
-
-        String nombreZoo = "Animalandia";
-        Zoologico zoo = new Zoologico(nombreZoo);
-
-        Animal oso = new Oso(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
-                CategoriaAnimal.MAMIFERO);
-        zoo.agregarAnimalAlZoo(oso);
-        
-		Integer codigoHabitat = 123;
-		String nombreHabitat ="Bosque de los osos";
-		Integer maximoAnimales = 4;
-		Estructura bosqueOsos = new Habitat(codigoHabitat, nombreHabitat, maximoAnimales);
-		zoo.agregarEstructuraAlZoo(bosqueOsos);    
-        zoo.agregarAnimalAlHabitat(oso, bosqueOsos);
-
-        Persona veterinario = new Veterinario(23, "Luis Alvarez", 34);
- 
-		Integer codigoHospital = 2234;
-		String nombreHospital= "Hospitalcito";
-		Estructura hospital = new HospitalVeterinario(codigoHospital, nombreHospital);
-		zoo.agregarEstructuraAlZoo(hospital);
-        
-		RegistroTratamiento registro = zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, veterinario, oso,  bosqueOsos);
-		assertNull(registro);
-
-    }
-	
-	@Test 
-    public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiElVeterinarioNoEstaEnElHospital() {
+	@Test (expected = NoExisteObjetoDondeSeBuscaException.class)
+    public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiElVeterinarioNoEstaEnElZoologico() throws NoExisteObjetoDondeSeBuscaException, Exception {
 
         String nombreZoo = "Animalandia";
         Zoologico zoo = new Zoologico(nombreZoo);
@@ -629,22 +630,146 @@ public class TestingZoo {
 		Estructura hospital = new HospitalVeterinario(codigoHospital, nombreHospital);
 		zoo.agregarEstructuraAlZoo(hospital);
         
-		RegistroTratamiento registro = zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, veterinario, oso,  bosqueOsos);
-		assertNull(registro);
+		zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, veterinario, oso,  bosqueOsos);
+
+    }
+	
+	@Test (expected = NoExisteObjetoDondeSeBuscaException.class)
+    public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiElVeterinarioNoEstaEnElHospital() throws NoExisteObjetoDondeSeBuscaException, Exception {
+
+        String nombreZoo = "Animalandia";
+        Zoologico zoo = new Zoologico(nombreZoo);
+
+        Animal oso = new Oso(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
+                CategoriaAnimal.MAMIFERO);
+        zoo.agregarAnimalAlZoo(oso);
+        
+		Integer codigoHabitat = 123;
+		String nombreHabitat ="Bosque de los osos";
+		Integer maximoAnimales = 4;
+		Estructura bosqueOsos = new Habitat(codigoHabitat, nombreHabitat, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(bosqueOsos);    
+        zoo.agregarAnimalAlHabitat(oso, bosqueOsos);
+
+        Persona veterinario = new Veterinario(23, "Luis Alvarez", 34);
+ 
+		Integer codigoHospital = 2234;
+		String nombreHospital= "Hospitalcito";
+		Estructura hospital = new HospitalVeterinario(codigoHospital, nombreHospital);
+		zoo.agregarEstructuraAlZoo(hospital);
+        
+		zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, veterinario, oso,  bosqueOsos);
 
     }
 	
 	
 	@Test 
-    public void dadoQueExisteUnZoologicoConUnHospitalSePuedenObtenerTodosLosAnimalesQueTratoUnVeterinarioParticular() {
+    public void dadoQueExisteUnZoologicoConUnHospitalSePuedenObtenerTodosLosAnimalesQueTratoUnVeterinarioParticular() throws Exception {
+			
+        String nombreZoo = "Animalandia";
+        Zoologico zoo = new Zoologico(nombreZoo);
 
+        Animal oso1 = new Oso(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
+                CategoriaAnimal.MAMIFERO);
+        zoo.agregarAnimalAlZoo(oso1);
+        oso1.setEstaEnfermo(true);
+        
+        Animal oso2 = new Oso(3334, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
+                CategoriaAnimal.MAMIFERO);
+        zoo.agregarAnimalAlZoo(oso2);
+        oso2.setEstaEnfermo(true);
+        
+        Animal oso3 = new Oso(3335, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
+                CategoriaAnimal.MAMIFERO);
+        zoo.agregarAnimalAlZoo(oso3);
+        oso3.setEstaEnfermo(true);
+        
+		Integer codigoHabitat = 123;
+		String nombreHabitat ="Bosque de los osos";
+		Integer maximoAnimales = 4;
+		Estructura bosqueOsos = new Habitat(codigoHabitat, nombreHabitat, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(bosqueOsos);    
+        zoo.agregarAnimalAlHabitat(oso1, bosqueOsos);
+        zoo.agregarAnimalAlHabitat(oso2, bosqueOsos);
+        zoo.agregarAnimalAlHabitat(oso3, bosqueOsos);
 
+        Persona veterinario = new Veterinario(23, "Luis Alvarez", 34);
+        zoo.agregarPersonaAlZoo(veterinario);
+ 
+		Integer codigoHospital = 2234;
+		String nombreHospital= "Hospitalcito";
+		Estructura hospital = new HospitalVeterinario(codigoHospital, nombreHospital);
+		zoo.agregarEstructuraAlZoo(hospital);
+        zoo.agregarUnVeterinarioAUnHospital(hospital, veterinario);
+        
+		zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, veterinario, oso2,  bosqueOsos);
+		zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, veterinario, oso3,  bosqueOsos);
+		zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, veterinario, oso1,  bosqueOsos);
+		
+		List<Animal> animalesObtenidos = zoo.obtenerLosAnimalesQueAtendioUnVeterinarioEnUnHospital(veterinario, hospital);
+		
+		List<Animal> animalesEsperados = new ArrayList<>();
+		animalesEsperados.add(oso2);
+		animalesEsperados.add(oso3);
+		animalesEsperados.add(oso1);
+		
+		assertNotNull(animalesObtenidos);
+		assertEquals(animalesEsperados, animalesObtenidos);
+		
     }
 	
 	@Test 
-    public void dadoQueExisteUnZoologicoConUnHospitalSePuedenObtenerTodosLosVeterinariosQueAtendieronAUnAnimalParticular() {
+    public void dadoQueExisteUnZoologicoConUnHospitalSePuedenObtenerTodosLosVeterinariosQueAtendieronAUnAnimalParticular() throws Exception {
 
+        String nombreZoo = "Animalandia";
+        Zoologico zoo = new Zoologico(nombreZoo);
 
+        Animal oso = new Oso(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
+                CategoriaAnimal.MAMIFERO);
+        zoo.agregarAnimalAlZoo(oso);      
+        
+		Integer codigoHabitat = 123;
+		String nombreHabitat ="Bosque de los osos";
+		Integer maximoAnimales = 4;
+		Estructura bosqueOsos = new Habitat(codigoHabitat, nombreHabitat, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(bosqueOsos);    
+        zoo.agregarAnimalAlHabitat(oso, bosqueOsos);
+
+        Persona veterinario1 = new Veterinario(23, "Luis Alvarez", 34);
+        zoo.agregarPersonaAlZoo(veterinario1);
+        
+        Persona veterinario2 = new Veterinario(23, "Luis Alvarez", 34);
+        zoo.agregarPersonaAlZoo(veterinario2);
+        
+        Persona veterinario3 = new Veterinario(23, "Luis Alvarez", 34);
+        zoo.agregarPersonaAlZoo(veterinario3);
+ 
+		Integer codigoHospital = 2234;
+		String nombreHospital= "Hospitalcito";
+		Estructura hospital = new HospitalVeterinario(codigoHospital, nombreHospital);
+		zoo.agregarEstructuraAlZoo(hospital);
+        zoo.agregarUnVeterinarioAUnHospital(hospital, veterinario1);
+        zoo.agregarUnVeterinarioAUnHospital(hospital, veterinario2);
+        zoo.agregarUnVeterinarioAUnHospital(hospital, veterinario3);
+        
+        oso.setEstaEnfermo(true);
+		zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, veterinario2, oso,  bosqueOsos);
+		
+        oso.setEstaEnfermo(true);
+		zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, veterinario1, oso,  bosqueOsos);
+		
+        oso.setEstaEnfermo(true);
+		zoo.queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(hospital, veterinario3, oso,  bosqueOsos);
+		
+		List<Persona> veterinariosObtenidos = zoo.obtenerLosVeterinariosQueAtendieronAUnAnimalEnUnHospital(oso, hospital);
+		
+		List<Persona> veterinariosEsperados = new ArrayList<>();
+		veterinariosEsperados.add(veterinario2);
+		veterinariosEsperados.add(veterinario1);
+		veterinariosEsperados.add(veterinario3);
+		
+		assertNotNull(veterinariosObtenidos);
+		assertEquals(veterinariosEsperados, veterinariosObtenidos);
     }
 	
 }

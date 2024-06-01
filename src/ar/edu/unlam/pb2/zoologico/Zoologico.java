@@ -1,6 +1,9 @@
 package ar.edu.unlam.pb2.zoologico;
 
 import java.util.List;
+
+import ar.edu.unlam.pb2.zoologico.excepciones.*;
+
 import java.util.ArrayList;
 
 public class Zoologico implements IZoologico {
@@ -59,7 +62,11 @@ public class Zoologico implements IZoologico {
 	}
 
 	@Override
-	public Boolean agregarPersonaAlZoo(Persona persona) {
+	public Boolean agregarPersonaAlZoo(Persona persona) throws NoSePuedenAgregarMenoresDeEdadException {
+		
+	    if (persona.getEdad() < 18) {
+	        throw new NoSePuedenAgregarMenoresDeEdadException("No se pueden agregar personas menores de edad al zoológico");
+	    }
 
 		Boolean personaAgregada = false;
 
@@ -101,17 +108,22 @@ public class Zoologico implements IZoologico {
 		this.estructuras = estructuras;
 	}
 
-	public Boolean agregarAnimalAlHabitat(Animal animal, Estructura habitat) {
-
-		if (habitat instanceof Habitat && animales.contains(animal) && estructuras.contains(habitat)) {
-			Habitat habitatVerificado = (Habitat) habitat;
-			return habitatVerificado.agregarAnimal(animal);
+	public Boolean agregarAnimalAlHabitat(Animal animal, Estructura habitat) throws EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
+		
+		this.obtenerAnimal(animal);
+		this.obtenerEstructura(habitat);
+		
+		if (!(habitat instanceof Habitat)) {
+			throw new InstanciaIncorrectaException("La estructura ingresada no es un habitat");
 		}
 
-		return false;
+
+		Habitat habitatVerificado = (Habitat) habitat;
+		return habitatVerificado.agregarAnimal(animal);
+
 	}
 
-	public Animal obtenerAnimal(Animal animalBuscado) {
+	public Animal obtenerAnimal(Animal animalBuscado) throws NoExisteObjetoDondeSeBuscaException {
 
 		for (Animal animal : animales) {
 			if (animal.equals(animalBuscado)) {
@@ -119,10 +131,11 @@ public class Zoologico implements IZoologico {
 			}
 		}
 
-		return null;
+		throw new NoExisteObjetoDondeSeBuscaException("El animal ingresado no existe en el zoologico");
+
 	}
 
-	public Estructura obtenerEstructura(Estructura estructuraBuscada) {
+	public Estructura obtenerEstructura(Estructura estructuraBuscada) throws NoExisteObjetoDondeSeBuscaException {
 
 		for (Estructura estructura : estructuras) {
 			if (estructura.equals(estructuraBuscada)) {
@@ -130,10 +143,21 @@ public class Zoologico implements IZoologico {
 			}
 		}
 
-		return null;
+		throw new NoExisteObjetoDondeSeBuscaException("La estructura ingresada no existe en el zoologico");
+	}
+	
+	public Persona obtenerPersona(Persona personaBuscada) throws NoExisteObjetoDondeSeBuscaException {
+
+		for (Persona persona : personas) {
+			if (persona.equals(personaBuscada)) {
+				return persona;
+			}
+		}
+
+		throw new NoExisteObjetoDondeSeBuscaException("La persona ingresada no existe en el zoologico");
 	}
 
-	public Animal obtenerAnimalDeUnHabitat(Animal animal, Estructura habitat) {
+	public Animal obtenerAnimalDeUnHabitat(Animal animal, Estructura habitat) throws NoExisteObjetoDondeSeBuscaException {
 
 		if (habitat instanceof Habitat) {
 			Habitat habitatVerificado = (Habitat) habitat;
@@ -143,13 +167,14 @@ public class Zoologico implements IZoologico {
 		return null;
 	}
 
-	public Animal obtenerAnimalDeUnHabitatPorCodigo(Integer codigo, Estructura habitat) {
+	public Animal obtenerAnimalDeUnHabitatPorCodigo(Integer codigo, Estructura habitat) throws NoExisteObjetoDondeSeBuscaException {
 		if (habitat instanceof Habitat) {
 			Habitat habitatVerificado = (Habitat) habitat;
 			return habitatVerificado.obtenerAnimalPorCodigo(codigo);
 		}
 
 		return null;
+
 	}
 
 	public List<Animal> obtenerLosAnimalesDeUnaCategoria(CategoriaAnimal categoria) {
@@ -180,11 +205,18 @@ public class Zoologico implements IZoologico {
 	}
 
 	public Boolean reproducirDosAnimalesDeUnHabitat(Animal progenitor1, Animal progenitor2, Estructura habitat,
-			Integer idCria, String nombreCria) {
+			Integer idCria, String nombreCria) throws EspecieDiferenteException, HabitatLlenoException, ProgenitoresDelMismoSexoException, ProgenitoresEnDistintoHabitatException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
+		
+		if (progenitor1.getTipoSexo().equals(progenitor2.getTipoSexo())) {
+			throw new ProgenitoresDelMismoSexoException("Dos animales del mismo sexo no pueden reproducirse");
+		}
+		
+		if (obtenerAnimalDeUnHabitat(progenitor1, habitat) == null
+				|| obtenerAnimalDeUnHabitat(progenitor2, habitat) == null) {
+			throw new ProgenitoresEnDistintoHabitatException("Los progenitores no se encuentran en el mismo habitat");
+		}
 
-		if (habitat instanceof Habitat && !progenitor1.getTipoSexo().equals(progenitor2.getTipoSexo())
-				&& obtenerAnimalDeUnHabitat(progenitor1, habitat) != null
-				&& obtenerAnimalDeUnHabitat(progenitor2, habitat) != null) {
+		if (habitat instanceof Habitat) {
 			Habitat habitatVerificado = (Habitat) habitat;
 			Animal cria = habitatVerificado.reproducirAnimales(progenitor1, progenitor2, idCria, nombreCria);
 			this.agregarAnimalAlZoo(cria);
@@ -194,116 +226,115 @@ public class Zoologico implements IZoologico {
 		return false;
 
 	}
-
-	public Boolean agregarVariosVisitantes(List<Persona> visitantesAIngresar) {
-		
-		if (this.sonTodosInstanciaDeVisitante(visitantesAIngresar)) {
-			if (this.verificarQueAlMenosUnoSeaMayorDeEdad(visitantesAIngresar)
-					&& this.verificarQueTodosTenganLaPlataSuficiente(visitantesAIngresar)) {
-				return personas.addAll(visitantesAIngresar);
-			}	
-		}		
-		
-		return false;
-	}
-
-	private Boolean sonTodosInstanciaDeVisitante(List<Persona> visitantesAIngresar) {
-		
-	    for (Persona persona : visitantesAIngresar) {
-	        if (!(persona instanceof Visitante)) {
-	            return false;
-	        }
-	    }
-	    return true;
-	}
-
-	private boolean verificarQueTodosTenganLaPlataSuficiente(List<Persona> visitantesAIngresar) {
-        Double dineroTotal = 0.0;
-        for (Persona persona : visitantesAIngresar) {
-
-        }
-        return false;
-    }
 	
-	private boolean verificarQueAlMenosUnoSeaMayorDeEdad(List<Persona> visitantesAIngresar) {
-        for (Persona persona : visitantesAIngresar) {
-            if (persona.getEdad() >= 18) {
-                return true;
-            }
-        }
-        return false;
-    }
-	
-	@Override
-    public Boolean agregarUnVeterinarioAUnHospital(Estructura estructura, Persona personal) {
 
-        Boolean agregado = false;
-        if (this.obtenerEstructura(estructura) != null
-                && this.encontrarSiExisteLaPersonaEnElZoo(personal) != null) {
-            if (estructura instanceof HospitalVeterinario && personal instanceof Veterinario) {
-                ((HospitalVeterinario) estructura).agregarVeterinarioAlHospital(personal);
-                agregado = true;
-            }
-        }
-
-        return agregado;
-    }
 
 	@Override
-    public Persona encontrarSiExisteLaPersonaEnElZoo(Persona personal) {
-
-        Persona existente = null;
-        if (personal != null) {
-            for (Persona p : personas) {
-                if (p.equals(personal)) {
-                    existente = personal;
-                }
-
-            }
-        }
-
-        return existente;
-    }
-
-	public RegistroTratamiento queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(Estructura hospital,
-			Persona veterinario, Animal animal, Estructura habitat) {
+	public Boolean agregarUnVeterinarioAUnHospital(Estructura hospital, Persona veterinario) throws NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
+			
+		this.obtenerEstructura(hospital);
+		this.obtenerPersona(veterinario);
 		
-		if (obtenerVeterinarioDeUnHospital(veterinario, hospital) != null && this.animales.contains(animal) && this.estructuras.contains(habitat)) {
-			if (animal.getEstaEnfermo()) {
-				
-				this.retirarAnimalDeSuHabitat(animal, habitat);
-				
-				animal.setEstaEnfermo(false);
-				RegistroTratamiento registro = new RegistroTratamiento(veterinario, animal);
-				
-				HospitalVeterinario hospitalNuevo = (HospitalVeterinario) hospital;
-				hospitalNuevo.añadirRegistro(registro);
-				
-				this.agregarAnimalAlHabitat(animal, habitat);
-				
-				return registro;
-			}
+		if (!(veterinario instanceof Veterinario) || !(hospital instanceof HospitalVeterinario)) {
+			throw new InstanciaIncorrectaException("Al menos uno de los objetos ingresados por parámetro es de una instancia incorrecta");
+
 		}
 		
-		return null;
+		Boolean agregado = false;
+		if (this.obtenerEstructura(hospital) != null && this.obtenerPersona(veterinario) != null) {
+			if (hospital instanceof HospitalVeterinario && veterinario instanceof Veterinario) {
+				((HospitalVeterinario) hospital).agregarVeterinarioAlHospital(veterinario);
+				agregado = true;
+			}
+		}
+
+		return agregado;
 	}
 
-	private void retirarAnimalDeSuHabitat(Animal animal, Estructura habitat) {
+	public RegistroTratamiento queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(Estructura hospital,
+			Persona veterinario, Animal animal, Estructura habitat) throws EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException, EstadoDelObjetoEsIncorrectoException {
+
+		this.obtenerEstructura(hospital);
+		this.obtenerPersona(veterinario);
+		this.obtenerAnimal(animal);
+		this.obtenerEstructura(habitat);
+		
+		if (!(veterinario instanceof Veterinario) || !(hospital instanceof HospitalVeterinario) || !(habitat instanceof Habitat)) {
+			throw new InstanciaIncorrectaException("Al menos uno de los objetos ingresados por parámetro es de una instancia incorrecta");
+
+		}
+		
+		if (obtenerVeterinarioDeUnHospital(veterinario, hospital) == null) {
+			throw new NoExisteObjetoDondeSeBuscaException("El veterinario no existe en ese hospital");
+		}
+
+		if (!animal.getEstaEnfermo()) {
+			throw new EstadoDelObjetoEsIncorrectoException ("El animal no puede ser tratado porque ya está sano");
+		}
+
+		this.retirarAnimalDeSuHabitat(animal, habitat);
+
+		animal.setEstaEnfermo(false);
+		RegistroTratamiento registro = new RegistroTratamiento(veterinario, animal);
+
+		HospitalVeterinario hospitalNuevo = (HospitalVeterinario) hospital;
+		hospitalNuevo.añadirRegistro(registro);
+
+		this.agregarAnimalAlHabitat(animal, habitat);
+
+		return registro;
+
+	}
+
+	private void retirarAnimalDeSuHabitat(Animal animal, Estructura habitat) throws NoExisteObjetoDondeSeBuscaException {
 		Habitat habitatNuevo = (Habitat) this.obtenerEstructura(habitat);
 		habitatNuevo.getAnimales().remove(animal);
 	}
 
-	public Veterinario obtenerVeterinarioDeUnHospital(Persona veterinario, Estructura hospital) {
-		if (this.estructuras.contains(hospital) && hospital instanceof HospitalVeterinario && veterinario instanceof Veterinario) {
-			HospitalVeterinario hospitalVerificado = (HospitalVeterinario) hospital;
-			for (Veterinario veterinarioDelMomento : hospitalVerificado.getVeterinarios()) {
-				if (veterinarioDelMomento.equals(veterinario)) {
-					return veterinarioDelMomento;
-				}
-			}
+	public Veterinario obtenerVeterinarioDeUnHospital(Persona veterinario, Estructura hospital) throws NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
+		
+		this.obtenerPersona(veterinario);
+		this.obtenerEstructura(hospital);
+		
+		if (!(hospital instanceof HospitalVeterinario)) {
+			throw new InstanciaIncorrectaException("La estructura ingresada no es un hospital veterinario");
 		}
 
-		return null;
+		HospitalVeterinario hospitalVerificado = (HospitalVeterinario) hospital;
+		return hospitalVerificado.obtenerVeterinario(veterinario);
+	
+	}
+
+	public List<Animal> obtenerLosAnimalesQueAtendioUnVeterinarioEnUnHospital(Persona veterinario,
+			Estructura hospital) throws NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
+
+		List<Animal> auxiliar = new ArrayList<>();
+		
+		this.obtenerPersona(veterinario);
+		this.obtenerEstructura(hospital);
+		
+		if (!(hospital instanceof HospitalVeterinario)) {
+			throw new InstanciaIncorrectaException("La estructura ingresada no es un hospital veterinario");
+		}
+
+		if (this.obtenerVeterinarioDeUnHospital(veterinario, hospital) != null) {
+			HospitalVeterinario hospitalVerificado = (HospitalVeterinario) hospital;
+			auxiliar = hospitalVerificado.obtenerAnimalesAtendidosPorUnVeterinario(veterinario);
+		}
+
+		return auxiliar;
+	}
+
+	public List<Persona> obtenerLosVeterinariosQueAtendieronAUnAnimalEnUnHospital(Animal animal, Estructura hospital) throws NoExisteObjetoDondeSeBuscaException {
+		
+		List<Persona> auxiliar = new ArrayList<>();
+
+		if (hospital instanceof HospitalVeterinario && this.obtenerEstructura(hospital) != null) {
+			HospitalVeterinario hospitalVerificado = (HospitalVeterinario) hospital;
+			auxiliar = hospitalVerificado.obtenerVeterinariosQueAtendieronUnAnimal(animal);
+		}
+
+		return auxiliar;
 	}
 
 }
