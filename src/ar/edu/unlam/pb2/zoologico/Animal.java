@@ -1,5 +1,7 @@
 package ar.edu.unlam.pb2.zoologico;
 
+import java.util.Objects;
+
 public class Animal {
 
 	private Integer codigoDeReconocimiento;
@@ -12,6 +14,7 @@ public class Animal {
 	private Boolean estaEnfermo;
 	private Boolean estaDormido;
 	private Double temperaturaAnimal;
+	private Boolean alimentacionInapropiada;
 
 	public Animal(Integer codigoDeReconocimiento, String nombreAnimal, Integer edad, Double peso,
 			TipoAlimentacion alimentacion, TipoSexo sexo, CategoriaAnimal clase) {
@@ -25,7 +28,25 @@ public class Animal {
 		this.estaEnfermo = false;
 		this.estaDormido = false;
 		this.temperaturaAnimal = 36.1;
+		this.alimentacionInapropiada = false;
 	}
+	
+	
+	
+
+	public Boolean getAlimentacionInapropiada() {
+		return alimentacionInapropiada;
+	}
+
+
+
+
+	public void setAlimentacionInapropiada(Boolean alimentacionInapropiada) {
+		this.alimentacionInapropiada = alimentacionInapropiada;
+	}
+
+
+
 
 	public Double getTemperaturaAnimal() {
 		return temperaturaAnimal;
@@ -108,5 +129,25 @@ public class Animal {
 	public void dormir(Boolean estaDormido) {
 		this.estaDormido = estaDormido;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigoDeReconocimiento);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Animal other = (Animal) obj;
+		return Objects.equals(codigoDeReconocimiento, other.codigoDeReconocimiento);
+	}
+	
+	
+	
 
 }

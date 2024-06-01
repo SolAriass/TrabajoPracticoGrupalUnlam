@@ -6,21 +6,21 @@ import java.util.ArrayList;
 public class HospitalVeterinario extends Estructura {
 	
 	private List <Veterinario> veterinarios;
+	private List <RegistroTratamiento> registros;
 
 	public HospitalVeterinario(Integer codigoEstructural, String nombreEstructura) {
 		super(codigoEstructural, nombreEstructura);
 		this.veterinarios = new ArrayList<>();
+		this.registros = new ArrayList<>();
 	}
 
-	public Boolean agregarVeterinarioAlHospital(Personal personal) {
-		Boolean agregado = false;
+	public Boolean agregarVeterinarioAlHospital(Persona personal) throws VeterinarioNuloExcepcion {
 		
-		if(personal != null) {
+		if(personal != null && personal instanceof Veterinario) {
 			veterinarios.add((Veterinario) personal);
-			agregado = true;
 		}
 		
-		return agregado;
+		throw new VeterinarioNuloExcepcion("El veterinario es invalido");
 		
 	}
 
@@ -32,6 +32,16 @@ public class HospitalVeterinario extends Estructura {
 		this.veterinarios = veterinarios;
 	}
 
+	public List<RegistroTratamiento> getRegistros() {
+		return registros;
+	}
+
+	public void setRegistros(List<RegistroTratamiento> registros) {
+		this.registros = registros;
+	}
+
+	
+	
 
 	
 	

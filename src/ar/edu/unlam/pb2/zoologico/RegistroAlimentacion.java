@@ -2,23 +2,23 @@ package ar.edu.unlam.pb2.zoologico;
 
 public class RegistroAlimentacion {
 
-	private Personal personal;
+	private Persona personal;
 	private Animal animal;
 	private Comida comida;
 	private Integer cantidadComida;
 	
-	public RegistroAlimentacion(Personal personal, Animal animal, Comida comida, Integer cantidadComida) {
+	public RegistroAlimentacion(Persona personal, Animal animal, Comida comida, Integer cantidadComida) {
 		this.personal = personal;
 		this.animal = animal;
 		this.comida = comida;
 		this.cantidadComida = cantidadComida;
 	}
 
-	public Personal getPersonal() {
+	public Persona getPersonal() {
 		return personal;
 	}
 
-	public void setPersonal(Personal personal) {
+	public void setPersonal(Persona personal) {
 		this.personal = personal;
 	}
 

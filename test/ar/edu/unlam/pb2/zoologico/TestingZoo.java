@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.time.LocalTime;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestingZoo {
@@ -24,7 +25,8 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoQueSePuedanAgregarAnimalesAlMismo() {
+	public void dadoQueExisteUnZoologicoQueSePuedanAgregarAnimalesAlMismo()
+			throws NoSePudoAgregarAnimalInexistenteException {
 
 		String nombreZoo = "Animalandia";
 
@@ -48,18 +50,32 @@ public class TestingZoo {
 
 	}
 
+	@Test(expected = NoSePudoAgregarAnimalInexistenteException.class)
+	public void dadoQueExisteUnZoologicoQueNoSePuedanAgregarAnimaleInexistente()
+			throws NoSePudoAgregarAnimalInexistenteException {
+
+		String nombreZoo = "Animalandia";
+
+		Zoologico zoo = new Zoologico(nombreZoo);
+
+		Animal mono = null;
+
+		Boolean seAgrego = zoo.agregarAnimalAlZoo(mono);
+	}
+
 	@Test
-	public void dadoQueExisteUnZoologicoQueSePuedanAgregarPersonasAlMismo() {
+	public void dadoQueExisteUnZoologicoQueSePuedanAgregarPersonasAlMismo()
+			throws NoSePudoAgregarPersonaInexistenteException {
 
 		String nombreZoo = "Animalandia";
 
 		Zoologico zoo = new Zoologico(nombreZoo);
 
 		Integer identificacion = 23;
-		String nombreCompleto = "Jime Gomez";
+		String nombreCompleto = "Raul Diaz";
 		Integer edad = 25;
 
-		Personal personal = new Veterinario(identificacion, nombreCompleto, edad);
+		Persona personal = new Veterinario(identificacion, nombreCompleto, edad);
 
 		Boolean seAgrego = zoo.agregarPersonalAlZoo(personal);
 
@@ -68,8 +84,22 @@ public class TestingZoo {
 
 	}
 
+	@Test(expected = NoSePudoAgregarPersonaInexistenteException.class)
+	public void dadoQueExisteUnZoologicoQueNoSePuedanAgregarPersonasAlMismoSiEstaNoExiste()
+			throws NoSePudoAgregarPersonaInexistenteException {
+
+		String nombreZoo = "Animalandia";
+
+		Zoologico zoo = new Zoologico(nombreZoo);
+
+		Persona persona = null;
+
+		Boolean seAgrego = zoo.agregarPersonalAlZoo(persona);
+	}
+
 	@Test
-	public void dadoQueExisteUnZoologicoQueSePuedanAgregarEstructurasAlMismo() {
+	public void dadoQueExisteUnZoologicoQueSePuedanAgregarEstructurasAlMismo()
+			throws NoSePudoAgregarEstructuraInexistenteExcepcion {
 
 		String nombreZoo = "Animalandia";
 
@@ -88,8 +118,23 @@ public class TestingZoo {
 
 	}
 
+	@Test(expected = NoSePudoAgregarEstructuraInexistenteExcepcion.class)
+	public void dadoQueExisteUnZoologicoQueNoSePuedanAgregarEstructurasAlMismoSiEstaNoExiste()
+			throws NoSePudoAgregarEstructuraInexistenteExcepcion {
+
+		String nombreZoo = "Animalandia";
+
+		Zoologico zoo = new Zoologico(nombreZoo);
+
+		Estructura hospital = null;
+
+		Boolean seAgrego = zoo.agregarEstructuraAlZoo(hospital);
+
+	}
+
 	@Test
-	public void dadoQueExisteUnZoologicoConocerALosAnimalesConTipoDeAlimentacionOmnivora() {
+	public void dadoQueExisteUnZoologicoConocerALosAnimalesConTipoDeAlimentacionOmnivora()
+			throws NoSePudoAgregarAnimalInexistenteException {
 
 		String nombreZoo = "Animalandia";
 
@@ -128,8 +173,8 @@ public class TestingZoo {
 		Integer tamañoEsperado = 2;
 
 		assertEquals((int) tamañoEsperado, animalesOmnivoros.size());
-		assertEquals(mono, animalesOmnivoros.get(0));
-		assertEquals(oso, animalesOmnivoros.get(1));
+		assertEquals(mono.getCodigoDeReconocimiento(), animalesOmnivoros.get(0).getCodigoDeReconocimiento());
+		assertEquals(oso.getCodigoDeReconocimiento(), animalesOmnivoros.get(1).getCodigoDeReconocimiento());
 
 	}
 
@@ -161,12 +206,17 @@ public class TestingZoo {
 		Animal elefante = new Elefante(125, "dumbo", 9, 12.5, TipoAlimentacion.HERBIVORO, TipoSexo.MASCULINO,
 				CategoriaAnimal.MAMIFERO);
 
-		zoo.agregarAnimalAlZoo(mono);
-		zoo.agregarAnimalAlZoo(mapache);
-		zoo.agregarAnimalAlZoo(oso);
-		zoo.agregarAnimalAlZoo(tiburon);
-		zoo.agregarAnimalAlZoo(serpiente);
-		zoo.agregarAnimalAlZoo(elefante);
+		try {
+			zoo.agregarAnimalAlZoo(mono);
+			zoo.agregarAnimalAlZoo(mapache);
+			zoo.agregarAnimalAlZoo(oso);
+			zoo.agregarAnimalAlZoo(tiburon);
+			zoo.agregarAnimalAlZoo(serpiente);
+			zoo.agregarAnimalAlZoo(elefante);
+
+		} catch (NoSePudoAgregarAnimalInexistenteException e) {
+			e.getMessage();
+		}
 
 		List<Animal> animalesCarnivoros = zoo.obtenerLosAnimalesConTipoAlimentacionCarnivora();
 
@@ -180,7 +230,8 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoConocerALosAnimalesConTipoDeAlimentacionHerbivora() {
+	public void dadoQueExisteUnZoologicoConocerALosAnimalesConTipoDeAlimentacionHerbivora()
+			throws NoSePudoAgregarAnimalInexistenteException {
 
 		String nombreZoo = "Animalandia";
 
@@ -228,7 +279,8 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoConAnimalesConocerALosAnimalesSanosDeSalud() {
+	public void dadoQueExisteUnZoologicoConAnimalesConocerALosAnimalesConTemperaturaCorporalNeutral()
+			throws NoSePudoAgregarAnimalInexistenteException {
 
 		String nombreZoo = "Animalandia";
 
@@ -280,7 +332,8 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoConAnimalesConocerALosAnimalesEnfermosDeSaludPorBajaTemperaturaCorporal() {
+	public void dadoQueExisteUnZoologicoConAnimalesConocerALosAnimalesEnfermosDeSaludPorBajaTemperaturaCorporal()
+			throws NoSePudoAgregarAnimalInexistenteException {
 
 		String nombreZoo = "Animalandia";
 
@@ -312,7 +365,7 @@ public class TestingZoo {
 		mono.setTemperaturaAnimal(38.2);
 		tiburon.setTemperaturaAnimal(38.2);
 		elefante.setTemperaturaAnimal(38.2);
-		
+
 		zoo.agregarAnimalAlZoo(mono);
 		zoo.agregarAnimalAlZoo(mapache);
 		zoo.agregarAnimalAlZoo(oso);
@@ -333,7 +386,9 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoConVeterinarioQueSePuedaAgregarAUnHospital() {
+	public void dadoQueExisteUnZoologicoConVeterinarioQueSePuedaAgregarAUnHospital()
+			throws NoSePudoAgregarEstructuraInexistenteExcepcion, NoSePudoAgregarPersonaInexistenteException,
+			NoSePudoAgregarAlVeterinarioAlHospitalException {
 
 		String nombreZoo = "Animalandia";
 
@@ -344,9 +399,9 @@ public class TestingZoo {
 		String nombreCompleto = "Jime Gomez";
 		Integer edad = 25;
 
-		Personal personal = new Veterinario(identificacion, nombreCompleto, edad);
-		Personal personal2 = new Veterinario(identificacion, nombreCompleto, edad);
-		Personal personal3 = new Veterinario(identificacion, nombreCompleto, edad);
+		Persona personal = new Veterinario(identificacion, nombreCompleto, edad);
+		Persona personal2 = new Veterinario(identificacion, nombreCompleto, edad);
+		Persona personal3 = new Veterinario(identificacion, nombreCompleto, edad);
 
 		// DATOS DE ESTRUCTURA
 		Integer codigoEstructural = 2234;
@@ -368,8 +423,10 @@ public class TestingZoo {
 
 	}
 
-	@Test
-	public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaAgregarOtroPersonalQueNoSeaVeterinario() {
+	@Test(expected = NoSePudoAgregarAlVeterinarioAlHospitalException.class)
+	public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaAgregarOtroPersonalQueNoSeaVeterinario()
+			throws NoSePudoAgregarEstructuraInexistenteExcepcion, NoSePudoAgregarPersonaInexistenteException,
+			NoSePudoAgregarAlVeterinarioAlHospitalException {
 
 		String nombreZoo = "Animalandia";
 
@@ -380,9 +437,9 @@ public class TestingZoo {
 		String nombreCompleto = "Jime Gomez";
 		Integer edad = 25;
 
-		Personal personal = new Mantenimiento(identificacion, nombreCompleto, edad);
-		Personal personal2 = new Veterinario(identificacion, nombreCompleto, edad);
-		Personal personal3 = new Veterinario(identificacion, nombreCompleto, edad);
+		Persona personal = new Mantenimiento(identificacion, nombreCompleto, edad);
+		Persona personal2 = new Veterinario(identificacion, nombreCompleto, edad);
+		Persona personal3 = new Veterinario(identificacion, nombreCompleto, edad);
 
 		// DATOS DE ESTRUCTURA
 		Integer codigoEstructural = 2234;
@@ -398,13 +455,12 @@ public class TestingZoo {
 		zoo.agregarPersonalAlZoo(personal3);
 
 		Boolean seAgrego = zoo.agregarUnVeterinarioAUnHospital(hospital, personal);
-
-		assertFalse(seAgrego);
-
 	}
 
-	@Test
-	public void dadoQueExisteUnZoologicoConVeterinarioQueNoSePuedaAgregarEnOtraEstructuraQueNoSeaUnHospital() {
+	@Test(expected = NoSePudoAgregarAlVeterinarioAlHospitalException.class)
+	public void dadoQueExisteUnZoologicoConVeterinarioQueNoSePuedaAgregarEnOtraEstructuraQueNoSeaUnHospital()
+			throws NoSePudoAgregarEstructuraInexistenteExcepcion, NoSePudoAgregarPersonaInexistenteException,
+			NoSePudoAgregarAlVeterinarioAlHospitalException {
 
 		String nombreZoo = "Animalandia";
 
@@ -415,9 +471,9 @@ public class TestingZoo {
 		String nombreCompleto = "Jime Gomez";
 		Integer edad = 25;
 
-		Personal personal = new Mantenimiento(identificacion, nombreCompleto, edad);
-		Personal personal2 = new Veterinario(identificacion, nombreCompleto, edad);
-		Personal personal3 = new Veterinario(identificacion, nombreCompleto, edad);
+		Persona personal = new Mantenimiento(identificacion, nombreCompleto, edad);
+		Persona personal2 = new Veterinario(identificacion, nombreCompleto, edad);
+		Persona personal3 = new Veterinario(identificacion, nombreCompleto, edad);
 
 		// DATOS DE ESTRUCTURA
 		Integer codigoEstructural = 2234;
@@ -436,12 +492,12 @@ public class TestingZoo {
 
 		Boolean seAgrego = zoo.agregarUnVeterinarioAUnHospital(hospital2, personal);
 
-		assertFalse(seAgrego);
-
 	}
 
-	@Test
-	public void dadoQueExisteUnZoologicoConVeterinarioQueNoSePuedaAgregarAUnHospitalInexistente() {
+	@Test(expected = NoSePudoAgregarEstructuraInexistenteExcepcion.class)
+	public void dadoQueExisteUnZoologicoConVeterinarioQueNoSePuedaAgregarAUnHospitalInexistente()
+			throws NoSePudoAgregarPersonaInexistenteException, NoSePudoAgregarAlVeterinarioAlHospitalException,
+			NoSePudoAgregarEstructuraInexistenteExcepcion {
 
 		String nombreZoo = "Animalandia";
 
@@ -452,9 +508,9 @@ public class TestingZoo {
 		String nombreCompleto = "Jime Gomez";
 		Integer edad = 25;
 
-		Personal personal = new Veterinario(identificacion, nombreCompleto, edad);
-		Personal personal2 = new Veterinario(identificacion, nombreCompleto, edad);
-		Personal personal3 = new Veterinario(identificacion, nombreCompleto, edad);
+		Persona personal = new Veterinario(identificacion, nombreCompleto, edad);
+		Persona personal2 = new Veterinario(identificacion, nombreCompleto, edad);
+		Persona personal3 = new Veterinario(identificacion, nombreCompleto, edad);
 
 		// DATOS DE ESTRUCTURA
 		Integer codigoEstructural = 2234;
@@ -469,13 +525,12 @@ public class TestingZoo {
 
 		Boolean seAgrego = zoo.agregarUnVeterinarioAUnHospital(hospital, personal);
 
-		assertFalse(seAgrego);
-		assertEquals(null, zoo.encontrarSiExisteLaEstructuraEnElZoo(hospital));
-
 	}
 
-	@Test
-	public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaAgregarUnVeterinarioInexistente() {
+	@Test(expected = NoSePudoAgregarPersonaInexistenteException.class)
+	public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaAgregarUnVeterinarioInexistente()
+			throws NoSePudoAgregarEstructuraInexistenteExcepcion, NoSePudoAgregarPersonaInexistenteException,
+			NoSePudoAgregarAlVeterinarioAlHospitalException {
 
 		String nombreZoo = "Animalandia";
 
@@ -486,9 +541,9 @@ public class TestingZoo {
 		String nombreCompleto = "Jime Gomez";
 		Integer edad = 25;
 
-		Personal personal = new Veterinario(identificacion, nombreCompleto, edad);
-		Personal personal2 = new Veterinario(identificacion, nombreCompleto, edad);
-		Personal personal3 = new Veterinario(identificacion, nombreCompleto, edad);
+		Persona personal = new Veterinario(identificacion, nombreCompleto, edad);
+		Persona personal2 = new Veterinario(identificacion, nombreCompleto, edad);
+		Persona personal3 = new Veterinario(identificacion, nombreCompleto, edad);
 
 		// DATOS DE ESTRUCTURA
 		Integer codigoEstructural = 2234;
@@ -503,14 +558,11 @@ public class TestingZoo {
 		zoo.agregarPersonalAlZoo(personal3);
 
 		Boolean seAgrego = zoo.agregarUnVeterinarioAUnHospital(hospital, personal);
-
-		assertFalse(seAgrego);
-		assertEquals(null, zoo.encontrarSiExisteLaPersonaEnElZoo(personal));
-
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoQueAlHacerseDeNocheLosAnimalesSeDuerman() {
+	public void dadoQueExisteUnZoologicoQueAlHacerseDeNocheLosAnimalesSeDuerman()
+			throws NoSePudoAgregarAnimalInexistenteException {
 
 		String nombreZoo = "Animalandia";
 		LocalTime horario = LocalTime.of(20, 00);
@@ -545,7 +597,8 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoQueAlHacerDeDiaParaQueDespiertenLosAnimales() {
+	public void dadoQueExisteUnZoologicoQueAlHacerseDeDiaSeDespiertenLosAnimales()
+			throws NoSePudoAgregarAnimalInexistenteException {
 
 		String nombreZoo = "Animalandia";
 		LocalTime horario = LocalTime.of(8, 00);
@@ -580,7 +633,9 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueSeCreeUnRegistroCuandoUnVeterinarioAlimenteDeFormaCorrectaAlAnimal() {
+	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueSeCreeUnRegistroCuandoUnVeterinarioAlimenteDeFormaCorrectaAlAnimal()
+			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException {
 
 		String nombreZoo = "Animalandia";
 
@@ -611,9 +666,9 @@ public class TestingZoo {
 		zoo.agregarAnimalAlZoo(elefante);
 		zoo.agregarAnimalAlZoo(panda);
 
-		Personal personal = new Veterinario(23, "Luis Alvarez", 34);
-		Personal personal2 = new Veterinario(56, "Alejo Diaz", 19);
-		Personal personal3 = new Veterinario(77, "Lourdes Juarez", 55);
+		Persona personal = new Veterinario(23, "Luis Alvarez", 34);
+		Persona personal2 = new Veterinario(56, "Alejo Diaz", 19);
+		Persona personal3 = new Veterinario(77, "Lourdes Juarez", 55);
 
 		zoo.agregarPersonalAlZoo(personal);
 		zoo.agregarPersonalAlZoo(personal2);
@@ -628,8 +683,10 @@ public class TestingZoo {
 
 	}
 
-	@Test
-	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueNoSePuedaCrearUnRegistroCuandoUnVeterinarioAlimenteDeFormaIncorrectaAlAnimal() {
+	@Test(expected = NoSePudoAgregarPersonaInexistenteException.class)
+	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueNoSePuedaCrearUnRegistroSiElVeterinarioEsInexistente()
+			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException {
 
 		String nombreZoo = "Animalandia";
 
@@ -660,58 +717,9 @@ public class TestingZoo {
 		zoo.agregarAnimalAlZoo(elefante);
 		zoo.agregarAnimalAlZoo(panda);
 
-		Personal personal = new Veterinario(23, "Luis Alvarez", 34);
-		Personal personal2 = new Veterinario(56, "Alejo Diaz", 19);
-		Personal personal3 = new Veterinario(77, "Lourdes Juarez", 55);
-
-		zoo.agregarPersonalAlZoo(personal);
-		zoo.agregarPersonalAlZoo(personal2);
-		zoo.agregarPersonalAlZoo(personal3);
-
-		Integer cantidadComida = 3;
-		Comida comida = Comida.CARNE;
-
-		RegistroAlimentacion registroNuevo = zoo.cargarAlimentacion(personal, panda, comida, cantidadComida);
-
-		assertNull(registroNuevo);
-
-	}
-
-	@Test
-	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueNoSePuedaCrearUnRegistroSiElVeterinarioEsInexistente() {
-
-		String nombreZoo = "Animalandia";
-
-		Zoologico zoo = new Zoologico(nombreZoo);
-
-		// estar enfermo es algo que ya tiene el mono, por defecto esta sano
-
-		Animal mono = new Mono(230, "Sergio Ramirez", 3, 5.5, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
-				CategoriaAnimal.MAMIFERO);
-		Animal mapache = new Mapache(113, "pedro", 3, 1.3, TipoAlimentacion.CARNIVORO, TipoSexo.MASCULINO,
-				CategoriaAnimal.MAMIFERO);
-		Animal oso = new Oso(78, "winnie pooh", 7, 10.5, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
-				CategoriaAnimal.MAMIFERO);
-		Animal tiburon = new Tiburon(90, "tiburoncin", 12, 20.0, TipoAlimentacion.CARNIVORO, TipoSexo.MASCULINO,
-				CategoriaAnimal.PEZ);
-		Animal serpiente = new Serpiente(1002, "thiago", 4, 2.5, TipoAlimentacion.CARNIVORO, TipoSexo.FEMENINO,
-				CategoriaAnimal.REPTIL);
-		Animal elefante = new Elefante(125, "dumbo", 9, 12.5, TipoAlimentacion.HERBIVORO, TipoSexo.MASCULINO,
-				CategoriaAnimal.MAMIFERO);
-		Animal panda = new Panda(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
-				CategoriaAnimal.MAMIFERO);
-
-		zoo.agregarAnimalAlZoo(mono);
-		zoo.agregarAnimalAlZoo(mapache);
-		zoo.agregarAnimalAlZoo(oso);
-		zoo.agregarAnimalAlZoo(tiburon);
-		zoo.agregarAnimalAlZoo(serpiente);
-		zoo.agregarAnimalAlZoo(elefante);
-		zoo.agregarAnimalAlZoo(panda);
-
-		Personal personal = new Veterinario(23, "Luis Alvarez", 34);
-		Personal personal2 = new Veterinario(56, "Alejo Diaz", 19);
-		Personal personal3 = new Veterinario(77, "Lourdes Juarez", 55);
+		Persona personal = new Veterinario(23, "Luis Alvarez", 34);
+		Persona personal2 = new Veterinario(56, "Alejo Diaz", 19);
+		Persona personal3 = new Veterinario(77, "Lourdes Juarez", 55);
 
 		zoo.agregarPersonalAlZoo(personal);
 		zoo.agregarPersonalAlZoo(personal2);
@@ -721,12 +729,12 @@ public class TestingZoo {
 
 		RegistroAlimentacion registroNuevo = zoo.cargarAlimentacion(personal3, mono, comida, cantidadComida);
 
-		assertNull(registroNuevo);
-
 	}
 
-	@Test
-	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueNoSePuedaCrearUnRegistroSiElAnimalEsInexistente() {
+	@Test(expected = NoSePudoAgregarAnimalInexistenteException.class)
+	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueNoSePuedaCrearUnRegistroSiElAnimalEsInexistente()
+			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException {
 
 		String nombreZoo = "Animalandia";
 
@@ -756,9 +764,9 @@ public class TestingZoo {
 		zoo.agregarAnimalAlZoo(elefante);
 		zoo.agregarAnimalAlZoo(panda);
 
-		Personal personal = new Veterinario(23, "Luis Alvarez", 34);
-		Personal personal2 = new Veterinario(56, "Alejo Diaz", 19);
-		Personal personal3 = new Veterinario(77, "Lourdes Juarez", 55);
+		Persona personal = new Veterinario(23, "Luis Alvarez", 34);
+		Persona personal2 = new Veterinario(56, "Alejo Diaz", 19);
+		Persona personal3 = new Veterinario(77, "Lourdes Juarez", 55);
 
 		zoo.agregarPersonalAlZoo(personal);
 		zoo.agregarPersonalAlZoo(personal2);
@@ -768,13 +776,12 @@ public class TestingZoo {
 		Comida comida = Comida.PLANTA;
 
 		RegistroAlimentacion registroNuevo = zoo.cargarAlimentacion(personal3, mono, comida, cantidadComida);
-
-		assertNull(registroNuevo);
-
 	}
 
-	@Test
-	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueNoSePuedaCrearElRegistroSiUnPersonalNoAutorizadoQuiereAlimentarAlAnimal() {
+	@Test(expected = NoSePudoAgregarPersonalInvalidoExcepcion.class)
+	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueNoSePuedaCrearElRegistroSiUnPersonalNoAutorizadoQuiereAlimentarAlAnimal()
+			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException {
 
 		String nombreZoo = "Animalandia";
 
@@ -787,7 +794,7 @@ public class TestingZoo {
 
 		zoo.agregarAnimalAlZoo(panda);
 
-		Personal personal = new Mantenimiento(23, "Luis Alvarez", 34);
+		Persona personal = new Mantenimiento(23, "Luis Alvarez", 34);
 
 		zoo.agregarPersonalAlZoo(personal);
 
@@ -796,12 +803,15 @@ public class TestingZoo {
 
 		RegistroAlimentacion registroNuevo = zoo.cargarAlimentacion(personal, panda, comida, cantidadComida);
 
-		assertNull(registroNuevo);
+	
 
 	}
 
+	//REVISAR
 	@Test
-	public void dadoQueExisteUnZoologicoConAnimalesConocerALosQueSeEnfermaronPorHaberSidoAlimentadosConComidaNoApta() {
+	public void dadoQueExisteUnZoologicoConAnimalesConocerALosQueSeEnfermaronPorHaberSidoAlimentadosConComidaNoApta()
+			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException {
 
 		String nombreZoo = "Animalandia";
 
@@ -823,7 +833,7 @@ public class TestingZoo {
 		zoo.agregarAnimalAlZoo(elefante);
 		zoo.agregarAnimalAlZoo(mono);
 
-		Personal personal = new Veterinario(23, "Luis Alvarez", 34);
+		Persona personal = new Veterinario(23, "Luis Alvarez", 34);
 
 		zoo.agregarPersonalAlZoo(personal);
 
@@ -831,6 +841,10 @@ public class TestingZoo {
 		zoo.cargarAlimentacion(personal, mapache, Comida.PLANTA, 1);
 		zoo.cargarAlimentacion(personal, elefante, Comida.CARNE, 5);
 		zoo.cargarAlimentacion(personal, mono, Comida.PLANTA, 2);
+		
+		
+		//el mono se enfermo por otro motivo y no fue agregado ya que su causa no fue por mala alimentacion
+		mono.setEstaEnfermo(true);
 
 		List<Animal> animalesEnfermosPorComida = zoo.obtenerALosAnimalesEnfermosPorAlimentacionIncorrecta();
 
@@ -842,7 +856,9 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerLosAnimalesQueAlimentoUnVeterinarioEspecifico() {
+	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerLosAnimalesQueAlimentoUnVeterinarioEspecifico()
+			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException {
 
 		String nombreZoo = "Animalandia";
 
@@ -864,7 +880,7 @@ public class TestingZoo {
 		zoo.agregarAnimalAlZoo(elefante);
 		zoo.agregarAnimalAlZoo(mono);
 
-		Personal personal = new Veterinario(23, "Luis Alvarez", 34);
+		Persona personal = new Veterinario(23, "Luis Alvarez", 34);
 
 		zoo.agregarPersonalAlZoo(personal);
 
@@ -883,7 +899,9 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerLosVeterinariosQueAlimentaronAUnAnimalEspecifico() {
+	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerLosVeterinariosQueAlimentaronAUnAnimalEspecifico()
+			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException {
 
 		String nombreZoo = "Animalandia";
 
@@ -896,10 +914,10 @@ public class TestingZoo {
 
 		zoo.agregarAnimalAlZoo(panda);
 
-		Personal personal = new Veterinario(23, "Luis Alvarez", 34);
-		Personal personal1 = new Veterinario(55, "Lorenzo Grande", 64);
-		Personal personal2 = new Veterinario(3, "Guido Perez", 24);
-		Personal personal3 = new Veterinario(99, "Leonardo Alvarez", 44);
+		Persona personal = new Veterinario(23, "Luis Alvarez", 34);
+		Persona personal1 = new Veterinario(55, "Lorenzo Grande", 64);
+		Persona personal2 = new Veterinario(3, "Guido Perez", 24);
+		Persona personal3 = new Veterinario(99, "Leonardo Alvarez", 44);
 
 		zoo.agregarPersonalAlZoo(personal);
 		zoo.agregarPersonalAlZoo(personal1);
@@ -911,7 +929,7 @@ public class TestingZoo {
 		zoo.cargarAlimentacion(personal2, panda, Comida.PLANTA, 5);
 		zoo.cargarAlimentacion(personal3, panda, Comida.PLANTA, 2);
 
-		List<Personal> veterinariosQueAlimentaronAUnAnimal = zoo
+		List<Persona> veterinariosQueAlimentaronAUnAnimal = zoo
 				.conocerLosVeterinariosQueAlimentaronAUnAnimalEspecifico(panda);
 
 		assertEquals(4, veterinariosQueAlimentaronAUnAnimal.size());
@@ -921,8 +939,10 @@ public class TestingZoo {
 		assertEquals(personal3, veterinariosQueAlimentaronAUnAnimal.get(3));
 	}
 
-	@Test
-	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueNoSePuedaCrearUnRegistroSiLaCantidadDeComidaEsMenorOIgualACero() {
+	@Test(expected = NoSePudoAlimentarException.class)
+	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueNoSePuedaCrearUnRegistroSiLaCantidadDeComidaEsMenorOIgualACero()
+			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException {
 
 		String nombreZoo = "Animalandia";
 
@@ -935,18 +955,17 @@ public class TestingZoo {
 
 		zoo.agregarAnimalAlZoo(panda);
 
-		Personal personal = new Veterinario(23, "Luis Alvarez", 34);
+		Persona personal = new Veterinario(23, "Luis Alvarez", 34);
 
 		zoo.agregarPersonalAlZoo(personal);
 
 		RegistroAlimentacion registroNuevo = zoo.cargarAlimentacion(personal, panda, Comida.PLANTA, 0);
-
-		assertNull(registroNuevo);
-
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerALosAnimalesQueFueronAlimentadosConPlantas() {
+	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerALosAnimalesQueFueronAlimentadosConPlantas()
+			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException {
 
 		String nombreZoo = "Animalandia";
 
@@ -975,9 +994,9 @@ public class TestingZoo {
 		Animal elefante = new Elefante(125, "dumbo", 9, 12.5, TipoAlimentacion.HERBIVORO, TipoSexo.MASCULINO,
 				CategoriaAnimal.MAMIFERO);
 
-		Personal veterinario1 = new Veterinario(23, "Luis Alvarez", 34);
-		Personal veterinario2 = new Veterinario(77, "Thiago Funes", 54);
-		Personal veterinario3 = new Veterinario(231, "Camila Alvarez", 44);
+		Persona veterinario1 = new Veterinario(23, "Luis Alvarez", 34);
+		Persona veterinario2 = new Veterinario(77, "Thiago Funes", 54);
+		Persona veterinario3 = new Veterinario(231, "Camila Alvarez", 44);
 
 		zoo.agregarAnimalAlZoo(panda);
 		zoo.agregarAnimalAlZoo(mono);
@@ -1008,7 +1027,9 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerALosAnimalesQueFueronAlimentadosConCarne() {
+	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerALosAnimalesQueFueronAlimentadosConCarne()
+			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException {
 
 		String nombreZoo = "Animalandia";
 
@@ -1037,9 +1058,9 @@ public class TestingZoo {
 		Animal elefante = new Elefante(125, "dumbo", 9, 12.5, TipoAlimentacion.HERBIVORO, TipoSexo.MASCULINO,
 				CategoriaAnimal.MAMIFERO);
 
-		Personal veterinario1 = new Veterinario(23, "Luis Alvarez", 34);
-		Personal veterinario2 = new Veterinario(77, "Thiago Funes", 54);
-		Personal veterinario3 = new Veterinario(231, "Camila Alvarez", 44);
+		Persona veterinario1 = new Veterinario(23, "Luis Alvarez", 34);
+		Persona veterinario2 = new Veterinario(77, "Thiago Funes", 54);
+		Persona veterinario3 = new Veterinario(231, "Camila Alvarez", 44);
 
 		zoo.agregarAnimalAlZoo(panda);
 		zoo.agregarAnimalAlZoo(mono);
@@ -1066,7 +1087,6 @@ public class TestingZoo {
 		Integer tamañoObtenido = animalesQueComenCarne.size();
 
 		assertEquals(tamañoEsperado, tamañoObtenido);
-
 	}
 
 }
