@@ -49,6 +49,29 @@ public class TestingZoo {
 	}
 
 	@Test
+	public void dadoQueExisteUnZoologicoConAnimalesEstosSePuedenIngresarAHabitats() {
+		String nombreZoo = "Animalandia";
+		Zoologico zoo = new Zoologico(nombreZoo);
+
+		Integer codigoEstructural = 123;
+		String nombreEstructura = "Isla de los monos";
+		Integer maximoAnimales = 4;
+		Estructura habitatMonos = new Habitat(codigoEstructural, nombreEstructura, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(habitatMonos);
+
+		Animal mono = new Mono(513, "Mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+		zoo.agregarAnimalAlZoo(mono);
+
+		Boolean seAgrego = zoo.agregarAnimalAlHabitat(mono, habitatMonos);
+		Animal animalAgregado = zoo.obtenerAnimalDeUnHabitat(mono, habitatMonos);
+
+		assertTrue(seAgrego);
+		assertEquals(mono, animalAgregado);
+
+	}
+
+	@Test
 	public void dadoQueExisteUnZoologicoQueSePuedanAgregarPersonasAlMismo() {
 
 		String nombreZoo = "Animalandia";
@@ -105,8 +128,8 @@ public class TestingZoo {
 		assertTrue(pudoEntrar);
 		assertEquals(visitante1, zoo.getPersonas().get(0));
 	}
-	
-	@Test //(expected= Exception.class)
+
+	@Test // (expected= Exception.class)
 	public void queUnVisitanteNoPuedaComprarEntradaPorSerMenorDeEdad() {
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
@@ -160,9 +183,9 @@ public class TestingZoo {
 		Boolean seAgregaron = zoo.agregarVariosVisitantes(visitantesAIngresar);
 		assertTrue(seAgregaron);
 		assertEquals(visitantesAIngresar.size(), zoo.getPersonas().size());
-		
+
 	}
-	
+
 	@Test
 	public void queUnGrupoDePersonasPuedaIngresarConMenoresDeEdad() {
 		String nombreZoo = "Animalandia";
@@ -185,4 +208,103 @@ public class TestingZoo {
 		assertTrue(zoo.getPersonas().contains(visitante3));
 		assertTrue(zoo.getPersonas().contains(visitante4));
 	}
+
+	@Test
+	public void queSePuedaConocerElTotalRecaudadoEnBaseALaCantidadDeEntradasVendidas() {
+		String nombreZoo = "Animalandia";
+		Zoologico zoo = new Zoologico(nombreZoo);
+
+		Persona visitante1 = new Visitante(43472194, "visitante1", 59, 4300.0);
+		Persona visitante2 = new Visitante(43205932, "visitante2", 69, 3500.0);
+		Persona visitante3 = new Visitante(43205953, "visitante3", 15, 5020.0);
+		Persona visitante4 = new Visitante(43205965, "visitante4", 11, 3000.0);
+
+		List<Persona> visitantesAIngresar = new ArrayList<>();
+
+		visitantesAIngresar.add(visitante1);
+		visitantesAIngresar.add(visitante2);
+		visitantesAIngresar.add(visitante3);
+		visitantesAIngresar.add(visitante4);
+		zoo.agregarVariosVisitantes(visitantesAIngresar);
+
+		Double totalRecaudado = zoo.obtenerRecaudacion();
+
+		assertEquals(10000.0, totalRecaudado, 0.001);
+
+	}
+
+	@Test
+	public void queUnVisitantePuedaUsarUnaInstalacionComunTeniendoEntrada() {
+		String nombreZoo = "Animalandia";
+		Zoologico zoo = new Zoologico(nombreZoo);
+		Estructura banio = new InstalacionComun(432, "Banio");
+		Estructura estacionamiento = new InstalacionComun(420, "Estacionamiento");
+		Estructura ZonasDeComidas = new InstalacionComun(493, "Zonas de comidas");
+
+		Persona visitante1 = new Visitante(43472194, "visitante1", 39, 4300.0);
+		zoo.agregarPersonaAlZoo(visitante1);
+		zoo.registrarVisitaDeUnVisitanteAUnaInstalacionComun(visitante1, estacionamiento);
+		List<RegistroVisitaInstalacionComun> pudoVisitar = zoo.obtenerRegistrosVisitasInstalacionesComunes();
+
+		assertNotNull(pudoVisitar);
+	}
+
+	@Test
+	public void queUnVisitanteNoPuedaUsarUnaInstalacionComunPorNoTenerEntrada() {
+		String nombreZoo = "Animalandia";
+		Zoologico zoo = new Zoologico(nombreZoo);
+		Persona visitante3 = new Visitante(43205953, "visitante3", 15, 5020.0); // menor de edad sin acompañante
+		Estructura banio = new InstalacionComun(432, "Banio");
+
+		zoo.agregarPersonaAlZoo(visitante3);
+		zoo.registrarVisitaDeUnVisitanteAUnaInstalacionComun(visitante3, banio);
+
+		assertEquals(0, zoo.obtenerRegistrosVisitasInstalacionesComunes().size());
+	}
+
+	@Test
+	public void queUnVisitantePuedaVerUnAnimalTeniendoEntrada() {
+		// zoo
+		String nombreZoo = "Animalandia";
+		Zoologico zoo = new Zoologico(nombreZoo);
+		// persona
+		Persona visitante3 = new Visitante(43205953, "visitante3", 45, 5020.0);
+		// animal y habitat
+		Integer codigoEstructural = 123;
+		String nombreEstructura = "Isla de los monos";
+		Integer maximoAnimales = 4;
+		Estructura habitatMonos = new Habitat(codigoEstructural, nombreEstructura, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(habitatMonos);
+		Animal mono = new Mono(513, "Mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+		zoo.agregarAnimalAlZoo(mono);
+		zoo.agregarAnimalAlHabitat(mono, habitatMonos);
+		zoo.registrarVisitaDeUnVisitanteAUnHabitat(visitante3, habitatMonos);
+		List<RegistroVisitaHabitatAnimal> pudoVer = zoo.obtenerRegistrosVisitasHabitatsAnimal();
+
+		assertNotNull(pudoVer);
+	}
+
+	@Test
+	public void queUnVisitanteNoPuedaVerUnAnimalPorNoTenerEntrada() {
+		// zoo
+		String nombreZoo = "Animalandia";
+		Zoologico zoo = new Zoologico(nombreZoo);
+		// persona
+		Persona visitante3 = new Visitante(43205953, "visitante3", 45, 120.0); // dinero insuficiente
+		// animal y habitat
+		Integer codigoEstructural = 123;
+		String nombreEstructura = "Isla de los monos";
+		Integer maximoAnimales = 4;
+		Estructura habitatMonos = new Habitat(codigoEstructural, nombreEstructura, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(habitatMonos);
+		Animal mono = new Mono(513, "Mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+		zoo.agregarAnimalAlZoo(mono);
+		zoo.agregarAnimalAlHabitat(mono, habitatMonos);
+		zoo.registrarVisitaDeUnVisitanteAUnHabitat(visitante3, habitatMonos);
+		
+		assertEquals(0, zoo.obtenerRegistrosVisitasHabitatsAnimal().size());
+	}
+
 }
