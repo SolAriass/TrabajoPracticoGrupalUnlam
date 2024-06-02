@@ -59,7 +59,7 @@ public class TestingZoo {
 	}
 
 	@Test(expected = NoSePudoAgregarAnimalInexistenteException.class)
-	public void dadoQueExisteUnZoologicoQueNoSePuedanAgregarAnimaleInexistente()
+	public void dadoQueExisteUnZoologicoQueNoSePuedanAgregarAnimalInexistente()
 			throws NoSePudoAgregarAnimalInexistenteException {
 
 		String nombreZoo = "Animalandia";
