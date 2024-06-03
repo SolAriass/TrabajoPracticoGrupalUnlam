@@ -1,10 +1,12 @@
 package ar.edu.unlam.pb2.zoologico;
 
-<<<<<<< HEAD
+import java.util.Objects;
+import ar.edu.unlam.pb2.enums.*;
+
 public abstract class Animal {
 	private Integer codigoDeReconocimiento;
 	private String nombreAnimal;
-	private Integer edad; 
+	private Integer edad;
 	private Double peso;
 	private TipoAlimentacion tipoAlimentacion;
 	private TipoSexo tipoSexo;
@@ -12,28 +14,26 @@ public abstract class Animal {
 	private Boolean estaEnfermo;
 	private Boolean estaDormido;
 	private Double temperaturaAnimal;
-	private Boolean alimentacionInapropiada;
-=======
-public class Animal {
-	
-	
-	
->>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
+	private Boolean alimentacionInapropiada;	
 
 	public Animal(Integer codigoDeReconocimiento, String nombreAnimal, Integer edad, Double peso,
-			TipoAlimentacion alimentacion, TipoSexo sexo, CategoriaAnimal clase) {
-		
-		
+			TipoAlimentacion alimentacion, TipoSexo sexo, CategoriaAnimal clase) {	
+		this.codigoDeReconocimiento = codigoDeReconocimiento;
+		this.nombreAnimal = nombreAnimal;
+		this.edad = edad;
+		this.peso = peso;
+		this.tipoAlimentacion = alimentacion;
+		this.tipoSexo = sexo;
+		this.categoriaAnimal = clase;
+		this.estaEnfermo = false;
 	}
 
+	public TipoAlimentacion getTipoAlimentacion() {
+		return tipoAlimentacion;
+	}
 	
-<<<<<<< HEAD
-	public Boolean getAlimentacionInapropiada() {
-		return alimentacionInapropiada;
-	}
-
-	public void setAlimentacionInapropiada(Boolean alimentacionInapropiada) {
-		this.alimentacionInapropiada = alimentacionInapropiada;
+	public void setTipoAlimentacion(TipoAlimentacion tipoAlimentacion) {
+		this.tipoAlimentacion = tipoAlimentacion;
 	}
 
 	public Double getTemperaturaAnimal() {
@@ -44,29 +44,12 @@ public class Animal {
 		this.temperaturaAnimal = temperaturaAnimal;
 	}
 
-	public void setEstaEnfermo(Boolean estaEnfermo) {
-		this.estaEnfermo = estaEnfermo;
-	}
-	
-	public Boolean getEstaEnfermo() {
-		return estaEnfermo;
+	public Boolean getAlimentacionInapropiada() {
+		return alimentacionInapropiada;
 	}
 
-	
-	public TipoAlimentacion getTipoAlimentacion() {
-		return tipoAlimentacion;
-	}
-
-	public void setTipoAlimentacion(TipoAlimentacion tipoAlimentacion) {
-		this.tipoAlimentacion = tipoAlimentacion;
-	}
-
-	public TipoSexo getTipoSexo() {
-		return tipoSexo;
-	}
-
-	public void setTipoSexo(TipoSexo tipoSexo) {
-		this.tipoSexo = tipoSexo;
+	public void setAlimentacionInapropiada(Boolean alimentacionInapropiada) {
+		this.alimentacionInapropiada = alimentacionInapropiada;
 	}
 
 	public CategoriaAnimal getCategoriaAnimal() {
@@ -75,6 +58,14 @@ public class Animal {
 
 	public void setCategoriaAnimal(CategoriaAnimal categoriaAnimal) {
 		this.categoriaAnimal = categoriaAnimal;
+	}
+
+	public TipoSexo getTipoSexo() {
+		return tipoSexo;
+	}
+
+	public void setTipoSexo(TipoSexo tipoSexo) {
+		this.tipoSexo = tipoSexo;
 	}
 	
 	public Boolean getEstaDormido() {
@@ -133,13 +124,17 @@ public class Animal {
 	public void setPeso(Double peso) {
 		this.peso = peso;
 	}
+	
+	public Boolean getEstaEnfermo() {
+		return estaEnfermo;
+	}
+
+	public void setEstaEnfermo(Boolean estaEnfermo) {
+		this.estaEnfermo = estaEnfermo;
+	}
 
 	public abstract Animal crearCria (Integer idCria, String nombreCria, TipoSexo sexo);
-	
-	
+	public abstract String emitirSonido();
+	public abstract String movimiento();
 
-=======
-	
-	
->>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 }

@@ -1,13 +1,32 @@
 package ar.edu.unlam.pb2.zoologico;
 
+import java.util.List;
+
+import ar.edu.unlam.pb2.excepciones.*;
+
+import java.util.ArrayList;
+
 public class HospitalVeterinario extends Estructura {
 
-	public HospitalVeterinario(Integer codigoEstructural, String nombreEstructura) {
-		super(codigoEstructural, nombreEstructura);
+	private List<Veterinario> veterinarios;
+	private List<RegistroTratamiento> registros;
+
+	public HospitalVeterinario(Integer codigoEstructural, String nombreEstructura, Boolean estadoEstructura) {
+		super(codigoEstructural, nombreEstructura, estadoEstructura);
+		this.veterinarios = new ArrayList<>();
+		this.registros = new ArrayList<>();
 	}
 
+	public Boolean agregarVeterinarioAlHospital(Persona personal) throws VeterinarioNuloExcepcion {
 
-<<<<<<< HEAD
+		if (personal != null && personal instanceof Veterinario) {
+			veterinarios.add((Veterinario) personal);
+		}
+
+		throw new VeterinarioNuloExcepcion("El veterinario es invalido");
+
+	}
+
 	public List<Veterinario> getVeterinarios() {
 		return veterinarios;
 	}
@@ -24,51 +43,47 @@ public class HospitalVeterinario extends Estructura {
 		this.registros = registros;
 	}
 
-	public void añadirRegistro(RegistroTratamiento registro) {
-		registros.add(registro);
-	}
+public void añadirRegistro(RegistroTratamiento registro) {
+registros.add(registro);
+}
 
 	public List<Animal> obtenerAnimalesAtendidosPorUnVeterinario(Persona veterinario) {
-=======
->>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 
 		List<Animal> auxiliar = new ArrayList<>();
-		
+
 		for (RegistroTratamiento registroTratamiento : registros) {
 			if (registroTratamiento.getVeterinario().equals(veterinario)) {
 				auxiliar.add(registroTratamiento.getAnimal());
 			}
 		}
-		
+
 		return auxiliar;
-		
+
 	}
 
 	public List<Persona> obtenerVeterinariosQueAtendieronUnAnimal(Animal animal) {
-		
+
 		List<Persona> auxiliar = new ArrayList<>();
-		
+
 		for (RegistroTratamiento registroTratamiento : registros) {
 			if (registroTratamiento.getAnimal().equals(animal)) {
 				auxiliar.add(registroTratamiento.getVeterinario());
 			}
 		}
-		
+
 		return auxiliar;
 	}
 
 	public Veterinario obtenerVeterinario(Persona veterinario) {
-		
+
 		for (Veterinario veterinarioDelMomento : veterinarios) {
 			if (veterinarioDelMomento.equals(veterinario)) {
 				return veterinarioDelMomento;
 			}
 		}
-		
+
 		return null;
 
 	}
-  
 
-    
-} 
+}

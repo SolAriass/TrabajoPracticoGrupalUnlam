@@ -3,8 +3,10 @@ package ar.edu.unlam.pb2.zoologico;
 import java.util.List;
 import java.util.TreeSet;
 
+import ar.edu.unlam.pb2.enums.*;
+import ar.edu.unlam.pb2.excepciones.*;
+
 import java.time.LocalTime;
-import ar.edu.unlam.pb2.zoologico.excepciones.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -12,11 +14,13 @@ public class Zoologico implements IZoologico{
 	
 	private String nombreZoo; 
 	private Boolean seEncuentraAbierto;
+	private LocalTime  horarioZoo;
 	private Boolean estaLimpio;
 	private List<Animal> animales;
-	private List<Personal> personas;
+	private List<Persona> personas;
 	private List<Estructura> estructuras;
-	
+	private List<MantenimientoEstructura> mantenimientoEstructura;
+	private List<RegistroAlimentacion> registrosDeAlimentacion;
 
 	public Zoologico(String nombreZoo) {
 		this.nombreZoo = nombreZoo;
@@ -25,10 +29,10 @@ public class Zoologico implements IZoologico{
 		this.animales = new ArrayList<>();
 		this.personas = new ArrayList<>();
 		this.estructuras = new ArrayList<>();
+		this.mantenimientoEstructura = new ArrayList<>();
+		this.horarioZoo = LocalTime.of(18, 00);	
+		this.registrosDeAlimentacion = new ArrayList<>();
 	}
-	
-	
-	
 
 	public String getNombreZoo() {
 		return nombreZoo;
@@ -36,6 +40,13 @@ public class Zoologico implements IZoologico{
 
 	public void setNombreZoo(String nombreZoo) {
 		this.nombreZoo = nombreZoo;
+	}
+	public LocalTime getHorarioZoo() {
+		return horarioZoo;
+	}
+
+	public void setHorarioZoo(LocalTime horarioZoo) {
+		this.horarioZoo = horarioZoo;
 	}
 
 	public Boolean getSeEncuentraAbierto() {
@@ -53,16 +64,6 @@ public class Zoologico implements IZoologico{
 	public void setEstaLimpio(Boolean estaLimpio) {
 		this.estaLimpio = estaLimpio;
 	}
-
-
-
-	@Override
-	public Boolean agregarAnimalAlZoo(Animal animal) {
-		return animales.add(animal);
-	}
-
-
-
 
 	public List<Animal> getAnimales() {
 		return animales;
@@ -82,7 +83,7 @@ public class Zoologico implements IZoologico{
 
 
 	@Override
-	public Boolean agregarPersonaAlZoo(Persona persona) throws NoSePuedenAgregarMenoresDeEdadException {
+	public Boolean agregarPersonaAlZoo(Persona persona) throws NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException {
 
 		if (persona == null) {
 			throw new NoSePudoAgregarPersonaInexistenteException("la persona ingresado no existe");
@@ -107,55 +108,47 @@ public class Zoologico implements IZoologico{
 		return personaAgregada;
 
 	}
+	@Override
+    public Boolean agregarAnimalAlZoo(Animal animal) throws NoSePudoAgregarAnimalInexistenteException {
+
+        if (animal != null) {
+            return animales.add(animal);
+        }
+
+        throw new NoSePudoAgregarAnimalInexistenteException("el animal ingresado no existe");
+    }
+
+	@Override
+    public Boolean agregarEstructuraAlZoo(Estructura estructura) throws NoSePudoAgregarEstructuraInexistenteExcepcion {
+
+        if (estructura != null) {
+            return estructuras.add(estructura);
+        }
+        throw new NoSePudoAgregarEstructuraInexistenteExcepcion("la estructura ingresada no existe");
+    }
 
 	private Boolean agregarVisitante(Persona persona) {
 		return true; // PROVISORIO, METODO DE JAVI
 	}
 
-
-
-	@Override
-	public Boolean agregarPersonalAlZoo(Personal persona) {
-		return personas.add(persona);
-	}
-
-
-
-
-	public List<Personal> getPersonas() {
+	public List<Persona> getPersonas() {
 		return personas;
 	}
 
 
-
-
-	public void setPersonas(List<Personal> personas) {
+	public void setPersonas(List<Persona> personas) {
 		this.personas = personas;
 	}
-
-
-
-
-	@Override
-	public Boolean agregarEstructuraAlZoo(Estructura estructura) {
-		return estructuras.add(estructura);
-	}
-
-
-
 
 	public List<Estructura> getEstructuras() {
 		return estructuras;
 	}
 
-
-
-
 	public void setEstructuras(List<Estructura> estructuras) {
 		this.estructuras = estructuras;
 	}
 
-
+	@Override
 	public Boolean agregarAnimalAlHabitat(Animal animal, Estructura habitat) throws EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
 		
 		this.obtenerAnimal(animal);
@@ -185,8 +178,25 @@ public class Zoologico implements IZoologico{
 
 	
 
-	public Animal obtenerAnimal(Animal animalBuscado) throws NoExisteObjetoDondeSeBuscaException {
+	
+	public List<MantenimientoEstructura> getMantenimientoEstructura() {
+		return mantenimientoEstructura;
+	}
 
+	public void setMantenimientoEstructura(List<MantenimientoEstructura> mantenimientoEstructura) {
+		this.mantenimientoEstructura = mantenimientoEstructura;
+	}
+
+	@Override
+	public Boolean agregarMantenimientoEstructura(MantenimientoEstructura mantenimietoEstructura) {
+		return this.mantenimientoEstructura.add(mantenimietoEstructura);
+	}
+
+
+
+	@Override
+	public Animal obtenerAnimal(Animal animalBuscado) throws NoExisteObjetoDondeSeBuscaException {
+		
 		for (Animal animal : animales) {
 			if (animal.equals(animalBuscado)) {
 				return animal;
@@ -197,7 +207,7 @@ public class Zoologico implements IZoologico{
 
 	}
 	
-
+	@Override
 	public Estructura obtenerEstructura(Estructura estructuraBuscada) throws NoExisteObjetoDondeSeBuscaException {
 
 		for (Estructura estructura : estructuras) {
@@ -209,6 +219,7 @@ public class Zoologico implements IZoologico{
 		throw new NoExisteObjetoDondeSeBuscaException("La estructura ingresada no existe en el zoologico");
 	}
 
+	@Override
 	public Persona obtenerPersona(Persona personaBuscada) throws NoExisteObjetoDondeSeBuscaException {
 
 		for (Persona persona : personas) {
@@ -220,6 +231,7 @@ public class Zoologico implements IZoologico{
 		throw new NoExisteObjetoDondeSeBuscaException("La persona ingresada no existe en el zoologico");
 	}
 
+	@Override
 	public Animal obtenerAnimalDeUnHabitat(Animal animal, Estructura habitat)
 			throws NoExisteObjetoDondeSeBuscaException {
 
@@ -231,6 +243,7 @@ public class Zoologico implements IZoologico{
 		return null;
 	}
 
+	@Override
 	public Animal obtenerAnimalDeUnHabitatPorCodigo(Integer codigo, Estructura habitat)
 			throws NoExisteObjetoDondeSeBuscaException {
 		if (habitat instanceof Habitat) {
@@ -239,9 +252,9 @@ public class Zoologico implements IZoologico{
 		}
 
 		return null;
-
 	}
 
+	@Override
 	public List<Animal> obtenerLosAnimalesDeUnaCategoria(CategoriaAnimal categoria) {
 
 		List<Animal> listaAuxiliar = new ArrayList<>();
@@ -255,6 +268,7 @@ public class Zoologico implements IZoologico{
 		return listaAuxiliar;
 	}
 
+	@Override
 	public List<Animal> obtenerLosAnimalesDeUnSexo(TipoSexo sexo) {
 
 		List<Animal> listaAuxiliar = new ArrayList<>();
@@ -269,10 +283,11 @@ public class Zoologico implements IZoologico{
 
 	}
 
+	@Override
 	public Boolean reproducirDosAnimalesDeUnHabitat(Animal progenitor1, Animal progenitor2, Estructura habitat,
 			Integer idCria, String nombreCria)
 			throws EspecieDiferenteException, HabitatLlenoException, ProgenitoresDelMismoSexoException,
-			ProgenitoresEnDistintoHabitatException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
+			ProgenitoresEnDistintoHabitatException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException, NoSePudoAgregarAnimalInexistenteException {
 
 		if (progenitor1.getTipoSexo().equals(progenitor2.getTipoSexo())) {
 			throw new ProgenitoresDelMismoSexoException("Dos animales del mismo sexo no pueden reproducirse");
@@ -293,7 +308,6 @@ public class Zoologico implements IZoologico{
 		return false;
 
 	}
-
 
 	@Override
 	public List<Animal> obtenerLosAnimalesConTipoAlimentacionCarnivora() {
@@ -446,7 +460,7 @@ public class Zoologico implements IZoologico{
 	}
 
 	@Override
-	public RegistroAlimentacion cargarAlimentacion(Persona personal, Animal animal, Comida comida,
+	public RegistroAlimentacion cargarAlimentacion(Persona personal, Animal animal, ComidaAnimales comida,
 			Integer cantidadComida) throws NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion,
 			NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
 			NoSePudoAlimentarException {
@@ -532,7 +546,7 @@ public class Zoologico implements IZoologico{
 		List<Animal> auxiliarAnimal = new ArrayList<>();
 
 		for (RegistroAlimentacion registro : registrosDeAlimentacion) {
-			if (registro.getComida().equals(Comida.PLANTA)) {
+			if (registro.getComida().equals(ComidaAnimales.PLANTA)) {
 				auxiliarAnimal.add(registro.getAnimal());
 			}
 		}
@@ -546,7 +560,7 @@ public class Zoologico implements IZoologico{
 		List<Animal> auxiliarAnimal = new ArrayList<>();
 
 		for (RegistroAlimentacion registro : registrosDeAlimentacion) {
-			if (registro.getComida().equals(Comida.CARNE)) {
+			if (registro.getComida().equals(ComidaAnimales.CARNE)) {
 				auxiliarAnimal.add(registro.getAnimal());
 			}
 		}
@@ -583,25 +597,6 @@ public class Zoologico implements IZoologico{
 	}
 
 	@Override
-	public Boolean agregarUnVeterinarioAUnHospital(Estructura hospital, Persona veterinario)
-			throws NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
-
-		this.obtenerEstructura(hospital);
-		this.obtenerPersona(veterinario);
-
-		if (!(veterinario instanceof Veterinario) || !(hospital instanceof HospitalVeterinario)) {
-			throw new InstanciaIncorrectaException(
-					"Al menos uno de los objetos ingresados por parámetro es de una instancia incorrecta");
-
-		}
-
-		
-		agregado = ((HospitalVeterinario) hospital).agregarVeterinarioAlHospital(veterinario);	
-		
-
-		return agregado;
-	}
-
 	public RegistroTratamiento queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(Estructura hospital,
 			Persona veterinario, Animal animal, Estructura habitat)
 			throws EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException,
@@ -647,6 +642,7 @@ public class Zoologico implements IZoologico{
 		habitatNuevo.getAnimales().remove(animal);
 	}
 
+	@Override
 	public Veterinario obtenerVeterinarioDeUnHospital(Persona veterinario, Estructura hospital)
 			throws NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
 
@@ -662,6 +658,7 @@ public class Zoologico implements IZoologico{
 
 	}
 
+	@Override
 	public List<Animal> obtenerLosAnimalesQueAtendioUnVeterinarioEnUnHospital(Persona veterinario, Estructura hospital)
 			throws NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
 
@@ -682,6 +679,7 @@ public class Zoologico implements IZoologico{
 		return auxiliar;
 	}
 
+	@Override
 	public List<Persona> obtenerLosVeterinariosQueAtendieronAUnAnimalEnUnHospital(Animal animal, Estructura hospital) throws NoExisteObjetoDondeSeBuscaException {
 		
 		List<Persona> auxiliar = new ArrayList<>();
@@ -694,6 +692,7 @@ public class Zoologico implements IZoologico{
 		return auxiliar;
 	}
 	
+	@Override
 	public TreeSet<Animal> obtenerAnimalesDeUnHabitatOrdenadosOrdenEspecifico(Comparator<Animal> OrdenEspecifico,
 			Estructura habitat) throws InstanciaIncorrectaException {
 		
@@ -711,17 +710,52 @@ public class Zoologico implements IZoologico{
 		return animalesNoRepetidos;
 	}
 
+	@Override
+	public Boolean puedeArreglarEstructura(Estructura estructura, Persona personalMantenimiento) throws estructuraNoEstaDañadaExcepsion{
+		// TODO Auto-generated method stub
 
+		if (personalMantenimiento instanceof Mantenimiento && estructura.getEstaRoto()) {
 
+			for (MantenimientoEstructura mantenimientoEstructura : this.mantenimientoEstructura) {
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
->>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
+				if (mantenimientoEstructura.getMantenimiento().equals(personalMantenimiento)) {
+					if (mantenimientoEstructura.getEstructura().equals(estructura)) {
+						estructura.setEstaRoto(false);
+						return true;
+
+					}
+				}
+
+			}
+
+		}
+
+		throw new estructuraNoEstaDañadaExcepsion();
+	}
+
+	@Override
+	public Boolean queUnEmpleadoDeMantenimientoLimpieElZoologico(Persona personalMantenimiento) throws zoologicoEstaLimpioExcepsion {
+		// TODO Auto-generated method stub
+
+		if (personalMantenimiento instanceof Mantenimiento && !this.getEstaLimpio()) {
+			this.setEstaLimpio(true);
+			return true;
+		}
+
+		throw new zoologicoEstaLimpioExcepsion();
+	}
+
+	@Override
+	public Boolean queUnEmpleadoQueNoSeaDeMantenimientoLimpieElZoologico(Persona personalMantenimiento,
+			Boolean zoologicoEstaLimpio) {
+		// TODO Auto-generated method stub
+
+		if (!(personalMantenimiento instanceof Mantenimiento) && !(zoologicoEstaLimpio)) {
+			this.setEstaLimpio(true);
+			return true;
+		}
+
+		return false;
+	}
+
 }
