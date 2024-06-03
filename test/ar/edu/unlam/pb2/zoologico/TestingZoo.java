@@ -5,12 +5,12 @@ import static org.junit.Assert.*;
 import java.util.List;
 import java.util.TreeSet;
 
+import ar.edu.unlam.pb2.animales.*;
+import ar.edu.unlam.pb2.excepciones.*;
+import ar.edu.unlam.pb2.enums.*;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import ar.edu.unlam.pb2.exepciones.AnimalNoEncontradoException;
-import ar.edu.unlam.pb2.exepciones.EstructuraNoEncontradaException;
-import ar.edu.unlam.pb2.exepciones.PersonaNoEncontradaException;
 
 public class TestingZoo {
 

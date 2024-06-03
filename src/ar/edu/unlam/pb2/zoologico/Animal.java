@@ -2,6 +2,10 @@ package ar.edu.unlam.pb2.zoologico;
 
 import java.util.Objects;
 
+import ar.edu.unlam.pb2.enums.CategoriaAnimal;
+import ar.edu.unlam.pb2.enums.TipoAlimentacion;
+import ar.edu.unlam.pb2.enums.TipoSexo;
+
 public class Animal {
 
 	private Integer codigoDeReconocimiento;

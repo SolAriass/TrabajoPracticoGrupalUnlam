@@ -2,9 +2,9 @@ package ar.edu.unlam.pb2.zoologico;
 
 import java.util.List;
 
-import ar.edu.unlam.pb2.exepciones.AnimalNoEncontradoException;
-import ar.edu.unlam.pb2.exepciones.EstructuraNoEncontradaException;
-import ar.edu.unlam.pb2.exepciones.PersonaNoEncontradaException;
+import ar.edu.unlam.pb2.excepciones.AnimalNoEncontradoException;
+import ar.edu.unlam.pb2.excepciones.EstructuraNoEncontradaException;
+import ar.edu.unlam.pb2.excepciones.PersonaNoEncontradaException;
 
 public interface IZoologico {
 	
