@@ -2,14 +2,6 @@ package ar.edu.unlam.pb2.zoologico;
 
 import static org.junit.Assert.*;
 
-import java.time.LocalTime;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
-<<<<<<< HEAD
-=======
 import ar.edu.unlam.pb2.zoologico.excepciones.NoFueCreadoElRegistroExcepcion;
 import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarAlVeterinarioAlHospitalException;
 import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarAnimalInexistenteException;
@@ -17,7 +9,10 @@ import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarEstructuraInexisten
 import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarPersonaInexistenteException;
 import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarPersonalInvalidoExcepcion;
 import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAlimentarException;
->>>>>>> rama-sol-arias
+import java.time.LocalTime;
+import java.util.List;
+import org.junit.Test;
+
 
 public class TestingZoo {
 
