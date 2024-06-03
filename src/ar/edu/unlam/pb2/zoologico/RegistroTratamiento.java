@@ -2,38 +2,29 @@ package ar.edu.unlam.pb2.zoologico;
 
 public class RegistroTratamiento {
 
-	private Persona personal;
+	private Persona veterinario;
 	private Animal animal;
-	
-	
-	public RegistroTratamiento(Persona personal, Animal animal) {
-		this.personal = personal;
+
+	public RegistroTratamiento(Persona veterinario, Animal animal) {
+		this.veterinario = veterinario;
 		this.animal = animal;
 	}
 
-
-	public Persona getPersonal() {
-		return personal;
+	public Persona getVeterinario() {
+		return veterinario;
 	}
 
-
-	public void setPersonal(Persona personal) {
-		this.personal = personal;
+	public void setVeterinario(Persona veterinario) {
+		this.veterinario = veterinario;
 	}
-
 
 	public Animal getAnimal() {
 		return animal;
 	}
 
-
 	public void setAnimal(Animal animal) {
 		this.animal = animal;
 	}
-	
-	
-	
-	
 	
 	
 }

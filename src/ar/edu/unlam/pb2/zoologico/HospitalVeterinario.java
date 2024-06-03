@@ -43,10 +43,49 @@ public class HospitalVeterinario extends Estructura {
 		this.registros = registros;
 	}
 
-	
-	
+	public void añadirRegistro(RegistroTratamiento registro) {
+		registros.add(registro);
+	}
 
-	
-	
+	public List<Animal> obtenerAnimalesAtendidosPorUnVeterinario(Persona veterinario) {
 
-}
+		List<Animal> auxiliar = new ArrayList<>();
+		
+		for (RegistroTratamiento registroTratamiento : registros) {
+			if (registroTratamiento.getVeterinario().equals(veterinario)) {
+				auxiliar.add(registroTratamiento.getAnimal());
+			}
+		}
+		
+		return auxiliar;
+		
+	}
+
+	public List<Persona> obtenerVeterinariosQueAtendieronUnAnimal(Animal animal) {
+		
+		List<Persona> auxiliar = new ArrayList<>();
+		
+		for (RegistroTratamiento registroTratamiento : registros) {
+			if (registroTratamiento.getAnimal().equals(animal)) {
+				auxiliar.add(registroTratamiento.getVeterinario());
+			}
+		}
+		
+		return auxiliar;
+	}
+
+	public Veterinario obtenerVeterinario(Persona veterinario) {
+		
+		for (Veterinario veterinarioDelMomento : veterinarios) {
+			if (veterinarioDelMomento.equals(veterinario)) {
+				return veterinarioDelMomento;
+			}
+		}
+		
+		return null;
+
+	}
+  
+
+    
+} 

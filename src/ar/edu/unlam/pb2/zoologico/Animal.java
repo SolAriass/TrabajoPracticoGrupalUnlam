@@ -1,12 +1,9 @@
 package ar.edu.unlam.pb2.zoologico;
 
-import java.util.Objects;
-
-public class Animal {
-
+public abstract class Animal {
 	private Integer codigoDeReconocimiento;
 	private String nombreAnimal;
-	private Integer edad;
+	private Integer edad; 
 	private Double peso;
 	private TipoAlimentacion tipoAlimentacion;
 	private TipoSexo tipoSexo;
@@ -31,22 +28,13 @@ public class Animal {
 		this.alimentacionInapropiada = false;
 	}
 	
-	
-	
-
 	public Boolean getAlimentacionInapropiada() {
 		return alimentacionInapropiada;
 	}
 
-
-
-
 	public void setAlimentacionInapropiada(Boolean alimentacionInapropiada) {
 		this.alimentacionInapropiada = alimentacionInapropiada;
 	}
-
-
-
 
 	public Double getTemperaturaAnimal() {
 		return temperaturaAnimal;
@@ -64,6 +52,56 @@ public class Animal {
 		return estaEnfermo;
 	}
 
+	
+	public TipoAlimentacion getTipoAlimentacion() {
+		return tipoAlimentacion;
+	}
+
+	public void setTipoAlimentacion(TipoAlimentacion tipoAlimentacion) {
+		this.tipoAlimentacion = tipoAlimentacion;
+	}
+
+	public TipoSexo getTipoSexo() {
+		return tipoSexo;
+	}
+
+	public void setTipoSexo(TipoSexo tipoSexo) {
+		this.tipoSexo = tipoSexo;
+	}
+
+	public CategoriaAnimal getCategoriaAnimal() {
+		return categoriaAnimal;
+	}
+
+	public void setCategoriaAnimal(CategoriaAnimal categoriaAnimal) {
+		this.categoriaAnimal = categoriaAnimal;
+	}
+	
+	public Boolean getEstaDormido() {
+		return estaDormido;
+	}
+
+	public void dormir(Boolean estaDormido) {
+		this.estaDormido = estaDormido;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigoDeReconocimiento);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Animal other = (Animal) obj;
+		return Objects.equals(codigoDeReconocimiento, other.codigoDeReconocimiento);
+	}
+	
 	public Integer getCodigoDeReconocimiento() {
 		return codigoDeReconocimiento;
 	}
@@ -96,57 +134,7 @@ public class Animal {
 		this.peso = peso;
 	}
 
-	public TipoAlimentacion getTipoAlimentacion() {
-		return tipoAlimentacion;
-	}
-
-	public void setTipoAlimentacion(TipoAlimentacion tipoAlimentacion) {
-		this.tipoAlimentacion = tipoAlimentacion;
-	}
-
-	public TipoSexo getTipoSexo() {
-		return tipoSexo;
-	}
-
-	public void setTipoSexo(TipoSexo tipoSexo) {
-		this.tipoSexo = tipoSexo;
-	}
-
-	public CategoriaAnimal getCategoriaAnimal() {
-		return categoriaAnimal;
-	}
-
-	public void setCategoriaAnimal(CategoriaAnimal categoriaAnimal) {
-		this.categoriaAnimal = categoriaAnimal;
-	}
-
-
-	
-	public Boolean getEstaDormido() {
-		return estaDormido;
-	}
-
-	public void dormir(Boolean estaDormido) {
-		this.estaDormido = estaDormido;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(codigoDeReconocimiento);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Animal other = (Animal) obj;
-		return Objects.equals(codigoDeReconocimiento, other.codigoDeReconocimiento);
-	}
-	
+	public abstract Animal crearCria (Integer idCria, String nombreCria, TipoSexo sexo);
 	
 	
 
