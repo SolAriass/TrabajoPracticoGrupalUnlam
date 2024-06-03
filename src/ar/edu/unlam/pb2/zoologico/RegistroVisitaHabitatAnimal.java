@@ -24,6 +24,11 @@ public class RegistroVisitaHabitatAnimal {
 	public void setHabitat(Estructura habitat) {
 		this.habitat = habitat;
 	}
+
+	@Override
+	public String toString() {
+		return "RegistroVisitaHabitatAnimal [visitante=" + visitante + ", habitat=" + habitat + "]";
+	}
 	
 	
 }

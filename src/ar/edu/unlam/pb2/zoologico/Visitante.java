@@ -8,7 +8,7 @@ public class Visitante extends Persona {
 	public Visitante(Integer identificacion, String nombreCompleto, Integer edad, Double dineroQueDispone) {
 		super(identificacion, nombreCompleto, edad);
 		this.dineroQueDispone = dineroQueDispone;
-		this.boleto=null;
+		this.boleto = null;
 	}
 
 	public Double getDineroQueDispone() {
@@ -26,5 +26,10 @@ public class Visitante extends Persona {
 	public void setBoleto(Boleto boleto) {
 		this.boleto = boleto;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Visitante [boleto=" + boleto + "]";
+	}
+
 }

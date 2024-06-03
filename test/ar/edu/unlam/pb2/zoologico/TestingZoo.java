@@ -24,7 +24,8 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoQueSePuedanAgregarAnimalesAlMismo() {
+	public void dadoQueExisteUnZoologicoQueSePuedanAgregarAnimalesAlMismo()
+			throws NoSePudoAgregarAnimalInexistenteException {
 
 		String nombreZoo = "Animalandia";
 
@@ -49,7 +50,9 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoConAnimalesEstosSePuedenIngresarAHabitats() {
+	public void dadoQueExisteUnZoologicoConAnimalesEstosSePuedenIngresarAHabitats()
+			throws NoSePudoAgregarEstructuraInexistenteExcepcion, NoSePudoAgregarAnimalInexistenteException,
+			HabitatVacioException, NoExisteObjetoDondeSeBuscaException {
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
 
@@ -72,7 +75,8 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoQueSePuedanAgregarPersonasAlMismo() {
+	public void dadoQueExisteUnZoologicoQueSePuedanAgregarPersonasAlMismo()
+			throws NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		String nombreZoo = "Animalandia";
 
@@ -92,7 +96,8 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoQueSePuedanAgregarEstructurasAlMismo() {
+	public void dadoQueExisteUnZoologicoQueSePuedanAgregarEstructurasAlMismo()
+			throws NoSePudoAgregarEstructuraInexistenteExcepcion {
 
 		String nombreZoo = "Animalandia";
 
@@ -112,7 +117,8 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void queUnVisitantePuedaComprarEntradaTeniendoSaldoSuficiente() {
+	public void queUnVisitantePuedaComprarEntradaTeniendoSaldoSuficiente()
+			throws NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
 
@@ -129,8 +135,9 @@ public class TestingZoo {
 		assertEquals(visitante1, zoo.getPersonas().get(0));
 	}
 
-	@Test // (expected= Exception.class)
-	public void queUnVisitanteNoPuedaComprarEntradaPorSerMenorDeEdad() {
+	@Test(expected = NoSePuedenAgregarMenoresDeEdadException.class)
+	public void queUnVisitanteNoPuedaComprarEntradaPorSerMenorDeEdad()
+			throws NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
 
@@ -143,11 +150,13 @@ public class TestingZoo {
 
 		Boolean pudoEntrar = zoo.agregarPersonaAlZoo(visitante1);
 
-		assertFalse(pudoEntrar);
+		assertTrue(pudoEntrar);
+		assertEquals(visitante1, zoo.getPersonas().get(0));
 	}
 
-	@Test
-	public void queUnVisitanteNoPuedaComprarEntradaTeniendoSaldoInsuficiente() {
+	@Test(expected = NoTieneEntradaException.class)
+	public void queUnVisitanteNoPuedaComprarEntradaTeniendoSaldoInsuficiente()
+			throws NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
 
@@ -160,7 +169,8 @@ public class TestingZoo {
 
 		Boolean pudoEntrar = zoo.agregarPersonaAlZoo(visitante1);
 
-		assertFalse(pudoEntrar);
+		assertTrue(pudoEntrar);
+		assertEquals(visitante1, zoo.getPersonas().get(0));
 	}
 
 	@Test
@@ -234,7 +244,8 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void queUnVisitantePuedaUsarUnaInstalacionComunTeniendoEntrada() {
+	public void queUnVisitantePuedaUsarUnaInstalacionComunTeniendoEntrada()
+			throws NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
 		Estructura banio = new InstalacionComun(432, "Banio");
@@ -243,27 +254,36 @@ public class TestingZoo {
 
 		Persona visitante1 = new Visitante(43472194, "visitante1", 39, 4300.0);
 		zoo.agregarPersonaAlZoo(visitante1);
-		zoo.registrarVisitaDeUnVisitanteAUnaInstalacionComun(visitante1, estacionamiento);
+		RegistroVisitaInstalacionComun registro = zoo.registrarVisitaDeUnVisitanteAUnaInstalacionComun(visitante1,
+				estacionamiento);
 		List<RegistroVisitaInstalacionComun> pudoVisitar = zoo.obtenerRegistrosVisitasInstalacionesComunes();
 
 		assertNotNull(pudoVisitar);
+		assertEquals(registro, zoo.obtenerRegistrosVisitasInstalacionesComunes().get(0));
+
 	}
 
-	@Test
-	public void queUnVisitanteNoPuedaUsarUnaInstalacionComunPorNoTenerEntrada() {
+	@Test(expected = NoTieneEntradaException.class)
+	public void queUnVisitanteNoPuedaUsarUnaInstalacionComunPorNoTenerEntrada()
+			throws NoTieneEntradaException, NoSePuedenAgregarMenoresDeEdadException {
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
-		Persona visitante3 = new Visitante(43205953, "visitante3", 15, 5020.0); // menor de edad sin acompañante
+		Persona visitante3 = new Visitante(43205953, "visitante3", 25, 20.0); //
 		Estructura banio = new InstalacionComun(432, "Banio");
 
 		zoo.agregarPersonaAlZoo(visitante3);
-		zoo.registrarVisitaDeUnVisitanteAUnaInstalacionComun(visitante3, banio);
+		RegistroVisitaInstalacionComun registro = zoo.registrarVisitaDeUnVisitanteAUnaInstalacionComun(visitante3,
+				banio);
+		List<RegistroVisitaInstalacionComun> pudoVisitar = zoo.obtenerRegistrosVisitasInstalacionesComunes();
 
-		assertEquals(0, zoo.obtenerRegistrosVisitasInstalacionesComunes().size());
+		assertNotNull(pudoVisitar);
+		assertEquals(registro, zoo.obtenerRegistrosVisitasInstalacionesComunes().get(0));
 	}
 
 	@Test
-	public void queUnVisitantePuedaVerUnAnimalTeniendoEntrada() {
+	public void queUnVisitantePuedaVerUnAnimalTeniendoEntrada() throws NoTieneEntradaException,
+			NoSePudoAgregarEstructuraInexistenteExcepcion, NoSePudoAgregarAnimalInexistenteException,
+			HabitatVacioException, NoExisteObjetoDondeSeBuscaException, NoSePuedenAgregarMenoresDeEdadException {
 		// zoo
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
@@ -277,16 +297,20 @@ public class TestingZoo {
 		zoo.agregarEstructuraAlZoo(habitatMonos);
 		Animal mono = new Mono(513, "Mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
 				CategoriaAnimal.MAMIFERO);
+		zoo.agregarPersonaAlZoo(visitante3);
 		zoo.agregarAnimalAlZoo(mono);
 		zoo.agregarAnimalAlHabitat(mono, habitatMonos);
-		zoo.registrarVisitaDeUnVisitanteAUnHabitat(visitante3, habitatMonos);
+		RegistroVisitaHabitatAnimal registro = zoo.registrarVisitaDeUnVisitanteAUnHabitat(visitante3, habitatMonos);
 		List<RegistroVisitaHabitatAnimal> pudoVer = zoo.obtenerRegistrosVisitasHabitatsAnimal();
 
 		assertNotNull(pudoVer);
+		assertEquals(registro, zoo.obtenerRegistrosVisitasHabitatsAnimal().get(0));
 	}
 
-	@Test
-	public void queUnVisitanteNoPuedaVerUnAnimalPorNoTenerEntrada() {
+	@Test(expected = NoTieneEntradaException.class)
+	public void queUnVisitanteNoPuedaVerUnAnimalPorNoTenerEntrada() throws NoTieneEntradaException,
+			NoExisteObjetoDondeSeBuscaException, NoSePudoAgregarAnimalInexistenteException,
+			NoSePudoAgregarEstructuraInexistenteExcepcion, HabitatVacioException {
 		// zoo
 		String nombreZoo = "Animalandia";
 		Zoologico zoo = new Zoologico(nombreZoo);
@@ -303,8 +327,29 @@ public class TestingZoo {
 		zoo.agregarAnimalAlZoo(mono);
 		zoo.agregarAnimalAlHabitat(mono, habitatMonos);
 		zoo.registrarVisitaDeUnVisitanteAUnHabitat(visitante3, habitatMonos);
-		
+
 		assertEquals(0, zoo.obtenerRegistrosVisitasHabitatsAnimal().size());
 	}
 
+	@Test(expected = HabitatVacioException.class)
+	public void queUnVisitanteNoPuedaVerUnHabitatVacio() throws HabitatVacioException,
+			NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion,
+			NoExisteObjetoDondeSeBuscaException, NoTieneEntradaException {
+		// zoo
+		String nombreZoo = "Animalandia";
+		Zoologico zoo = new Zoologico(nombreZoo);
+		// persona
+		Persona visitante3 = new Visitante(43205953, "visitante3", 45, 10020.0);
+		// animal y habitat
+		Estructura habitatMonos = new Habitat(123, "Isla de los monos", 4);
+		Animal mono = new Mono(513, "Mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+		zoo.agregarEstructuraAlZoo(habitatMonos);
+		zoo.agregarAnimalAlZoo(mono);
+		zoo.agregarAnimalAlHabitat(null, habitatMonos);
+
+		RegistroVisitaHabitatAnimal pudoVer = zoo.registrarVisitaDeUnVisitanteAUnHabitat(visitante3, habitatMonos);
+		assertNotNull(pudoVer);
+		assertEquals(0, zoo.obtenerRegistrosVisitasHabitatsAnimal().size());
+	}
 }
