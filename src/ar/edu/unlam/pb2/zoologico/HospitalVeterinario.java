@@ -1,32 +1,13 @@
 package ar.edu.unlam.pb2.zoologico;
 
-import java.util.List;
-
-import ar.edu.unlam.pb2.zoologico.excepciones.VeterinarioNuloExcepcion;
-
-import java.util.ArrayList;
-
 public class HospitalVeterinario extends Estructura {
-	
-	private List <Veterinario> veterinarios;
-	private List <RegistroTratamiento> registros;
 
 	public HospitalVeterinario(Integer codigoEstructural, String nombreEstructura) {
 		super(codigoEstructural, nombreEstructura);
-		this.veterinarios = new ArrayList<>();
-		this.registros = new ArrayList<>();
 	}
 
-	public Boolean agregarVeterinarioAlHospital(Persona personal) throws VeterinarioNuloExcepcion {
-		
-		if(personal != null && personal instanceof Veterinario) {
-			veterinarios.add((Veterinario) personal);
-		}
-		
-		throw new VeterinarioNuloExcepcion("El veterinario es invalido");
-		
-	}
 
+<<<<<<< HEAD
 	public List<Veterinario> getVeterinarios() {
 		return veterinarios;
 	}
@@ -48,6 +29,8 @@ public class HospitalVeterinario extends Estructura {
 	}
 
 	public List<Animal> obtenerAnimalesAtendidosPorUnVeterinario(Persona veterinario) {
+=======
+>>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 
 		List<Animal> auxiliar = new ArrayList<>();
 		

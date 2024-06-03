@@ -1,5 +1,6 @@
 package ar.edu.unlam.pb2.zoologico;
 
+<<<<<<< HEAD
 public abstract class Animal {
 	private Integer codigoDeReconocimiento;
 	private String nombreAnimal;
@@ -12,22 +13,21 @@ public abstract class Animal {
 	private Boolean estaDormido;
 	private Double temperaturaAnimal;
 	private Boolean alimentacionInapropiada;
+=======
+public class Animal {
+	
+	
+	
+>>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 
 	public Animal(Integer codigoDeReconocimiento, String nombreAnimal, Integer edad, Double peso,
 			TipoAlimentacion alimentacion, TipoSexo sexo, CategoriaAnimal clase) {
-		this.codigoDeReconocimiento = codigoDeReconocimiento;
-		this.nombreAnimal = nombreAnimal;
-		this.edad = edad;
-		this.peso = peso;
-		this.tipoAlimentacion = alimentacion;
-		this.tipoSexo = sexo;
-		this.categoriaAnimal = clase;
-		this.estaEnfermo = false;
-		this.estaDormido = false;
-		this.temperaturaAnimal = 36.1;
-		this.alimentacionInapropiada = false;
+		
+		
 	}
+
 	
+<<<<<<< HEAD
 	public Boolean getAlimentacionInapropiada() {
 		return alimentacionInapropiada;
 	}
@@ -138,4 +138,8 @@ public abstract class Animal {
 	
 	
 
+=======
+	
+	
+>>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 }

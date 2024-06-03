@@ -1,5 +1,6 @@
 package ar.edu.unlam.pb2.zoologico;
 
+<<<<<<< HEAD
 import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
@@ -49,4 +50,11 @@ public interface IZoologico {
 	TreeSet<Animal> obtenerAnimalesDeUnHabitatOrdenadosOrdenEspecifico(Comparator<Animal> OrdenEspecifico,
 			Estructura habitat) throws InstanciaIncorrectaException;
 	
+=======
+public interface IZoologico {
+	
+	Boolean agregarAnimalAlZoo(Animal animal);
+	Boolean agregarPersonalAlZoo(Personal persona);
+	Boolean agregarEstructuraAlZoo(Estructura estructura);
+>>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 }

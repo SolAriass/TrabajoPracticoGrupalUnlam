@@ -1,24 +1,26 @@
 package ar.edu.unlam.pb2.zoologico;
 
 import java.util.List;
+<<<<<<< HEAD
 import java.util.TreeSet;
 
 import java.time.LocalTime;
 import ar.edu.unlam.pb2.zoologico.excepciones.*;
 
+=======
+>>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Zoologico implements IZoologico {
-
-	private String nombreZoo;
+public class Zoologico implements IZoologico{
+	
+	private String nombreZoo; 
 	private Boolean seEncuentraAbierto;
 	private Boolean estaLimpio;
 	private List<Animal> animales;
-	private List<Persona> personas;
+	private List<Personal> personas;
 	private List<Estructura> estructuras;
-	private LocalTime horarioZoo;
-	private List<RegistroAlimentacion> registrosDeAlimentacion;
+	
 
 	public Zoologico(String nombreZoo) {
 		this.nombreZoo = nombreZoo;
@@ -27,18 +29,10 @@ public class Zoologico implements IZoologico {
 		this.animales = new ArrayList<>();
 		this.personas = new ArrayList<>();
 		this.estructuras = new ArrayList<>();
-		this.horarioZoo = LocalTime.of(18, 00);
-		this.registrosDeAlimentacion = new ArrayList<>();
-
 	}
-
-	public LocalTime getHorarioZoo() {
-		return horarioZoo;
-	}
-
-	public void setHorarioZoo(LocalTime horarioZoo) {
-		this.horarioZoo = horarioZoo;
-	}
+	
+	
+	
 
 	public String getNombreZoo() {
 		return nombreZoo;
@@ -64,6 +58,7 @@ public class Zoologico implements IZoologico {
 		this.estaLimpio = estaLimpio;
 	}
 
+<<<<<<< HEAD
 	
 	/*
 	 * aplico directamente en este metodo agregar el lanzamiento de la excepcion
@@ -71,25 +66,31 @@ public class Zoologico implements IZoologico {
 	 * devolver un null ya que en la vida cotidiana podemos buscar algo y no
 	 * encontrarlo si lo pensamos de esa manera
 	 */
+=======
+
+
+>>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 
 	@Override
-	public Boolean agregarAnimalAlZoo(Animal animal) throws NoSePudoAgregarAnimalInexistenteException {
-
-		if (animal != null) {
-			return animales.add(animal);
-		}
-
-		throw new NoSePudoAgregarAnimalInexistenteException("el animal ingresado no existe");
+	public Boolean agregarAnimalAlZoo(Animal animal) {
+		return animales.add(animal);
 	}
+
+
+
 
 	public List<Animal> getAnimales() {
 		return animales;
 	}
 
+
+
+
 	public void setAnimales(List<Animal> animales) {
 		this.animales = animales;
 	}
 
+<<<<<<< HEAD
 	@Override
 	public Boolean agregarPersonaAlZoo(Persona persona) throws NoSePuedenAgregarMenoresDeEdadException {
 
@@ -123,30 +124,53 @@ public class Zoologico implements IZoologico {
 
 
 	public List<Persona> getPersonas() {
+=======
+
+
+
+	@Override
+	public Boolean agregarPersonalAlZoo(Personal persona) {
+		return personas.add(persona);
+	}
+
+
+
+
+	public List<Personal> getPersonas() {
+>>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 		return personas;
 	}
 
-	public void setPersonas(List<Persona> personas) {
+
+
+
+	public void setPersonas(List<Personal> personas) {
 		this.personas = personas;
 	}
 
-	@Override
-	public Boolean agregarEstructuraAlZoo(Estructura estructura) throws NoSePudoAgregarEstructuraInexistenteExcepcion {
 
-		if (estructura != null) {
-			return estructuras.add(estructura);
-		}
-		throw new NoSePudoAgregarEstructuraInexistenteExcepcion("la estructura ingresada no existe");
+
+
+	@Override
+	public Boolean agregarEstructuraAlZoo(Estructura estructura) {
+		return estructuras.add(estructura);
 	}
+
+
+
 
 	public List<Estructura> getEstructuras() {
 		return estructuras;
 	}
 
+
+
+
 	public void setEstructuras(List<Estructura> estructuras) {
 		this.estructuras = estructuras;
 	}
 
+<<<<<<< HEAD
 	public Boolean agregarAnimalAlHabitat(Animal animal, Estructura habitat) throws EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
 		
 		this.obtenerAnimal(animal);
@@ -162,14 +186,11 @@ public class Zoologico implements IZoologico {
 
 	@Override
 	public List<Animal> obtenerLosAnimalesConTipoAlimentacionOmnivora() {
+=======
+>>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 
-		List<Animal> listaAuxiliar = new ArrayList<>();
-		for (Animal animal : animales) {
-			if (animal.getTipoAlimentacion().equals(TipoAlimentacion.OMNIVORO)) {
-				listaAuxiliar.add(animal);
-			}
-		}
 
+<<<<<<< HEAD
 
 		return listaAuxiliar;
 	}
@@ -702,4 +723,17 @@ public class Zoologico implements IZoologico {
 		return animalesNoRepetidos;
 	}
 
+=======
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+>>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 }

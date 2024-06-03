@@ -2,12 +2,9 @@ package ar.edu.unlam.pb2.zoologico;
 
 import static org.junit.Assert.*;
 
-import java.time.LocalTime;
-import java.util.List;
-
-import org.junit.Before;
 import org.junit.Test;
 
+<<<<<<< HEAD
 import ar.edu.unlam.pb2.zoologico.excepciones.*;
 
 import java.util.ArrayList;
@@ -33,28 +30,58 @@ public class TestingZoo {
 
 	@Test
 	public void queSePuedaCrearUnZoologico() {
+=======
+
+public class TestingZoo {
+	
+	
+	@Test
+	public void queSePuedaCrearUnZoologico() {
+		
+		String nombreZoo = "Animalandia";
+		
+		Zoologico zoo = new Zoologico(nombreZoo);
+>>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 		
 		String nombreEsperado = "Animalandia";
-
+		
 		assertNotNull(zoo);
+<<<<<<< HEAD
 		assertEquals(nombreEsperado, this.zoo.getNombreZoo());
 
+=======
+		assertEquals(nombreEsperado, zoo.getNombreZoo());
+		
+>>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 	}
-
+	
+	
 	@Test
+<<<<<<< HEAD
 	public void dadoQueExisteUnZoologicoQueSePuedanAgregarAnimalesAlMismo()
 			throws NoSePudoAgregarAnimalInexistenteException {
 
+=======
+	public void dadoQueExisteUnZoologicoQueSePuedanAgregarAnimalesAlMismo() {
+		
+		String nombreZoo = "Animalandia";
+		
+		Zoologico zoo = new Zoologico(nombreZoo);
+		
+		
+		
+>>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 		Integer codigoDeReconocimiento = 230;
 		String nombreAnimal = "Sergio Ramirez";
 		Integer edad = 3;
 		Double peso = 5.5;
 		TipoAlimentacion alimentacion = TipoAlimentacion.OMNIVORO;
-		// estar enfermo es algo que ya tiene el mono, por defecto esta sano
+		//estar enfermo es algo que ya tiene el mono, por defecto esta sano
 		TipoSexo sexo = TipoSexo.FEMENINO;
 		CategoriaAnimal clase = CategoriaAnimal.MAMIFERO;
-
+		
 		Animal mono = new Mono(codigoDeReconocimiento, nombreAnimal, edad, peso, alimentacion, sexo, clase);
+<<<<<<< HEAD
 
 		Boolean seAgrego = this.zoo.agregarAnimalAlZoo(mono);
 
@@ -77,9 +104,32 @@ public class TestingZoo {
 	public void dadoQueExisteUnZoologicoQueSePuedanAgregarPersonasAlMismo()
 			throws NoSePudoAgregarPersonaInexistenteException {
 
+=======
+		
+		
+		Boolean seAgrego = zoo.agregarAnimalAlZoo(mono);
+		
+		
+		assertTrue(seAgrego);
+		assertEquals(mono, zoo.getAnimales().get(0));
+		
+		
+		
+	}
+
+
+	@Test
+	public void dadoQueExisteUnZoologicoQueSePuedanAgregarPersonasAlMismo() {
+		
+		String nombreZoo = "Animalandia";
+		
+		Zoologico zoo = new Zoologico(nombreZoo);
+		
+>>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 		Integer identificacion = 23;
-		String nombreCompleto = "Raul Diaz";
+		String nombreCompleto = "Jime Gomez";
 		Integer edad = 25;
+<<<<<<< HEAD
 
 		Persona personal = new Veterinario(identificacion, nombreCompleto, edad);
 
@@ -87,8 +137,22 @@ public class TestingZoo {
 
 		assertTrue(seAgrego);
 		assertEquals(personal, this.zoo.getPersonas().get(0));
+=======
+		
+		Personal personal = new Veterinario(identificacion, nombreCompleto, edad);
+		
+		
+		Boolean seAgrego = zoo.agregarPersonalAlZoo(personal);
+		
+		
+		assertTrue(seAgrego);
+		assertEquals(personal, zoo.getPersonas().get(0));
+		
+>>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 
+		
 	}
+<<<<<<< HEAD
 
 	@Test(expected = NoSePudoAgregarPersonaInexistenteException.class)
 	public void dadoQueExisteUnZoologicoQueNoSePuedanAgregarPersonasAlMismoSiEstaNoExiste()
@@ -1093,7 +1157,42 @@ public class TestingZoo {
 		Double pesoEsperado = 40.0;
 		
 		assertEquals(pesoEsperado, pesoObtenidoAnimalAlAlimentarse);
+=======
+	
+	@Test
+	public void dadoQueExisteUnZoologicoQueSePuedanAgregarEstructurasAlMismo() {
+		
+		String nombreZoo = "Animalandia";
+		
+		Zoologico zoo = new Zoologico(nombreZoo);
+		
+		Integer codigoEstructural = 2234;
+		String nombreEstructura = "Hospitalcito";
+		//estado es algo que ya tiene dicha estructura
+		
+		
+		Estructura hospital = new HospitalVeterinario(codigoEstructural, nombreEstructura);
+		
+		
+		
+		
+		Boolean seAgrego = zoo.agregarEstructuraAlZoo(hospital);
+		
+		
+		assertTrue(seAgrego);
+		assertEquals(hospital, zoo.getEstructuras().get(0));
+		
+
+		
+>>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 	}
+	
+	
+	
+	
+	
+	
+	
 
 	@Test
 	public void dadoQueExisteUnZoologicoConAnimalesEstosSePuedenIngresarAHabitats() throws Exception {
