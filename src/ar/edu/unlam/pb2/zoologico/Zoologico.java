@@ -2,6 +2,11 @@ package ar.edu.unlam.pb2.zoologico;
 
 import java.util.List;
 import java.util.TreeSet;
+
+import ar.edu.unlam.pb2.exepciones.AnimalNoEncontradoException;
+import ar.edu.unlam.pb2.exepciones.EstructuraNoEncontradaException;
+import ar.edu.unlam.pb2.exepciones.PersonaNoEncontradaException;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 

@@ -8,6 +8,10 @@ import java.util.TreeSet;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.unlam.pb2.exepciones.AnimalNoEncontradoException;
+import ar.edu.unlam.pb2.exepciones.EstructuraNoEncontradaException;
+import ar.edu.unlam.pb2.exepciones.PersonaNoEncontradaException;
+
 public class TestingZoo {
 
 	private Zoologico zoo;
