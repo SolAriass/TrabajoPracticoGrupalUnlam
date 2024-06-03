@@ -2,6 +2,7 @@ package ar.edu.unlam.pb2.zoologico;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import ar.edu.unlam.pb2.zoologico.excepciones.NoFueCreadoElRegistroExcepcion;
 import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarAlVeterinarioAlHospitalException;
 import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarAnimalInexistenteException;
@@ -32,4 +33,17 @@ public interface IZoologico {
 	List<Animal> conocerALosAnimalesQueConsumieronComidaDeTipoCarne();
 	List<Animal> obtenerALosAnimalesEnfermosPorAlimentacionIncorrecta();
 	List<RegistroAlimentacion> conocerLosRegistrosQueContenganUnAnimalEspecifico(Animal animal);
+=======
+public interface IZoologico {
+	
+	Boolean agregarAnimalAlZoo(Animal animal);
+	Boolean agregarPersonalAlZoo(Persona persona);
+	Boolean agregarEstructuraAlZoo(Estructura estructura);
+	Persona buscarPersonaPorId(Integer id) throws PersonaNoEncontradaException;
+	Animal buscarAnimalPorId(Integer codigoDeReconocimiento) throws AnimalNoEncontradoException;
+	Estructura buscarEstructuraPorId(Integer codigoEstructural) throws EstructuraNoEncontradaException;
+	Boolean agregarAnimalAlHabitat(Animal animal, Estructura habitat);
+	Animal obtenerAnimalDeUnHabitatPorCodigo(Integer codigo, Estructura habitat);
+	List<Animal> obtenerAnimalesDeUnHabitat(Estructura habitat);
+>>>>>>> rama-nico-bon
 }

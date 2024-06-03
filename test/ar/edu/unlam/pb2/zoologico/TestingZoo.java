@@ -11,23 +11,29 @@ import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarPersonalInvalidoExc
 import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAlimentarException;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.List;
+import java.util.TreeSet;
+
+import org.junit.Before;
 import org.junit.Test;
 
-
 public class TestingZoo {
+
+	private Zoologico zoo;
+
+	@Before
+	public void init() {
+		String nombreZoo = "Animalandia";
+		this.zoo = new Zoologico(nombreZoo);
+	}
 
 	@Test
 	public void queSePuedaCrearUnZoologico() {
 
-		String nombreZoo = "Animalandia";
-
-		Zoologico zoo = new Zoologico(nombreZoo);
-
 		String nombreEsperado = "Animalandia";
 
 		assertNotNull(zoo);
-		assertEquals(nombreEsperado, zoo.getNombreZoo());
-
+		assertEquals(nombreEsperado, this.zoo.getNombreZoo());
 	}
 
 	@Test
@@ -43,15 +49,19 @@ public class TestingZoo {
 		Integer edad = 3;
 		Double peso = 5.5;
 		TipoAlimentacion alimentacion = TipoAlimentacion.OMNIVORO;
-		// estar enfermo es algo que ya tiene el mono, por defecto esta sano
+		//  estar enfermo es algo que ya tiene el mono, por defecto esta sano
 		TipoSexo sexo = TipoSexo.FEMENINO;
 		CategoriaAnimal clase = CategoriaAnimal.MAMIFERO;
 
+
 		Animal mono = new Mono(codigoDeReconocimiento, nombreAnimal, edad, peso, alimentacion, sexo, clase);
 
-		Boolean seAgrego = zoo.agregarAnimalAlZoo(mono);
+		Boolean seAgrego = this.zoo.agregarAnimalAlZoo(mono);
 
 		assertTrue(seAgrego);
+		assertEquals(mono, this.zoo.getAnimales().get(0));
+	}
+
 		assertEquals(mono, zoo.getAnimales().get(0));
 
 	}
@@ -85,22 +95,13 @@ public class TestingZoo {
 
 		Boolean seAgrego = zoo.agregarPersonalAlZoo(personal);
 
+
+		Persona personal = new Veterinario(identificacion, nombreCompleto, edad);
+
+		Boolean seAgrego = this.zoo.agregarPersonalAlZoo(personal);
+
 		assertTrue(seAgrego);
-		assertEquals(personal, zoo.getPersonas().get(0));
-
-	}
-
-	@Test(expected = NoSePudoAgregarPersonaInexistenteException.class)
-	public void dadoQueExisteUnZoologicoQueNoSePuedanAgregarPersonasAlMismoSiEstaNoExiste()
-			throws NoSePudoAgregarPersonaInexistenteException {
-
-		String nombreZoo = "Animalandia";
-
-		Zoologico zoo = new Zoologico(nombreZoo);
-
-		Persona persona = null;
-
-		Boolean seAgrego = zoo.agregarPersonalAlZoo(persona);
+		assertEquals(personal, this.zoo.getPersonas().get(0));
 	}
 
 	@Test
