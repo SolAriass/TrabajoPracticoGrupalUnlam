@@ -1,6 +1,8 @@
 package ar.edu.unlam.pb2.zoologico;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.TreeSet;
 
 import ar.edu.unlam.pb2.zoologico.excepciones.EspecieDiferenteException;
 import ar.edu.unlam.pb2.zoologico.excepciones.EstadoDelObjetoEsIncorrectoException;
@@ -31,6 +33,7 @@ public interface IZoologico {
 	List<Animal> obtenerLosAnimalesQueAtendioUnVeterinarioEnUnHospital(Persona veterinario,
 			Estructura hospital) throws InstanciaIncorrectaException, NoExisteObjetoDondeSeBuscaException;
 	List<Persona> obtenerLosVeterinariosQueAtendieronAUnAnimalEnUnHospital(Animal animal, Estructura hospital) throws NoExisteObjetoDondeSeBuscaException;
-	
+	TreeSet<Animal> obtenerAnimalesDeUnHabitatOrdenadosOrdenEspecifico(Comparator<Animal> OrdenEspecifico,
+			Estructura habitat) throws InstanciaIncorrectaException;
 	
 }

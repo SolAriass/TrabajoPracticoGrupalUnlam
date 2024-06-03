@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 import org.junit.Test;
 
@@ -771,5 +772,83 @@ public class TestingZoo {
 		assertNotNull(veterinariosObtenidos);
 		assertEquals(veterinariosEsperados, veterinariosObtenidos);
     }
+	
+	@Test
+	public void dadoQueExisteUnZoologicoConAnimalesEnUnHabitatQueSePuedanObtenerLosAnimalesDeUnHabitatOrdenadosPorEdadDecreciente() throws EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
+		
+        String nombreZoo = "Animalandia";
+        Zoologico zoo = new Zoologico(nombreZoo);
+		
+		Integer codigoEstructural = 123;
+		String nombreEstructura = "Isla de los monos";
+		Integer maximoAnimales = 4;
+		Estructura habitatMonos = new Habitat(codigoEstructural, nombreEstructura, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(habitatMonos);
+
+		Animal mono1 = new Mono(513, "Mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+		Animal mono2 = new Mono(514, "Mono Mario", 6, 8.9, TipoAlimentacion.OMNIVORO, TipoSexo.MASCULINO,
+				CategoriaAnimal.MAMIFERO);
+		Animal mono3 = new Mono(515, "Mono Juan", 2, 6.9, TipoAlimentacion.OMNIVORO, TipoSexo.MASCULINO,
+				CategoriaAnimal.MAMIFERO);
+
+		zoo.agregarAnimalAlZoo(mono1);
+		zoo.agregarAnimalAlZoo(mono2);
+		zoo.agregarAnimalAlZoo(mono3);
+		zoo.agregarAnimalAlHabitat(mono1, habitatMonos);
+		zoo.agregarAnimalAlHabitat(mono2, habitatMonos);
+		zoo.agregarAnimalAlHabitat(mono3, habitatMonos);
+
+		TreeSet<Animal> animalesOrdenados = zoo
+				.obtenerAnimalesDeUnHabitatOrdenadosOrdenEspecifico(new OrdenDescendiente(), habitatMonos);
+
+		assertEquals(3, animalesOrdenados.size());
+
+		// ORDEN:
+		// MONO2 6 años (first)
+		// MONO1 4 años
+		// MONO3 2 años (last)
+		assertEquals(6, (int) animalesOrdenados.first().getEdad());
+		assertEquals(2, (int) animalesOrdenados.last().getEdad());
+	}
+
+	@Test
+	public void dadoQueExisteUnZoologicoConAnimalesEnUnHabitatQueSePuedanObtenerLosAnimalesDeUnHabitatOrdenadosPorEdadAscendente() throws EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
+
+        String nombreZoo = "Animalandia";
+        Zoologico zoo = new Zoologico(nombreZoo);
+		
+		Integer codigoEstructural = 123;
+		String nombreEstructura = "Isla de los monos";
+		Integer maximoAnimales = 4;
+		Estructura habitatMonos = new Habitat(codigoEstructural, nombreEstructura, maximoAnimales);
+		zoo.agregarEstructuraAlZoo(habitatMonos);
+
+		Animal mono1 = new Mono(513, "Mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+		Animal mono2 = new Mono(514, "Mono Mario", 6, 8.9, TipoAlimentacion.OMNIVORO, TipoSexo.MASCULINO,
+				CategoriaAnimal.MAMIFERO);
+		Animal mono3 = new Mono(515, "Mono Juan", 2, 6.9, TipoAlimentacion.OMNIVORO, TipoSexo.MASCULINO,
+				CategoriaAnimal.MAMIFERO);
+
+		zoo.agregarAnimalAlZoo(mono1);
+		zoo.agregarAnimalAlZoo(mono2);
+		zoo.agregarAnimalAlZoo(mono3);
+		zoo.agregarAnimalAlHabitat(mono1, habitatMonos);
+		zoo.agregarAnimalAlHabitat(mono2, habitatMonos);
+		zoo.agregarAnimalAlHabitat(mono3, habitatMonos);
+
+		TreeSet<Animal> animalesOrdenados = zoo
+				.obtenerAnimalesDeUnHabitatOrdenadosOrdenEspecifico(new OrdenAscendente(), habitatMonos);
+
+		assertEquals(3, animalesOrdenados.size());
+
+		// ORDEN:
+		// MONO3 2 años (first)
+		// MONO1 4 años
+		// MONO2 6 años (last)
+		assertEquals(2, (int) animalesOrdenados.first().getEdad());
+		assertEquals(6, (int) animalesOrdenados.last().getEdad());
+	}
 	
 }

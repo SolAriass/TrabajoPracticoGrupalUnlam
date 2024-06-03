@@ -1,10 +1,12 @@
 package ar.edu.unlam.pb2.zoologico;
 
 import java.util.List;
+import java.util.TreeSet;
 
 import ar.edu.unlam.pb2.zoologico.excepciones.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Zoologico implements IZoologico {
 
@@ -335,6 +337,23 @@ public class Zoologico implements IZoologico {
 		}
 
 		return auxiliar;
+	}
+	
+	public TreeSet<Animal> obtenerAnimalesDeUnHabitatOrdenadosOrdenEspecifico(Comparator<Animal> OrdenEspecifico,
+			Estructura habitat) throws InstanciaIncorrectaException {
+		
+		TreeSet<Animal> animalesNoRepetidos = new TreeSet<Animal>(OrdenEspecifico);
+		
+		if (!(habitat instanceof Habitat)) {
+			throw new InstanciaIncorrectaException("La estructura ingresada no es un habitat");
+		}
+		
+		Habitat habitatVerificado = (Habitat) habitat;
+		List<Animal> animales = habitatVerificado.getAnimales();
+
+		animalesNoRepetidos.addAll(animales);
+
+		return animalesNoRepetidos;
 	}
 
 }
