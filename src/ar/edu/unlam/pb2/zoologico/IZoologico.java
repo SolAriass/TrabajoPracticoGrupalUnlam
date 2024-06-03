@@ -10,7 +10,7 @@ import ar.edu.unlam.pb2.enums.*;
 public interface IZoologico {
 	
 	Boolean agregarAnimalAlZoo(Animal animal) throws NoSePudoAgregarAnimalInexistenteException;
-	Boolean agregarPersonaAlZoo(Persona persona) throws NoSePudoAgregarPersonaInexistenteException, NoSePuedenAgregarMenoresDeEdadException;
+	Boolean agregarPersonaAlZoo(Persona persona) throws NoSePudoAgregarPersonaInexistenteException, NoSePuedenAgregarMenoresDeEdadException,NoTieneEntradaException;
 	Boolean agregarEstructuraAlZoo(Estructura estructura) throws NoSePudoAgregarEstructuraInexistenteExcepcion;
 	List<Animal> obtenerLosAnimalesConTipoAlimentacionOmnivora();
 	List<Animal> obtenerLosAnimalesConTipoAlimentacionCarnivora();
@@ -30,16 +30,16 @@ public interface IZoologico {
 	List<Animal> conocerALosAnimalesQueConsumieronComidaDeTipoCarne();
 	List<Animal> obtenerALosAnimalesEnfermosPorAlimentacionIncorrecta();
 	List<RegistroAlimentacion> conocerLosRegistrosQueContenganUnAnimalEspecifico(Animal animal);
-	Boolean agregarAnimalAlHabitat(Animal animal, Estructura habitat) throws EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException;
+	Boolean agregarAnimalAlHabitat(Animal animal, Estructura habitat) throws EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException, HabitatVacioException;
 	Animal obtenerAnimal(Animal animal) throws NoExisteObjetoDondeSeBuscaException;
 	Estructura obtenerEstructura(Estructura estructuraBuscada) throws NoExisteObjetoDondeSeBuscaException;
 	Persona obtenerPersona(Persona personaBuscada) throws NoExisteObjetoDondeSeBuscaException;
 	Animal obtenerAnimalDeUnHabitat(Animal animal, Estructura habitat) throws NoExisteObjetoDondeSeBuscaException;
 	List<Animal> obtenerLosAnimalesDeUnaCategoria(CategoriaAnimal categoria);
 	List<Animal> obtenerLosAnimalesDeUnSexo(TipoSexo sexo);
-	Boolean reproducirDosAnimalesDeUnHabitat(Animal progenitor1, Animal progenitor2, Estructura habitat, Integer idCria, String nombreCria) throws EspecieDiferenteException, HabitatLlenoException, ProgenitoresDelMismoSexoException, ProgenitoresEnDistintoHabitatException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException, NoSePudoAgregarAnimalInexistenteException;
+	Boolean reproducirDosAnimalesDeUnHabitat(Animal progenitor1, Animal progenitor2, Estructura habitat, Integer idCria, String nombreCria) throws EspecieDiferenteException, HabitatLlenoException, ProgenitoresDelMismoSexoException, ProgenitoresEnDistintoHabitatException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException, NoSePudoAgregarAnimalInexistenteException, HabitatVacioException;
 	RegistroTratamiento queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(Estructura hospital,
-	Persona veterinario, Animal animal, Estructura habitat) throws EspecieDiferenteException, HabitatLlenoException, InstanciaIncorrectaException, NoExisteObjetoDondeSeBuscaException, EstadoDelObjetoEsIncorrectoException;
+	Persona veterinario, Animal animal, Estructura habitat) throws EspecieDiferenteException, HabitatLlenoException, InstanciaIncorrectaException, NoExisteObjetoDondeSeBuscaException, EstadoDelObjetoEsIncorrectoException, HabitatVacioException;
 	Veterinario obtenerVeterinarioDeUnHospital(Persona veterinario, Estructura hospital) throws InstanciaIncorrectaException, NoExisteObjetoDondeSeBuscaException;
 	List<Animal> obtenerLosAnimalesQueAtendioUnVeterinarioEnUnHospital(Persona veterinario,
 	Estructura hospital) throws InstanciaIncorrectaException, NoExisteObjetoDondeSeBuscaException;
@@ -53,4 +53,12 @@ public interface IZoologico {
 			Boolean zoologicoEstaLimpio) ;
 	Boolean queUnEmpleadoDeMantenimientoLimpieElZoologico(Persona personalMantenimiento) throws zoologicoEstaLimpioExcepsion;
 	Boolean puedeArreglarEstructura(Estructura estructura, Persona personalMantenimiento) throws estructuraNoEstaDañadaExcepsion;
+	Boolean agregarVariosVisitantes(List<Persona> visitantesAIngresar);
+	RegistroVisitaHabitatAnimal registrarVisitaDeUnVisitanteAUnHabitat(Persona visitante, Estructura habitat)
+			throws NoTieneEntradaException;
+	Double obtenerRecaudacion();
+	List<RegistroVisitaHabitatAnimal> obtenerRegistrosVisitasHabitatsAnimal();
+	List<RegistroVisitaInstalacionComun> obtenerRegistrosVisitasInstalacionesComunes();
+	RegistroVisitaInstalacionComun registrarVisitaDeUnVisitanteAUnaInstalacionComun(Persona visitante,
+			Estructura instalacionComun) throws NoTieneEntradaException;
 }

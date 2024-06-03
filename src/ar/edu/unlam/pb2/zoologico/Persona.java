@@ -28,11 +28,9 @@ public class Persona {
 		return nombreCompleto;
 	}
 
-
 	public void setNombreCompleto(String nombreCompleto) {
 		this.nombreCompleto = nombreCompleto;
 	}
-
 
 	public Integer getEdad() {
 		return edad;

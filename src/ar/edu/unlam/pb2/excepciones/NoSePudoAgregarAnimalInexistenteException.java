@@ -5,8 +5,5 @@ public class NoSePudoAgregarAnimalInexistenteException extends Exception {
 	public NoSePudoAgregarAnimalInexistenteException(String mensaje) {
 		super(mensaje);
 	}
-
-	
-	
 	
 }

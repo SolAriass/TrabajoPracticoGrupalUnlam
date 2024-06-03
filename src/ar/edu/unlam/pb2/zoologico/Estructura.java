@@ -1,7 +1,4 @@
 package ar.edu.unlam.pb2.zoologico;
-import java.util.ArrayList;
-
-import ar.edu.unlam.pb2.enums.ComidaHumanos;
 
 public class Estructura {
 	
@@ -31,16 +28,13 @@ public class Estructura {
 		return codigoEstructural;
 	}
 
-
 	public void setCodigoEstructural(Integer codigoEstructural) {
 		this.codigoEstructural = codigoEstructural;
 	}
 
-
 	public String getNombreEstructura() {
 		return nombreEstructura;
 	}
-
 
 	public void setNombreEstructura(String nombreEstructura) {
 		this.nombreEstructura = nombreEstructura;

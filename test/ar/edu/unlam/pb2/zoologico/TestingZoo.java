@@ -30,15 +30,10 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void queSePuedaCrearUnZoologico() {
-		
-		String nombreZoo = "Animalandia";
-		
-		Zoologico zoo = new Zoologico(nombreZoo);
-
+	public void queSePuedaCrearUnZoologico() {		
 		String nombreEsperado = "Animalandia";
 		
-		assertNotNull(zoo);
+		assertNotNull(this.zoo);
 		assertEquals(nombreEsperado, this.zoo.getNombreZoo());
 
 	}
@@ -75,13 +70,13 @@ public class TestingZoo {
 
 		Animal mono = null;
 
-		Boolean seAgrego = this.zoo.agregarAnimalAlZoo(mono);
+		this.zoo.agregarAnimalAlZoo(mono);
 	}
 
 
 
 	@Test
-	public void dadoQueExisteUnZoologicoQueSePuedanAgregarPersonasAlMismo() throws NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException {
+	public void dadoQueExisteUnZoologicoQueSePuedanAgregarPersonasAlMismo() throws NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoTieneEntradaException {
 		
 
 		Integer identificacion = 23;
@@ -100,7 +95,7 @@ public class TestingZoo {
 
 	@Test(expected = NoSePudoAgregarPersonaInexistenteException.class)
 	public void dadoQueExisteUnZoologicoQueNoSePuedanAgregarPersonasAlMismoSiEstaNoExiste()
-			throws NoSePudoAgregarPersonaInexistenteException, NoSePuedenAgregarMenoresDeEdadException {
+			throws NoSePudoAgregarPersonaInexistenteException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		Persona persona = null;
 
@@ -108,7 +103,7 @@ public class TestingZoo {
 	}
 
 	@Test (expected = NoSePuedenAgregarMenoresDeEdadException.class)
-	public void dadoQueExisteUnZoologicoNoSePuedenAgregarPersonasSiEstasSonMenores() throws NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException {
+	public void dadoQueExisteUnZoologicoNoSePuedenAgregarPersonasSiEstasSonMenores() throws NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoTieneEntradaException {
 
 		Integer identificacion = 23;
 		String nombreCompleto = "Jime Gomez";
@@ -378,7 +373,7 @@ public class TestingZoo {
 	@Test
 	public void dadoQueExisteUnZoologicoConVeterinarioQueSePuedaAgregarAUnHospital()
 			throws NoSePudoAgregarEstructuraInexistenteExcepcion, NoSePudoAgregarPersonaInexistenteException,
-			NoSePudoAgregarAlVeterinarioAlHospitalException, NoSePuedenAgregarMenoresDeEdadException {
+			NoSePudoAgregarAlVeterinarioAlHospitalException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		// DATOS DE PERSONAL
 		Integer identificacion = 23;
@@ -406,7 +401,7 @@ public class TestingZoo {
 	@Test(expected = NoSePudoAgregarAlVeterinarioAlHospitalException.class)
 	public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaAgregarOtroPersonalQueNoSeaVeterinario()
 			throws NoSePudoAgregarEstructuraInexistenteExcepcion, NoSePudoAgregarPersonaInexistenteException,
-			NoSePudoAgregarAlVeterinarioAlHospitalException, NoSePuedenAgregarMenoresDeEdadException {
+			NoSePudoAgregarAlVeterinarioAlHospitalException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		// DATOS DE PERSONAL
 		Integer identificacion = 23;
@@ -431,7 +426,7 @@ public class TestingZoo {
 	@Test(expected = NoSePudoAgregarAlVeterinarioAlHospitalException.class)
 	public void dadoQueExisteUnZoologicoConVeterinarioQueNoSePuedaAgregarEnOtraEstructuraQueNoSeaUnHospital()
 			throws NoSePudoAgregarEstructuraInexistenteExcepcion, NoSePudoAgregarPersonaInexistenteException,
-			NoSePudoAgregarAlVeterinarioAlHospitalException, NoSePuedenAgregarMenoresDeEdadException {
+			NoSePudoAgregarAlVeterinarioAlHospitalException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		// DATOS DE PERSONAL
 		Integer identificacion = 23;
@@ -457,7 +452,7 @@ public class TestingZoo {
 	@Test(expected = NoSePudoAgregarEstructuraInexistenteExcepcion.class)
 	public void dadoQueExisteUnZoologicoConVeterinarioQueNoSePuedaAgregarAUnHospitalInexistente()
 			throws NoSePudoAgregarPersonaInexistenteException, NoSePudoAgregarAlVeterinarioAlHospitalException,
-			NoSePudoAgregarEstructuraInexistenteExcepcion, NoSePuedenAgregarMenoresDeEdadException {
+			NoSePudoAgregarEstructuraInexistenteExcepcion, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		// DATOS DE PERSONAL
 		Integer identificacion = 23;
@@ -482,7 +477,7 @@ public class TestingZoo {
 	@Test(expected = NoSePudoAgregarPersonaInexistenteException.class)
 	public void dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaAgregarUnVeterinarioInexistente()
 			throws NoSePudoAgregarEstructuraInexistenteExcepcion, NoSePudoAgregarPersonaInexistenteException,
-			NoSePudoAgregarAlVeterinarioAlHospitalException, NoSePuedenAgregarMenoresDeEdadException {
+			NoSePudoAgregarAlVeterinarioAlHospitalException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		// DATOS DE PERSONAL
 		Integer identificacion = 23;
@@ -577,7 +572,7 @@ public class TestingZoo {
 	@Test
 	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueSeCreeUnRegistroCuandoUnVeterinarioAlimenteDeFormaCorrectaAlAnimal()
 			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
-			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException {
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		Animal mono = new Mono(230, "Sergio Ramirez", 3, 5.5, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
 				CategoriaAnimal.MAMIFERO);
@@ -623,7 +618,7 @@ public class TestingZoo {
 	@Test(expected = NoSePudoAgregarPersonaInexistenteException.class)
 	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueNoSePuedaCrearUnRegistroSiElVeterinarioEsInexistente()
 			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
-			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException {
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		Animal mono = new Mono(230, "Sergio Ramirez", 3, 5.5, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
 				CategoriaAnimal.MAMIFERO);
@@ -665,7 +660,7 @@ public class TestingZoo {
 	@Test(expected = NoSePudoAgregarAnimalInexistenteException.class)
 	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueNoSePuedaCrearUnRegistroSiElAnimalEsInexistente()
 			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
-			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException {
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		Animal mono = new Mono(230, "Sergio Ramirez", 3, 5.5, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
 				CategoriaAnimal.MAMIFERO);
@@ -706,7 +701,7 @@ public class TestingZoo {
 	@Test(expected = NoSePudoAgregarPersonalInvalidoExcepcion.class)
 	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueNoSePuedaCrearElRegistroSiUnPersonalNoAutorizadoQuiereAlimentarAlAnimal()
 			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
-			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException {
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		Animal panda = new Panda(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
 				CategoriaAnimal.MAMIFERO);
@@ -727,7 +722,7 @@ public class TestingZoo {
 	@Test
 	public void dadoQueExisteUnZoologicoConAnimalesConocerALosQueSeEnfermaronPorHaberSidoAlimentadosConComidaNoApta()
 			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
-			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException {
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		Animal panda = new Panda(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
 				CategoriaAnimal.MAMIFERO);
@@ -768,7 +763,7 @@ public class TestingZoo {
 	@Test
 	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerLosAnimalesQueAlimentoUnVeterinarioEspecifico()
 			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
-			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException {
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		Animal panda = new Panda(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
 				CategoriaAnimal.MAMIFERO);
@@ -805,7 +800,7 @@ public class TestingZoo {
 	@Test
 	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerLosVeterinariosQueAlimentaronAUnAnimalEspecifico()
 			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
-			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException {
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		Animal panda = new Panda(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
 				CategoriaAnimal.MAMIFERO);
@@ -840,7 +835,7 @@ public class TestingZoo {
 	@Test(expected = NoSePudoAlimentarException.class)
 	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueNoSePuedaCrearUnRegistroSiLaCantidadDeComidaEsMenorOIgualACero()
 			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
-			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException {
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		Animal panda = new Panda(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
 				CategoriaAnimal.MAMIFERO);
@@ -857,7 +852,7 @@ public class TestingZoo {
 	@Test
 	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerALosAnimalesQueFueronAlimentadosConPlantas()
 			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
-			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException {
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		Animal panda = new Panda(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
 				CategoriaAnimal.MAMIFERO);
@@ -915,7 +910,7 @@ public class TestingZoo {
 	@Test
 	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerALosAnimalesQueFueronAlimentadosConCarne()
 			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
-			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException {
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		Animal panda = new Panda(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
 				CategoriaAnimal.MAMIFERO);
@@ -972,7 +967,7 @@ public class TestingZoo {
 	@Test
 	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerLosRegistrosQueContenganUnAnimalEspecifico()
 			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
-			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException {
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		Animal panda = new Panda(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
 				CategoriaAnimal.MAMIFERO);
@@ -1033,7 +1028,7 @@ public class TestingZoo {
 	@Test
 	public void dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerSiElPesoDelAnimalAumentoAlSerAlimentadoConSuComidaCorrespondiente()
 			throws NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonaInexistenteException,
-			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException {
+			NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonalInvalidoExcepcion, NoSePudoAlimentarException, NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException {
 
 		Animal panda = new Panda(3333, "gordito", 2, 20.0, TipoAlimentacion.HERBIVORO, TipoSexo.FEMENINO,
 				CategoriaAnimal.MAMIFERO);
@@ -1646,7 +1641,7 @@ public class TestingZoo {
     }
 	
 	@Test
-	public void dadoQueExisteUnZoologicoConAnimalesEnUnHabitatQueSePuedanObtenerLosAnimalesDeUnHabitatOrdenadosPorEdadDecreciente() throws EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException, NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion {
+	public void dadoQueExisteUnZoologicoConAnimalesEnUnHabitatQueSePuedanObtenerLosAnimalesDeUnHabitatOrdenadosPorEdadDecreciente() throws EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException, NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion, HabitatVacioException {
 
 		Integer codigoEstructural = 123;
 		String nombreEstructura = "Isla de los monos";
@@ -1682,7 +1677,7 @@ public class TestingZoo {
 	}
 
 	@Test
-	public void dadoQueExisteUnZoologicoConAnimalesEnUnHabitatQueSePuedanObtenerLosAnimalesDeUnHabitatOrdenadosPorEdadAscendente() throws EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException, NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion {
+	public void dadoQueExisteUnZoologicoConAnimalesEnUnHabitatQueSePuedanObtenerLosAnimalesDeUnHabitatOrdenadosPorEdadAscendente() throws EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException, NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion, HabitatVacioException {
 
 
 		Integer codigoEstructural = 123;
@@ -1723,7 +1718,7 @@ public class TestingZoo {
 	//TESTS MANTENIMIENTO Y ESTRUCTURA
 	
 	@Test
-	public void dadoQueExisteUnZoologicoQueUnPersonalDeMantenimientoPuedaArreglarUnaEstructuraSiSuEstadoEstaRoto() throws estructuraNoEstaDañadaExcepsion, NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion {
+	public void dadoQueExisteUnZoologicoQueUnPersonalDeMantenimientoPuedaArreglarUnaEstructuraSiSuEstadoEstaRoto() throws estructuraNoEstaDañadaExcepsion, NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion, NoTieneEntradaException {
 
 
 		Integer identificacion = 1;
@@ -1749,7 +1744,7 @@ public class TestingZoo {
 	}
 	
 	@Test (expected = estructuraNoEstaDañadaExcepsion.class)
-	public void dadoQueExisteUnZoologicoQueUnPersonalDeMantenimientoNoPuedaArreglarUnaEstructuraSiSuEstadoEstaBien() throws estructuraNoEstaDañadaExcepsion, NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion {
+	public void dadoQueExisteUnZoologicoQueUnPersonalDeMantenimientoNoPuedaArreglarUnaEstructuraSiSuEstadoEstaBien() throws estructuraNoEstaDañadaExcepsion, NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion, NoTieneEntradaException {
 		
 		Integer identificacion = 1;
 		String nombreCompleto = "Julio Perez";
@@ -1773,7 +1768,7 @@ public class TestingZoo {
 	}
 	
 	@Test(expected = estructuraNoEstaDañadaExcepsion.class)
-	public void dadoQueExisteUnZoologicoQueUnPersonalQueNoSeaDeMantenimientoNoPuedaArreglarUnaEstructuraSiSuEstadoEstaRoto() throws estructuraNoEstaDañadaExcepsion, NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion {
+	public void dadoQueExisteUnZoologicoQueUnPersonalQueNoSeaDeMantenimientoNoPuedaArreglarUnaEstructuraSiSuEstadoEstaRoto() throws estructuraNoEstaDañadaExcepsion, NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion, NoTieneEntradaException {
 
 
 		Integer identificacion = 1;
@@ -1798,7 +1793,7 @@ public class TestingZoo {
 
 
 	@Test
-	public void dadoQueExisteUnZoologicoSiEstaSucioQueSePuedaLimpiarPorUnPersonalDeMantenimiento() throws zoologicoEstaLimpioExcepsion, NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException {
+	public void dadoQueExisteUnZoologicoSiEstaSucioQueSePuedaLimpiarPorUnPersonalDeMantenimiento() throws zoologicoEstaLimpioExcepsion, NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoTieneEntradaException {
 
 		
 		Integer identificacionPersonal = 1;
@@ -1815,7 +1810,7 @@ public class TestingZoo {
 	}
 	
 	@Test (expected = zoologicoEstaLimpioExcepsion.class)
-	public void dadoQueExisteUnZoologicoSiEstaLimpioQueNoSePuedaLimpiarPorUnPersonalDeMantenimiento() throws zoologicoEstaLimpioExcepsion, NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException {
+	public void dadoQueExisteUnZoologicoSiEstaLimpioQueNoSePuedaLimpiarPorUnPersonalDeMantenimiento() throws zoologicoEstaLimpioExcepsion, NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoTieneEntradaException {
 
 		Integer identificacionPersonal = 1;
 		String nombrePersonal = "Eduardo Cazca";
@@ -1830,7 +1825,7 @@ public class TestingZoo {
 	}
 	
 	@Test (expected = zoologicoEstaLimpioExcepsion.class)
-	public void dadoQueExisteUnZoologicoSiEstaSucioQueNoSePuedaLimpiarPorUnPersonalQueNoSeaDeMantenimiento() throws zoologicoEstaLimpioExcepsion, NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException {
+	public void dadoQueExisteUnZoologicoSiEstaSucioQueNoSePuedaLimpiarPorUnPersonalQueNoSeaDeMantenimiento() throws zoologicoEstaLimpioExcepsion, NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoTieneEntradaException {
 		
 		Integer identificacionPersonal = 1;
 		String nombrePersonal = "Eduardo Cazca";
@@ -1850,7 +1845,7 @@ public class TestingZoo {
 	
 	
 	@Test
-	public void dadoQueExisteUnZoologicoQueUnAnimalPuedaEmitirUnSonido() throws NoSePudoAgregarEstructuraInexistenteExcepcion, EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
+	public void dadoQueExisteUnZoologicoQueUnAnimalPuedaEmitirUnSonido() throws NoSePudoAgregarEstructuraInexistenteExcepcion, EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException, HabitatVacioException {
 	
 		Integer codigoAnimal = 514;
 		String nombreAnimal = "Mono Mario";
@@ -1877,7 +1872,7 @@ public class TestingZoo {
 	}
 	
 	@Test 
-	public void dadoQueExisteUnZoologicoQueUnAnimalSePuedaMover() throws NoSePudoAgregarEstructuraInexistenteExcepcion, EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
+	public void dadoQueExisteUnZoologicoQueUnAnimalSePuedaMover() throws NoSePudoAgregarEstructuraInexistenteExcepcion, EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException, HabitatVacioException {
 
 		
 		Integer codigoAnimal = 514;
@@ -1909,7 +1904,7 @@ public class TestingZoo {
 	// TESTS LOCAL DE COMIDA
 	
 	@Test
-	public void dadoQueExisteUnZoologicoSiUnVisitanteDeseaComerAlgoYTieneLaPlataSuficientePuedeComprarComidaEnLaSeccionDeComida() throws NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion {
+	public void dadoQueExisteUnZoologicoSiUnVisitanteDeseaComerAlgoYTieneLaPlataSuficientePuedeComprarComidaEnLaSeccionDeComida() throws NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion, NoTieneEntradaException {
 		
 		String nombre = "Juan";
 		Integer edad = 12;
@@ -1928,23 +1923,20 @@ public class TestingZoo {
 	
 	@Test
 	public void dadoQueExisteUnZoologicoQueSePuedaAgregarUnaHamburgueseria() throws NoSePudoAgregarEstructuraInexistenteExcepcion {
-		//Crea Zoologico
-		String nombreZoo = "Animalandia";
-		Zoologico zoo = new Zoologico(nombreZoo);
-		
+		//Crea Zoologico		
 		//Crea hamburgueseria y la agrega al zoologico
 		Integer codigoEstructural = 1;
 		Boolean estaRoto = false;
 		String nombreLocal = "ZooFood";
 		LocalDeComida hamburgueseria = new LocalDeComida(codigoEstructural, nombreLocal, estaRoto);
 		
-		Boolean sePudoAgregar  = zoo.agregarEstructuraAlZoo(hamburgueseria);
+		Boolean sePudoAgregar  = this.zoo.agregarEstructuraAlZoo(hamburgueseria);
 		
 		assertTrue(sePudoAgregar);
 	}
 	
 	@Test
-	public void dadoQueExisteUnZoologicoConLocalDeComidasQueSePuedaAgregarStockDeComidas() throws NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion {
+	public void dadoQueExisteUnZoologicoConLocalDeComidasQueSePuedaAgregarStockDeComidas() throws NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion, NoTieneEntradaException {
 
 		//Crea hamburgueseria y la agrega al zoologico
 		Integer codigoEstructural = 1;
@@ -2005,7 +1997,7 @@ public class TestingZoo {
 	}
 	
 	@Test
-	public void dadoQueExisteUnZoologicoConLocalDeComidasQueUnVisitantePuedaComprarSiTieneSuficienteDineroYSiElLocalTieneStockSuficienteDeLaComida() throws NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion {
+	public void dadoQueExisteUnZoologicoConLocalDeComidasQueUnVisitantePuedaComprarSiTieneSuficienteDineroYSiElLocalTieneStockSuficienteDeLaComida() throws NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion, NoTieneEntradaException {
 				
 		Integer codigoEstructural = 1;
 		Boolean estaRoto = false;
@@ -2032,7 +2024,7 @@ public class TestingZoo {
 	}
 	
 	@Test
-	public void dadoQueExisteUnZoologicoConLocalDeComidasSaberLaRecaudacionTotal() throws NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion {
+	public void dadoQueExisteUnZoologicoConLocalDeComidasSaberLaRecaudacionTotal() throws NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion, NoTieneEntradaException {
 		
 		//Crea hamburgueseria y la agrega al zoologico
 		Integer codigoEstructural = 1;
@@ -2082,5 +2074,212 @@ public class TestingZoo {
 		
 		
 	}
-	
+
+	@Test
+	public void queUnVisitantePuedaComprarEntradaTeniendoSaldoSuficiente()
+			throws NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException, NoSePudoAgregarPersonaInexistenteException {
+
+		Integer identificacion = 43472194;
+		String nombreCompleto = "Sergio Ramirez";
+		Integer edad = 23;
+		Double dineroQueDispone = 3040.0;
+
+		Persona visitante1 = new Visitante(identificacion, nombreCompleto, edad, dineroQueDispone);
+
+		Boolean pudoEntrar = this.zoo.agregarPersonaAlZoo(visitante1);
+
+		assertTrue(pudoEntrar);
+		assertEquals(visitante1, this.zoo.getPersonas().get(0));
+	}
+
+	@Test(expected = NoSePuedenAgregarMenoresDeEdadException.class)
+	public void queUnVisitanteNoPuedaComprarEntradaPorSerMenorDeEdad()
+			throws NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException, NoSePudoAgregarPersonaInexistenteException {
+
+		Integer identificacion = 43472194;
+		String nombreCompleto = "Daniel Ramirez";
+		Integer edad = 12;
+		Double dineroQueDispone = 3040.0;
+
+		Persona visitante1 = new Visitante(identificacion, nombreCompleto, edad, dineroQueDispone);
+
+		Boolean pudoEntrar = this.zoo.agregarPersonaAlZoo(visitante1);
+
+		assertTrue(pudoEntrar);
+		assertEquals(visitante1, this.zoo.getPersonas().get(0));
+	}
+
+	@Test(expected = NoTieneEntradaException.class)
+	public void queUnVisitanteNoPuedaComprarEntradaTeniendoSaldoInsuficiente()
+			throws NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException, NoSePudoAgregarPersonaInexistenteException {
+		Integer identificacion = 43472194;
+		String nombreCompleto = "Sergio Ramirez";
+		Integer edad = 23;
+		Double dineroQueDispone = 40.0;
+
+		Persona visitante1 = new Visitante(identificacion, nombreCompleto, edad, dineroQueDispone);
+
+		Boolean pudoEntrar = this.zoo.agregarPersonaAlZoo(visitante1);
+
+		assertTrue(pudoEntrar);
+		assertEquals(visitante1, this.zoo.getPersonas().get(0));
+	}
+
+	@Test
+	public void queUnGrupoDeVisitantePuedaComprarEntradaTeniendoSaldoSuficiente() {
+		Persona visitante1 = new Visitante(43472194, "visitante1", 59, 4300.0);
+		Persona visitante2 = new Visitante(43205932, "visitante2", 69, 3500.0);
+		Persona visitante3 = new Visitante(43205953, "visitante3", 15, 5020.0);
+		Persona visitante4 = new Visitante(43205965, "visitante4", 11, 3000.0);
+
+		List<Persona> visitantesAIngresar = new ArrayList<>();
+
+		visitantesAIngresar.add(visitante1);
+		visitantesAIngresar.add(visitante2);
+		visitantesAIngresar.add(visitante3);
+		visitantesAIngresar.add(visitante4);
+
+		Boolean seAgregaron = this.zoo.agregarVariosVisitantes(visitantesAIngresar);
+		assertTrue(seAgregaron);
+		assertEquals(visitantesAIngresar.size(),this.zoo.getPersonas().size());
+
+	}
+
+	@Test
+	public void queUnGrupoDePersonasPuedaIngresarConMenoresDeEdad() {
+		Persona visitante1 = new Visitante(43472194, "visitante1", 59, 4300.0);
+		Persona visitante2 = new Visitante(43205932, "visitante2", 69, 3500.0);
+		Persona visitante3 = new Visitante(43205953, "visitante3", 15, 5020.0);
+		Persona visitante4 = new Visitante(43205965, "visitante4", 11, 3000.0);
+
+		List<Persona> visitantesAIngresar = new ArrayList<>();
+
+		visitantesAIngresar.add(visitante1);
+		visitantesAIngresar.add(visitante2);
+		visitantesAIngresar.add(visitante3);
+		visitantesAIngresar.add(visitante4);
+
+		Boolean seAgregaron = this.zoo.agregarVariosVisitantes(visitantesAIngresar);
+		assertTrue(seAgregaron);
+		assertTrue(this.zoo.getPersonas().contains(visitante3));
+		assertTrue(this.zoo.getPersonas().contains(visitante4));
+	}
+
+	@Test
+	public void queSePuedaConocerElTotalRecaudadoEnBaseALaCantidadDeEntradasVendidas() {
+		Persona visitante1 = new Visitante(43472194, "visitante1", 59, 4300.0);
+		Persona visitante2 = new Visitante(43205932, "visitante2", 69, 3500.0);
+		Persona visitante3 = new Visitante(43205953, "visitante3", 15, 5020.0);
+		Persona visitante4 = new Visitante(43205965, "visitante4", 11, 3000.0);
+
+		List<Persona> visitantesAIngresar = new ArrayList<>();
+
+		visitantesAIngresar.add(visitante1);
+		visitantesAIngresar.add(visitante2);
+		visitantesAIngresar.add(visitante3);
+		visitantesAIngresar.add(visitante4);
+		this.zoo.agregarVariosVisitantes(visitantesAIngresar);
+
+		Double totalRecaudado = this.zoo.obtenerRecaudacion();
+
+		assertEquals(10000.0, totalRecaudado, 0.001);
+
+	}
+
+	@Test
+	public void queUnVisitantePuedaUsarUnaInstalacionComunTeniendoEntrada()
+			throws NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException, NoSePudoAgregarPersonaInexistenteException {
+		Estructura banio = new InstalacionComun(432, "Banio",true);
+		Estructura estacionamiento = new InstalacionComun(420, "Estacionamiento",true);
+		Estructura ZonasDeComidas = new InstalacionComun(493, "Zonas de comidas",true);
+
+		Persona visitante1 = new Visitante(43472194, "visitante1", 39, 4300.0);
+		this.zoo.agregarPersonaAlZoo(visitante1);
+		RegistroVisitaInstalacionComun registro = this.zoo.registrarVisitaDeUnVisitanteAUnaInstalacionComun(visitante1,
+				estacionamiento);
+		List<RegistroVisitaInstalacionComun> pudoVisitar = this.zoo.obtenerRegistrosVisitasInstalacionesComunes();
+
+		assertNotNull(pudoVisitar);
+		assertEquals(registro, this.zoo.obtenerRegistrosVisitasInstalacionesComunes().get(0));
+
+	}
+
+	@Test(expected = NoTieneEntradaException.class)
+	public void queUnVisitanteNoPuedaUsarUnaInstalacionComunPorNoTenerEntrada()
+			throws NoTieneEntradaException, NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException {
+		Persona visitante3 = new Visitante(43205953, "visitante3", 25, 20.0); //
+		Estructura banio = new InstalacionComun(432, "Banio",true);
+
+		this.zoo.agregarPersonaAlZoo(visitante3);
+		RegistroVisitaInstalacionComun registro = this.zoo.registrarVisitaDeUnVisitanteAUnaInstalacionComun(visitante3,
+				banio);
+		List<RegistroVisitaInstalacionComun> pudoVisitar = this.zoo.obtenerRegistrosVisitasInstalacionesComunes();
+
+		assertNotNull(pudoVisitar);
+		assertEquals(registro, this.zoo.obtenerRegistrosVisitasInstalacionesComunes().get(0));
+	}
+
+	@Test
+	public void queUnVisitantePuedaVerUnAnimalTeniendoEntrada() throws NoTieneEntradaException,
+			NoSePudoAgregarEstructuraInexistenteExcepcion, NoSePudoAgregarAnimalInexistenteException,
+			HabitatVacioException, NoExisteObjetoDondeSeBuscaException, NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, InstanciaIncorrectaException, EspecieDiferenteException, HabitatLlenoException {
+		// persona
+		Persona visitante3 = new Visitante(43205953, "visitante3", 45, 5020.0);
+		// animal y habitat
+		Integer codigoEstructural = 123;
+		String nombreEstructura = "Isla de los monos";
+		Integer maximoAnimales = 4;
+		Estructura habitatMonos = new Habitat(codigoEstructural, nombreEstructura, maximoAnimales,true);
+		this.zoo.agregarEstructuraAlZoo(habitatMonos);
+		Animal mono = new Mono(513, "Mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+		this.zoo.agregarPersonaAlZoo(visitante3);
+		this.zoo.agregarAnimalAlZoo(mono);
+		this.zoo.agregarAnimalAlHabitat(mono, habitatMonos);
+		RegistroVisitaHabitatAnimal registro = this.zoo.registrarVisitaDeUnVisitanteAUnHabitat(visitante3, habitatMonos);
+		List<RegistroVisitaHabitatAnimal> pudoVer = this.zoo.obtenerRegistrosVisitasHabitatsAnimal();
+
+		assertNotNull(pudoVer);
+		assertEquals(registro, this.zoo.obtenerRegistrosVisitasHabitatsAnimal().get(0));
+	}
+
+	@Test(expected = NoTieneEntradaException.class)
+	public void queUnVisitanteNoPuedaVerUnAnimalPorNoTenerEntrada() throws NoTieneEntradaException,
+			NoExisteObjetoDondeSeBuscaException, NoSePudoAgregarAnimalInexistenteException,
+			NoSePudoAgregarEstructuraInexistenteExcepcion, HabitatVacioException, InstanciaIncorrectaException, EspecieDiferenteException, HabitatLlenoException {
+		// persona
+		Persona visitante3 = new Visitante(43205953, "visitante3", 45, 120.0); // dinero insuficiente
+		// animal y habitat
+		Integer codigoEstructural = 123;
+		String nombreEstructura = "Isla de los monos";
+		Integer maximoAnimales = 4;
+		Estructura habitatMonos = new Habitat(codigoEstructural, nombreEstructura, maximoAnimales,true);
+		this.zoo.agregarEstructuraAlZoo(habitatMonos);
+		Animal mono = new Mono(513, "Mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+		this.zoo.agregarAnimalAlZoo(mono);
+		this.zoo.agregarAnimalAlHabitat(mono, habitatMonos);
+		this.zoo.registrarVisitaDeUnVisitanteAUnHabitat(visitante3, habitatMonos);
+
+		assertEquals(0, this.zoo.obtenerRegistrosVisitasHabitatsAnimal().size());
+	}
+
+	@Test(expected = HabitatVacioException.class)
+	public void queUnVisitanteNoPuedaVerUnHabitatVacio() throws HabitatVacioException,
+			NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarEstructuraInexistenteExcepcion,
+			NoExisteObjetoDondeSeBuscaException, NoTieneEntradaException, InstanciaIncorrectaException, EspecieDiferenteException, HabitatLlenoException {
+		// persona
+		Persona visitante3 = new Visitante(43205953, "visitante3", 45, 10020.0);
+		// animal y habitat
+		Estructura habitatMonos = new Habitat(123, "Isla de los monos", 4,true);
+		Animal mono = new Mono(513, "Mona Lisa", 4, 7.2, TipoAlimentacion.OMNIVORO, TipoSexo.FEMENINO,
+				CategoriaAnimal.MAMIFERO);
+		this.zoo.agregarEstructuraAlZoo(habitatMonos);
+		this.zoo.agregarAnimalAlZoo(mono);
+		this.zoo.agregarAnimalAlHabitat(null, habitatMonos);
+
+		RegistroVisitaHabitatAnimal pudoVer = this.zoo.registrarVisitaDeUnVisitanteAUnHabitat(visitante3, habitatMonos);
+		assertNotNull(pudoVer);
+		assertEquals(0, this.zoo.obtenerRegistrosVisitasHabitatsAnimal().size());
+	}
 }

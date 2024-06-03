@@ -21,6 +21,9 @@ public class Zoologico implements IZoologico{
 	private List<Estructura> estructuras;
 	private List<MantenimientoEstructura> mantenimientoEstructura;
 	private List<RegistroAlimentacion> registrosDeAlimentacion;
+	private Double saldoRecaudado = 0.0;
+	private List<RegistroVisitaInstalacionComun> registrosVisitasInstalacionesComunes;
+	private List<RegistroVisitaHabitatAnimal> registrosVisitasHabitatsAnimales;
 
 	public Zoologico(String nombreZoo) {
 		this.nombreZoo = nombreZoo;
@@ -32,6 +35,9 @@ public class Zoologico implements IZoologico{
 		this.mantenimientoEstructura = new ArrayList<>();
 		this.horarioZoo = LocalTime.of(18, 00);	
 		this.registrosDeAlimentacion = new ArrayList<>();
+		this.registrosVisitasInstalacionesComunes = new ArrayList<>();
+		this.registrosVisitasHabitatsAnimales = new ArrayList<>();
+
 	}
 
 	public String getNombreZoo() {
@@ -83,7 +89,7 @@ public class Zoologico implements IZoologico{
 
 
 	@Override
-	public Boolean agregarPersonaAlZoo(Persona persona) throws NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException {
+	public Boolean agregarPersonaAlZoo(Persona persona) throws NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoTieneEntradaException {
 
 		if (persona == null) {
 			throw new NoSePudoAgregarPersonaInexistenteException("la persona ingresado no existe");
@@ -99,7 +105,8 @@ public class Zoologico implements IZoologico{
 		if (persona.getEdad() >= 18) {
 
 			if (persona instanceof Visitante) {
-				personaAgregada = this.agregarVisitante(persona);
+				Visitante visitante=(Visitante) persona;
+				personaAgregada = this.agregarVisitante(visitante);
 			} else {
 				personaAgregada = personas.add(persona);
 			}
@@ -127,14 +134,27 @@ public class Zoologico implements IZoologico{
         throw new NoSePudoAgregarEstructuraInexistenteExcepcion("la estructura ingresada no existe");
     }
 
-	private Boolean agregarVisitante(Persona persona) {
-		return true; // PROVISORIO, METODO DE JAVI
+	private Boolean agregarVisitante(Visitante visitante) throws NoTieneEntradaException {
+		Boolean visitanteAgregado = false;
+		if (visitante.getDineroQueDispone() < Boleto.getValor()) {
+			throw new NoTieneEntradaException("No tiene entrada por falta de dinero");
+		}
+		asignarBoleto(visitante);
+		saldoRecaudado += Boleto.getValor();
+		visitanteAgregado = personas.add(visitante);
+		return visitanteAgregado;
+	}
+
+	private void asignarBoleto(Visitante visitante) {
+		if (visitante.getBoleto() == null) {
+			visitante.setBoleto(new Boleto());
+		}
+
 	}
 
 	public List<Persona> getPersonas() {
 		return personas;
 	}
-
 
 	public void setPersonas(List<Persona> personas) {
 		this.personas = personas;
@@ -149,15 +169,98 @@ public class Zoologico implements IZoologico{
 	}
 
 	@Override
-	public Boolean agregarAnimalAlHabitat(Animal animal, Estructura habitat) throws EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
+	public Boolean agregarVariosVisitantes(List<Persona> visitantesAIngresar) {
+		Visitante visitante = null;
+		if (this.sonTodosInstanciaDeVisitante(visitantesAIngresar)) {
+			if (this.verificarQueAlMenosUnoSeaMayorDeEdad(visitantesAIngresar)
+					&& this.verificarQueTenganLaPlataSuficiente(visitantesAIngresar)) {
+				for (Persona persona : visitantesAIngresar) {
+					visitante = (Visitante) persona;
+					asignarBoleto(visitante);
+				}
+				saldoRecaudado += (Boleto.getValor() * visitantesAIngresar.size());
+				return personas.addAll(visitantesAIngresar);
+			}
+		}
+		return false;
+	}
+
+	private Boolean sonTodosInstanciaDeVisitante(List<Persona> visitantesAIngresar) {
+		for (Persona persona : visitantesAIngresar) {
+			if (!(persona instanceof Visitante)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean verificarQueTenganLaPlataSuficiente(List<Persona> visitantesAIngresar) {
+		Double dineroTotal = 0.0;
+		Visitante visitante = null;
+		for (Persona persona : visitantesAIngresar) {
+			visitante = (Visitante) persona;
+			dineroTotal += visitante.getDineroQueDispone();
+		}
+		Double dineroNecesario = Boleto.getValor() * visitantesAIngresar.size();
+		if (dineroTotal >= dineroNecesario) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean verificarQueAlMenosUnoSeaMayorDeEdad(List<Persona> visitantesAIngresar) {
+		for (Persona persona : visitantesAIngresar) {
+			if (persona.getEdad() >= 18) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public Double obtenerRecaudacion() {
+		return this.saldoRecaudado;
+	}
+
+	@Override
+	public RegistroVisitaInstalacionComun registrarVisitaDeUnVisitanteAUnaInstalacionComun(Persona visitante,
+			Estructura instalacionComun) throws NoTieneEntradaException {
+		if (visitante instanceof Visitante) {
+			if (((Visitante) visitante).getBoleto() == null) {
+				throw new NoTieneEntradaException("No tiene boleto");
+			}
+			RegistroVisitaInstalacionComun registro = new RegistroVisitaInstalacionComun(visitante, instalacionComun);
+			registrosVisitasInstalacionesComunes.add(registro);
+			return registro;
+		}
+		return null;
+	}
+
+	@Override
+	public List<RegistroVisitaInstalacionComun> obtenerRegistrosVisitasInstalacionesComunes() {
+		return registrosVisitasInstalacionesComunes;
+	}
+
+	public void setRegistrosVisitas(List<RegistroVisitaInstalacionComun> registrosVisitas) {
+		this.registrosVisitasInstalacionesComunes = registrosVisitas;
+	}
+
+	@Override
+	public Boolean agregarAnimalAlHabitat(Animal animal, Estructura habitat)
+			throws HabitatVacioException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException, EspecieDiferenteException, HabitatLlenoException {
+
+		try {
+			this.obtenerAnimal(animal);
+
+		} catch (NoExisteObjetoDondeSeBuscaException e) {
+			throw new HabitatVacioException("No hay Animal a ingresar, por lo tanto el habitat estara vacio");
+		}
 		
-		this.obtenerAnimal(animal);
 		this.obtenerEstructura(habitat);
 		
 		if (!(habitat instanceof Habitat)) {
 			throw new InstanciaIncorrectaException("La estructura ingresada no es un habitat");
 		}
-		
 		Habitat habitatVerificado = (Habitat) habitat;
 		return habitatVerificado.agregarAnimal(animal);
 	}
@@ -215,7 +318,6 @@ public class Zoologico implements IZoologico{
 				return estructura;
 			}
 		}
-
 		throw new NoExisteObjetoDondeSeBuscaException("La estructura ingresada no existe en el zoologico");
 	}
 
@@ -234,7 +336,6 @@ public class Zoologico implements IZoologico{
 	@Override
 	public Animal obtenerAnimalDeUnHabitat(Animal animal, Estructura habitat)
 			throws NoExisteObjetoDondeSeBuscaException {
-
 		if (habitat instanceof Habitat) {
 			Habitat habitatVerificado = (Habitat) habitat;
 			return habitatVerificado.obtenerAnimal(animal);
@@ -250,7 +351,23 @@ public class Zoologico implements IZoologico{
 			Habitat habitatVerificado = (Habitat) habitat;
 			return habitatVerificado.obtenerAnimalPorCodigo(codigo);
 		}
+		return null;
+		}
 
+	public RegistroVisitaHabitatAnimal registrarVisitaDeUnVisitanteAUnHabitat(Persona visitante, Estructura habitat)
+			throws NoTieneEntradaException {
+		if (visitante instanceof Visitante) {
+
+			if (((Visitante) visitante).getBoleto() == null) {
+				throw new NoTieneEntradaException("No tiene boleto");
+			}
+
+			if (((Habitat) habitat).getAnimales() != null) {
+				RegistroVisitaHabitatAnimal registro = new RegistroVisitaHabitatAnimal(visitante, habitat);
+				registrosVisitasHabitatsAnimales.add(registro);
+				return registro;
+			}
+		}
 		return null;
 	}
 
@@ -287,7 +404,7 @@ public class Zoologico implements IZoologico{
 	public Boolean reproducirDosAnimalesDeUnHabitat(Animal progenitor1, Animal progenitor2, Estructura habitat,
 			Integer idCria, String nombreCria)
 			throws EspecieDiferenteException, HabitatLlenoException, ProgenitoresDelMismoSexoException,
-			ProgenitoresEnDistintoHabitatException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException, NoSePudoAgregarAnimalInexistenteException {
+			ProgenitoresEnDistintoHabitatException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException, NoSePudoAgregarAnimalInexistenteException, HabitatVacioException {
 
 		if (progenitor1.getTipoSexo().equals(progenitor2.getTipoSexo())) {
 			throw new ProgenitoresDelMismoSexoException("Dos animales del mismo sexo no pueden reproducirse");
@@ -600,7 +717,7 @@ public class Zoologico implements IZoologico{
 	public RegistroTratamiento queUnVeterinarioTrateAUnAnimalEnfermoEnUnHospital(Estructura hospital,
 			Persona veterinario, Animal animal, Estructura habitat)
 			throws EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException,
-			InstanciaIncorrectaException, EstadoDelObjetoEsIncorrectoException {
+			InstanciaIncorrectaException, EstadoDelObjetoEsIncorrectoException, HabitatVacioException {
 
 		this.obtenerEstructura(hospital);
 		this.obtenerPersona(veterinario);
@@ -741,7 +858,6 @@ public class Zoologico implements IZoologico{
 			this.setEstaLimpio(true);
 			return true;
 		}
-
 		throw new zoologicoEstaLimpioExcepsion();
 	}
 
@@ -754,8 +870,16 @@ public class Zoologico implements IZoologico{
 			this.setEstaLimpio(true);
 			return true;
 		}
-
 		return false;
+	}
+
+	public List<RegistroVisitaHabitatAnimal> obtenerRegistrosVisitasHabitatsAnimal() {
+		return registrosVisitasHabitatsAnimales;
+	}
+
+	public void setRegistrosVisitasHabitatsAnimales(
+			List<RegistroVisitaHabitatAnimal> registrosVisitasHabitatsAnimales) {
+		this.registrosVisitasHabitatsAnimales = registrosVisitasHabitatsAnimales;
 	}
 
 }

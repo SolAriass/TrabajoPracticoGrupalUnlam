@@ -5,7 +5,5 @@ public class NoSePudoAgregarEstructuraInexistenteExcepcion extends Exception {
 	public NoSePudoAgregarEstructuraInexistenteExcepcion(String mensaje) {
 		super(mensaje);
 	}
-	
-	
 
 }

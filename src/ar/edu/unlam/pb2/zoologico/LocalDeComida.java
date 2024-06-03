@@ -33,7 +33,7 @@ public class LocalDeComida extends Estructura {
 		Double precioTotal = calcularCantidadAPagar(comida, cantidad);
 		
 		if( comprobarStock(cantidad, comida) ) {
-			if(visitante.getDinero() > precioTotal) {
+			if(visitante.getDineroQueDispone() > precioTotal) {
 				recaudacion+=precioTotal;
 				return true;
 			}
