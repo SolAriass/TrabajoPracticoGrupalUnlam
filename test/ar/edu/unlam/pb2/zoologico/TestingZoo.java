@@ -30,47 +30,24 @@ public class TestingZoo {
 
 	@Test
 	public void queSePuedaCrearUnZoologico() {
-=======
-
-public class TestingZoo {
-	
-	
-	@Test
-	public void queSePuedaCrearUnZoologico() {
 		
 		String nombreZoo = "Animalandia";
 		
 		Zoologico zoo = new Zoologico(nombreZoo);
->>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
-		
+
 		String nombreEsperado = "Animalandia";
 		
 		assertNotNull(zoo);
-<<<<<<< HEAD
 		assertEquals(nombreEsperado, this.zoo.getNombreZoo());
 
-=======
-		assertEquals(nombreEsperado, zoo.getNombreZoo());
-		
->>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 	}
 	
 	
 	@Test
-<<<<<<< HEAD
+
 	public void dadoQueExisteUnZoologicoQueSePuedanAgregarAnimalesAlMismo()
 			throws NoSePudoAgregarAnimalInexistenteException {
 
-=======
-	public void dadoQueExisteUnZoologicoQueSePuedanAgregarAnimalesAlMismo() {
-		
-		String nombreZoo = "Animalandia";
-		
-		Zoologico zoo = new Zoologico(nombreZoo);
-		
-		
-		
->>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 		Integer codigoDeReconocimiento = 230;
 		String nombreAnimal = "Sergio Ramirez";
 		Integer edad = 3;
@@ -81,7 +58,7 @@ public class TestingZoo {
 		CategoriaAnimal clase = CategoriaAnimal.MAMIFERO;
 		
 		Animal mono = new Mono(codigoDeReconocimiento, nombreAnimal, edad, peso, alimentacion, sexo, clase);
-<<<<<<< HEAD
+
 
 		Boolean seAgrego = this.zoo.agregarAnimalAlZoo(mono);
 
@@ -100,36 +77,15 @@ public class TestingZoo {
 		Boolean seAgrego = this.zoo.agregarAnimalAlZoo(mono);
 	}
 
-	@Test
-	public void dadoQueExisteUnZoologicoQueSePuedanAgregarPersonasAlMismo()
-			throws NoSePudoAgregarPersonaInexistenteException {
-
-=======
-		
-		
-		Boolean seAgrego = zoo.agregarAnimalAlZoo(mono);
-		
-		
-		assertTrue(seAgrego);
-		assertEquals(mono, zoo.getAnimales().get(0));
-		
-		
-		
-	}
 
 
 	@Test
 	public void dadoQueExisteUnZoologicoQueSePuedanAgregarPersonasAlMismo() {
 		
-		String nombreZoo = "Animalandia";
-		
-		Zoologico zoo = new Zoologico(nombreZoo);
-		
->>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
+
 		Integer identificacion = 23;
 		String nombreCompleto = "Jime Gomez";
 		Integer edad = 25;
-<<<<<<< HEAD
 
 		Persona personal = new Veterinario(identificacion, nombreCompleto, edad);
 
@@ -137,22 +93,9 @@ public class TestingZoo {
 
 		assertTrue(seAgrego);
 		assertEquals(personal, this.zoo.getPersonas().get(0));
-=======
-		
-		Personal personal = new Veterinario(identificacion, nombreCompleto, edad);
-		
-		
-		Boolean seAgrego = zoo.agregarPersonalAlZoo(personal);
-		
-		
-		assertTrue(seAgrego);
-		assertEquals(personal, zoo.getPersonas().get(0));
-		
->>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
-
-		
+	
 	}
-<<<<<<< HEAD
+
 
 	@Test(expected = NoSePudoAgregarPersonaInexistenteException.class)
 	public void dadoQueExisteUnZoologicoQueNoSePuedanAgregarPersonasAlMismoSiEstaNoExiste()
@@ -173,8 +116,6 @@ public class TestingZoo {
 		Persona personal = new Veterinario(identificacion, nombreCompleto, edad);
 
 		Boolean seAgrego = this.zoo.agregarPersonaAlZoo(personal);
-
-		assertFalse(seAgrego);
 		
 	}
 
@@ -201,21 +142,6 @@ public class TestingZoo {
 		Estructura hospital = null;
 
 		Boolean seAgrego = this.zoo.agregarEstructuraAlZoo(hospital);
-
-		Integer codigoDeReconocimiento = 230;
-		String nombreAnimal = "Sergio Ramirez";
-		Integer edad = 3;
-		Double peso = 5.5;
-		TipoAlimentacion alimentacion = TipoAlimentacion.OMNIVORO;
-		TipoSexo sexo = TipoSexo.FEMENINO;
-		CategoriaAnimal clase = CategoriaAnimal.MAMIFERO;
-
-		Animal mono = new Mono(codigoDeReconocimiento, nombreAnimal, edad, peso, alimentacion, sexo, clase);
-
-		Boolean seAgrego = this.zoo.agregarAnimalAlZoo(mono);
-
-		assertTrue(seAgrego);
-		assertEquals(mono, zoo.getAnimales().get(0));
 
 	}
 

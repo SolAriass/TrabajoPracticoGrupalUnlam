@@ -1,14 +1,10 @@
 package ar.edu.unlam.pb2.zoologico;
 
 import java.util.List;
-<<<<<<< HEAD
 import java.util.TreeSet;
 
 import java.time.LocalTime;
 import ar.edu.unlam.pb2.zoologico.excepciones.*;
-
-=======
->>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -58,18 +54,7 @@ public class Zoologico implements IZoologico{
 		this.estaLimpio = estaLimpio;
 	}
 
-<<<<<<< HEAD
-	
-	/*
-	 * aplico directamente en este metodo agregar el lanzamiento de la excepcion
-	 * para tratarla luego en el test dado asi, el metodo encontrar nos podria
-	 * devolver un null ya que en la vida cotidiana podemos buscar algo y no
-	 * encontrarlo si lo pensamos de esa manera
-	 */
-=======
 
-
->>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 
 	@Override
 	public Boolean agregarAnimalAlZoo(Animal animal) {
@@ -84,13 +69,18 @@ public class Zoologico implements IZoologico{
 	}
 
 
-
-
 	public void setAnimales(List<Animal> animales) {
 		this.animales = animales;
 	}
+	
+	/*
+	 * aplico directamente en este metodo agregar el lanzamiento de la excepcion
+	 * para tratarla luego en el test dado asi, el metodo encontrar nos podria
+	 * devolver un null ya que en la vida cotidiana podemos buscar algo y no
+	 * encontrarlo si lo pensamos de esa manera
+	 */
 
-<<<<<<< HEAD
+
 	@Override
 	public Boolean agregarPersonaAlZoo(Persona persona) throws NoSePuedenAgregarMenoresDeEdadException {
 
@@ -123,10 +113,6 @@ public class Zoologico implements IZoologico{
 	}
 
 
-	public List<Persona> getPersonas() {
-=======
-
-
 
 	@Override
 	public Boolean agregarPersonalAlZoo(Personal persona) {
@@ -137,7 +123,6 @@ public class Zoologico implements IZoologico{
 
 
 	public List<Personal> getPersonas() {
->>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 		return personas;
 	}
 
@@ -170,7 +155,7 @@ public class Zoologico implements IZoologico{
 		this.estructuras = estructuras;
 	}
 
-<<<<<<< HEAD
+
 	public Boolean agregarAnimalAlHabitat(Animal animal, Estructura habitat) throws EspecieDiferenteException, HabitatLlenoException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException {
 		
 		this.obtenerAnimal(animal);
@@ -186,11 +171,14 @@ public class Zoologico implements IZoologico{
 
 	@Override
 	public List<Animal> obtenerLosAnimalesConTipoAlimentacionOmnivora() {
-=======
->>>>>>> 0263159f657eda04ccc7d11ea375316280a94015
 
+		List<Animal> listaAuxiliar = new ArrayList<>();
 
-<<<<<<< HEAD
+		for (Animal animal : animales) {
+			if (animal.getTipoAlimentacion().equals(TipoAlimentacion.OMNIVORO)) {
+				listaAuxiliar.add(animal);
+			}
+		}
 
 		return listaAuxiliar;
 	}
@@ -723,7 +711,7 @@ public class Zoologico implements IZoologico{
 		return animalesNoRepetidos;
 	}
 
-=======
+
 
 
 	
