@@ -2,7 +2,7 @@ package ar.edu.unlam.pb2.zoologico;
 
 public class Persona {
 
-	private Object identificacion;
+	private Integer identificacion;
 	private String nombreCompleto;
 	private Integer edad;
 

@@ -9,9 +9,12 @@ public abstract class Animal {
 	private TipoSexo tipoSexo;
 	private CategoriaAnimal categoriaAnimal;
 	private Boolean estaEnfermo;
+	private Boolean estaDormido;
+	private Double temperaturaAnimal;
+	private Boolean alimentacionInapropiada;
 
 	public Animal(Integer codigoDeReconocimiento, String nombreAnimal, Integer edad, Double peso,
-			TipoAlimentacion alimentacion, TipoSexo sexo, CategoriaAnimal clase) {	
+			TipoAlimentacion alimentacion, TipoSexo sexo, CategoriaAnimal clase) {
 		this.codigoDeReconocimiento = codigoDeReconocimiento;
 		this.nombreAnimal = nombreAnimal;
 		this.edad = edad;
@@ -20,14 +23,42 @@ public abstract class Animal {
 		this.tipoSexo = sexo;
 		this.categoriaAnimal = clase;
 		this.estaEnfermo = false;
+		this.estaDormido = false;
+		this.temperaturaAnimal = 36.1;
+		this.alimentacionInapropiada = false;
+	}
+	
+	public Boolean getAlimentacionInapropiada() {
+		return alimentacionInapropiada;
 	}
 
-	public CategoriaAnimal getCategoriaAnimal() {
-		return categoriaAnimal;
+	public void setAlimentacionInapropiada(Boolean alimentacionInapropiada) {
+		this.alimentacionInapropiada = alimentacionInapropiada;
 	}
 
-	public void setCategoriaAnimal(CategoriaAnimal categoriaAnimal) {
-		this.categoriaAnimal = categoriaAnimal;
+	public Double getTemperaturaAnimal() {
+		return temperaturaAnimal;
+	}
+
+	public void setTemperaturaAnimal(Double temperaturaAnimal) {
+		this.temperaturaAnimal = temperaturaAnimal;
+	}
+
+	public void setEstaEnfermo(Boolean estaEnfermo) {
+		this.estaEnfermo = estaEnfermo;
+	}
+	
+	public Boolean getEstaEnfermo() {
+		return estaEnfermo;
+	}
+
+	
+	public TipoAlimentacion getTipoAlimentacion() {
+		return tipoAlimentacion;
+	}
+
+	public void setTipoAlimentacion(TipoAlimentacion tipoAlimentacion) {
+		this.tipoAlimentacion = tipoAlimentacion;
 	}
 
 	public TipoSexo getTipoSexo() {
@@ -38,12 +69,37 @@ public abstract class Animal {
 		this.tipoSexo = tipoSexo;
 	}
 
-	public TipoAlimentacion getTipoAlimentacion() {
-		return tipoAlimentacion;
+	public CategoriaAnimal getCategoriaAnimal() {
+		return categoriaAnimal;
 	}
 
-	public void setTipoAlimentacion(TipoAlimentacion tipoAlimentacion) {
-		this.tipoAlimentacion = tipoAlimentacion;
+	public void setCategoriaAnimal(CategoriaAnimal categoriaAnimal) {
+		this.categoriaAnimal = categoriaAnimal;
+	}
+	
+	public Boolean getEstaDormido() {
+		return estaDormido;
+	}
+
+	public void dormir(Boolean estaDormido) {
+		this.estaDormido = estaDormido;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigoDeReconocimiento);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Animal other = (Animal) obj;
+		return Objects.equals(codigoDeReconocimiento, other.codigoDeReconocimiento);
 	}
 	
 	public Integer getCodigoDeReconocimiento() {
@@ -78,15 +134,8 @@ public abstract class Animal {
 		this.peso = peso;
 	}
 
-	public Boolean getEstaEnfermo() {
-		return estaEnfermo;
-	}
-
-	public void setEstaEnfermo(Boolean estaEnfermo) {
-		this.estaEnfermo = estaEnfermo;
-	}
-
 	public abstract Animal crearCria (Integer idCria, String nombreCria, TipoSexo sexo);
+	
 	
 
 }
