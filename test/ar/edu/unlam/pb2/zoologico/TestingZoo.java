@@ -61,9 +61,6 @@ public class TestingZoo {
 		assertEquals(mono, this.zoo.getAnimales().get(0));
 	}
 
-		assertEquals(mono, zoo.getAnimales().get(0));
-
-	}
 
 	@Test(expected = NoSePudoAgregarAnimalInexistenteException.class)
 	public void dadoQueExisteUnZoologicoQueNoSePuedanAgregarAnimalInexistente()
