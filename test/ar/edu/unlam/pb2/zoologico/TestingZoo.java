@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import ar.edu.unlam.pb2.excepciones.*;
+
 public class TestingZoo {
 
 	@Test

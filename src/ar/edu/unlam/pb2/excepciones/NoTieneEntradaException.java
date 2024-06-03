@@ -1,4 +1,4 @@
-package ar.edu.unlam.pb2.zoologico;
+package ar.edu.unlam.pb2.excepciones;
 
 public class NoTieneEntradaException extends Exception{
 

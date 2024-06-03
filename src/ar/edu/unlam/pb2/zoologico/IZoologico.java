@@ -2,6 +2,13 @@ package ar.edu.unlam.pb2.zoologico;
 
 import java.util.List;
 
+import ar.edu.unlam.pb2.excepciones.HabitatVacioException;
+import ar.edu.unlam.pb2.excepciones.NoExisteObjetoDondeSeBuscaException;
+import ar.edu.unlam.pb2.excepciones.NoSePudoAgregarAnimalInexistenteException;
+import ar.edu.unlam.pb2.excepciones.NoSePudoAgregarEstructuraInexistenteExcepcion;
+import ar.edu.unlam.pb2.excepciones.NoSePuedenAgregarMenoresDeEdadException;
+import ar.edu.unlam.pb2.excepciones.NoTieneEntradaException;
+
 public interface IZoologico {
 	
 	Boolean agregarAnimalAlZoo(Animal animal) throws NoSePudoAgregarAnimalInexistenteException;
