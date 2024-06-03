@@ -13,7 +13,6 @@ import ar.edu.unlam.pb2.zoologico.excepciones.VeterinarioNuloExcepcion;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class Zoologico implements IZoologico {
 
@@ -425,83 +424,6 @@ public class Zoologico implements IZoologico {
 		}
 
 		return auxiliarRegistro;
-	public Persona buscarPersonaPorId(Integer id) throws PersonaNoEncontradaException {
-		for (Persona persona : this.personas) {
-			if (persona.getIdentificacion().equals(id)) {
-				return persona;
-			}
-		}
-
-		throw new PersonaNoEncontradaException();
-	}
-
-	@Override
-	public Animal buscarAnimalPorId(Integer codigoDeReconocimiento) throws AnimalNoEncontradoException {
-		for (Animal animal : this.animales) {
-			if (animal.getCodigoDeReconocimiento().equals(codigoDeReconocimiento)) {
-				return animal;
-			}
-		}
-
-		throw new AnimalNoEncontradoException();
-	}
-
-	@Override
-	public Estructura buscarEstructuraPorId(Integer codigoEstructural) throws EstructuraNoEncontradaException {
-		for (Estructura estructura : this.estructuras) {
-			if (estructura.getCodigoEstructural().equals(codigoEstructural)) {
-				return estructura;
-			}
-		}
-
-		throw new EstructuraNoEncontradaException();
-	}
-
-	@Override
-	public Boolean agregarAnimalAlHabitat(Animal animal, Estructura habitat) {
-
-		if (habitat instanceof Habitat && animales.contains(animal) && estructuras.contains(habitat)) {
-			Habitat habitatVerificado = (Habitat) habitat;
-			 if(habitatVerificado.agregarAnimal(animal)) {
-				 animal.setHabitat(habitat);
-				 return true;
-			 }
-		}
-
-		return false;
-	}
-
-	@Override
-	public Animal obtenerAnimalDeUnHabitatPorCodigo(Integer codigo, Estructura habitat) {
-		if (habitat instanceof Habitat) {
-			Habitat habitatVerificado = (Habitat) habitat;
-			return habitatVerificado.obtenerAnimalPorCodigo(codigo);
-		}
-
-		return null;
-	}
-
-	@Override
-	public List<Animal> obtenerAnimalesDeUnHabitat(Estructura habitat) {
-		List<Animal> animales = new ArrayList<>();
-
-		for (Animal animal : this.animales) {
-			if (animal.getHabitat().equals(habitat)) {
-				animales.add(animal);
-			}
-		}
-
-		return animales;
-	}
-
-	public TreeSet<Animal> obtenerAnimalesDeUnHabitatOrdenadosOrdenEspecifico(Comparator<Animal> OrdenEspecifico,
-			Estructura habitatMonos) {
-		TreeSet<Animal> animalesNoRepetidos = new TreeSet<Animal>(OrdenEspecifico);
-		List<Animal> animales = this.obtenerAnimalesDeUnHabitat(habitatMonos);
-
-		animalesNoRepetidos.addAll(animales);
-
-		return animalesNoRepetidos;
 	}
 
 }

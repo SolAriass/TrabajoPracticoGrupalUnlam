@@ -32,10 +32,4 @@ public interface IZoologico {
 	List<Animal> conocerALosAnimalesQueConsumieronComidaDeTipoCarne();
 	List<Animal> obtenerALosAnimalesEnfermosPorAlimentacionIncorrecta();
 	List<RegistroAlimentacion> conocerLosRegistrosQueContenganUnAnimalEspecifico(Animal animal);
-	Persona buscarPersonaPorId(Integer id) throws PersonaNoEncontradaException;
-	Animal buscarAnimalPorId(Integer codigoDeReconocimiento) throws AnimalNoEncontradoException;
-	Estructura buscarEstructuraPorId(Integer codigoEstructural) throws EstructuraNoEncontradaException;
-	Boolean agregarAnimalAlHabitat(Animal animal, Estructura habitat);
-	Animal obtenerAnimalDeUnHabitatPorCodigo(Integer codigo, Estructura habitat);
-	List<Animal> obtenerAnimalesDeUnHabitat(Estructura habitat);
 }
