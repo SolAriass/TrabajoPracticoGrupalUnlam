@@ -1,10 +1,7 @@
 package ar.edu.unlam.pb2.zoologico;
 
-<<<<<<< HEAD
 import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAlimentarException;
 
-=======
->>>>>>> rama-nico-bon
 public class Veterinario extends Persona {
 
 	public Veterinario(Integer identificacion, String nombreCompleto, Integer edad) {

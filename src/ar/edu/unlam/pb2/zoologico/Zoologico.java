@@ -1,7 +1,6 @@
 package ar.edu.unlam.pb2.zoologico;
 
 import java.util.List;
-<<<<<<< HEAD
 
 import ar.edu.unlam.pb2.zoologico.excepciones.NoFueCreadoElRegistroExcepcion;
 import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAgregarAlVeterinarioAlHospitalException;
@@ -13,9 +12,6 @@ import ar.edu.unlam.pb2.zoologico.excepciones.NoSePudoAlimentarException;
 import ar.edu.unlam.pb2.zoologico.excepciones.VeterinarioNuloExcepcion;
 
 import java.time.LocalTime;
-=======
-import java.util.TreeSet;
->>>>>>> rama-nico-bon
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -27,11 +23,8 @@ public class Zoologico implements IZoologico {
 	private List<Animal> animales;
 	private List<Persona> personas;
 	private List<Estructura> estructuras;
-<<<<<<< HEAD
 	private LocalTime horarioZoo;
 	private List<RegistroAlimentacion> registrosDeAlimentacion;
-=======
->>>>>>> rama-nico-bon
 
 	public Zoologico(String nombreZoo) {
 		this.nombreZoo = nombreZoo;
@@ -77,7 +70,6 @@ public class Zoologico implements IZoologico {
 		this.estaLimpio = estaLimpio;
 	}
 
-<<<<<<< HEAD
 	/*
 	 * aplico directamente en este metodo agregar el lanzamiento de la excepcion
 	 * para tratarla luego en el test dado asi, el metodo encontrar nos podria
@@ -92,18 +84,6 @@ public class Zoologico implements IZoologico {
 		}
 
 		throw new NoSePudoAgregarAnimalInexistenteException("el animal ingresado no existe");
-=======
-	@Override
-	public Boolean agregarAnimalAlZoo(Animal animal) {
-
-		for (Animal a : this.animales) {
-			if (a.equals(animal)) {
-				return false;
-			}
-		}
-
-		return animales.add(animal);
->>>>>>> rama-nico-bon
 	}
 
 	public List<Animal> getAnimales() {
@@ -115,23 +95,12 @@ public class Zoologico implements IZoologico {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public Boolean agregarPersonalAlZoo(Persona persona) throws NoSePudoAgregarPersonaInexistenteException {
 
 		if (persona != null) {
 			return personas.add(persona);
 		}
 		throw new NoSePudoAgregarPersonaInexistenteException("la persona ingresado no existe");
-=======
-	public Boolean agregarPersonalAlZoo(Persona persona) {
-
-		for (Persona p : this.personas) {
-			if (p.equals(persona)) {
-				return false;
-			}
-		}
-		return personas.add(persona);
->>>>>>> rama-nico-bon
 	}
 
 	public List<Persona> getPersonas() {
@@ -143,22 +112,12 @@ public class Zoologico implements IZoologico {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public Boolean agregarEstructuraAlZoo(Estructura estructura) throws NoSePudoAgregarEstructuraInexistenteExcepcion {
 
 		if (estructura != null) {
 			return estructuras.add(estructura);
 		}
 		throw new NoSePudoAgregarEstructuraInexistenteExcepcion("la estructura ingresada no existe");
-=======
-	public Boolean agregarEstructuraAlZoo(Estructura estructura) {
-		for (Estructura e : this.estructuras) {
-			if (e.equals(estructura)) {
-				return false;
-			}
-		}
-		return estructuras.add(estructura);
->>>>>>> rama-nico-bon
 	}
 
 	public List<Estructura> getEstructuras() {
@@ -170,7 +129,6 @@ public class Zoologico implements IZoologico {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public List<Animal> obtenerLosAnimalesConTipoAlimentacionOmnivora() {
 
 		List<Animal> listaAuxiliar = new ArrayList<>();
@@ -467,7 +425,6 @@ public class Zoologico implements IZoologico {
 		}
 
 		return auxiliarRegistro;
-=======
 	public Persona buscarPersonaPorId(Integer id) throws PersonaNoEncontradaException {
 		for (Persona persona : this.personas) {
 			if (persona.getIdentificacion().equals(id)) {
@@ -545,7 +502,6 @@ public class Zoologico implements IZoologico {
 		animalesNoRepetidos.addAll(animales);
 
 		return animalesNoRepetidos;
->>>>>>> rama-nico-bon
 	}
 
 }

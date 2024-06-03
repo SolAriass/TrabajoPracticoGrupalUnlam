@@ -1,15 +1,5 @@
 package ar.edu.unlam.pb2.zoologico;
 
-<<<<<<< HEAD
-public class Habitat extends Estructura {
-
-	public Habitat(Integer codigoEstructural, String nombreEstructura) {
-		super(codigoEstructural, nombreEstructura);
-		// TODO Auto-generated constructor stub
-	}
-
-}
-=======
 import java.util.ArrayList;
 
 public class Habitat extends Estructura {
@@ -58,4 +48,3 @@ public class Habitat extends Estructura {
 			return null;
 	}
 }
->>>>>>> rama-nico-bon

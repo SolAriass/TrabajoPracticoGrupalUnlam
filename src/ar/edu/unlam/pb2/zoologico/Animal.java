@@ -5,7 +5,6 @@ import java.util.Objects;
 public class Animal {
 
 	private Integer codigoDeReconocimiento;
-<<<<<<< HEAD
 	private String nombreAnimal;
 	private Integer edad;
 	private Double peso;
@@ -31,23 +30,14 @@ public class Animal {
 		this.temperaturaAnimal = 36.1;
 		this.alimentacionInapropiada = false;
 	}
-	
-	
-	
 
 	public Boolean getAlimentacionInapropiada() {
 		return alimentacionInapropiada;
 	}
 
-
-
-
 	public void setAlimentacionInapropiada(Boolean alimentacionInapropiada) {
 		this.alimentacionInapropiada = alimentacionInapropiada;
 	}
-
-
-
 
 	public Double getTemperaturaAnimal() {
 		return temperaturaAnimal;
@@ -60,7 +50,7 @@ public class Animal {
 	public void setEstaEnfermo(Boolean estaEnfermo) {
 		this.estaEnfermo = estaEnfermo;
 	}
-	
+
 	public Boolean getEstaEnfermo() {
 		return estaEnfermo;
 	}
@@ -121,8 +111,6 @@ public class Animal {
 		this.categoriaAnimal = categoriaAnimal;
 	}
 
-
-	
 	public Boolean getEstaDormido() {
 		return estaDormido;
 	}
@@ -147,57 +135,5 @@ public class Animal {
 		Animal other = (Animal) obj;
 		return Objects.equals(codigoDeReconocimiento, other.codigoDeReconocimiento);
 	}
-	
-	
-	
 
-=======
-	private Integer edad;
-	private Habitat habitat;
-
-	public Animal(Integer codigoDeReconocimiento, String nombreAnimal, Integer edad, Double peso,
-			TipoAlimentacion alimentacion, TipoSexo sexo, CategoriaAnimal clase) {
-
-		this.codigoDeReconocimiento = codigoDeReconocimiento;
-		this.edad = edad;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(codigoDeReconocimiento);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Animal other = (Animal) obj;
-		return Objects.equals(codigoDeReconocimiento, other.codigoDeReconocimiento);
-	}
-
-	public Integer getCodigoDeReconocimiento() {
-		return codigoDeReconocimiento;
-	}
-
-	public void setCodigoDeReconocimiento(Integer codigoDeReconocimiento) {
-		this.codigoDeReconocimiento = codigoDeReconocimiento;
-	}
-
-	public Integer getEdad() {
-		return this.edad;
-	}
-
-	public Habitat getHabitat() {
-		return this.habitat;
-	}
-
-	public void setHabitat(Estructura habitat) {
-		this.habitat = (Habitat) habitat;
-	}
-
->>>>>>> rama-nico-bon
 }

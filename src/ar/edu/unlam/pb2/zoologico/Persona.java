@@ -1,28 +1,20 @@
 package ar.edu.unlam.pb2.zoologico;
 
-<<<<<<< HEAD
-=======
 import java.util.Objects;
 
->>>>>>> rama-nico-bon
 public class Persona {
 
 	private Integer identificacion;
 	private String nombreCompleto;
 	private Integer edad;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> rama-nico-bon
 	public Persona(Integer identificacion, String nombreCompleto, Integer edad) {
 		this.identificacion = identificacion;
 		this.nombreCompleto = nombreCompleto;
 		this.edad = edad;
 	}
-<<<<<<< HEAD
 	
-=======
 
 	public Integer getIdentificacion() {
 		return identificacion;
@@ -49,5 +41,4 @@ public class Persona {
 		return Objects.equals(identificacion, other.identificacion);
 	}
 
->>>>>>> rama-nico-bon
 }
