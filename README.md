@@ -132,6 +132,40 @@ En resumen, nuestro objetivo es crear un proyecto integral que optimice la gesti
 > animal coincida con el del parámetro, se agregará el veterinario a una lista auxiliar, la cual se retornará.
 
 
+### EXPLICACIÓN DE LOS TEST DE RAMIREZ SERGIO
+
+> [!NOTE]
+> - *dadoQueExisteUnZoologicoQueUnPersonalDeMantenimientoPuedaArreglarUnaEstructuraSiSuEstadoEstaRoto();*
+> Cuando una estructura este rota o le falte mantenimento que se encargue el personal correspondiente para arreglar esa estructura.
+> - *dadoQueExisteUnZoologicoQueUnPersonalDeMantenimientoNoPuedaArreglarUnaEstructuraSiSuEstadoEstaBien();*
+> - Si todo esta correcto y ninguna estructura esta en mal estado no se debe arreglar ni reparar nada por el personal de mantenimiento.
+> - *dadoQueExisteUnZoologicoQueUnPersonalQueNoSeaDeMantenimientoNoPuedaArreglarUnaEstructuraSiSuEstadoEstaRoto();*
+> En el caso de que una estructura este en mal estado o le falta mantenimiento que no pueda arreglarlo otro personal diferente al de Mantenimiento.
+> - *dadoQueExisteUnZoologicoQueUnAnimalPuedaEmitirUnSonido();*
+> Dado que un animal sabe como emitir un sonido(animal especifico) lo comparamos con un string para corroborar si el sonido que hace es el que esperamos.
+- *dadoQueExisteUnZoologicoQueUnAnimalSePuedaMover();*
+> De la misma forma que el sonido, un animal especifico sabe como moverde y deberiamos comprarar el movimiento esperado con el obtenido por el.
+> - *dadoQueExisteUnZoologicoSiEstaSucioQueSePuedaLimpiarPorUnPersonalDeMantenimiento();*
+> El estado del Zoologico depende del personal de Mantenimiento, cuando el Zoologico se encuentre en un estado Sucio solo este mismo personal lo debe limpiar.
+> - *dadoQueExisteUnZoologicoSiEstaLimpioQueNoSePuedaLimpiarPorUnPersonalDeMantenimiento();*
+> Cuando el estado del Zoologico este limpio no sera necesario que el personal de mantenimiento lo limpie.
+> - *dadoQueExisteUnZoologicoSiEstaSucioQueNoSePuedaLimpiarPorUnPersonalQueNoSeaDeMantenimiento();*
+> Que el estado Zoologico cuando este sucio que no pueda ser limpiado por un personal que no sea de mantenimiento.
+> - *dadoQueExisteUnZoologicoQueSePuedaAgregarUnaHamburgueseria();*
+> El Zoologico dispone de una hamburguesería.
+> - *dadoQueExisteUnZoologicoConLocalDeComidasQueSePuedaAgregarStockDeComidas();*
+> Agrega el stock del tipo de comida a la hamburguesería.
+> - *dadoQueExisteUnZoologicoConLocalDeComidasComprobarSiTieneStockDeUnTipoDeComida();*
+> Verifica si hay stock de un tipo de comida especifico.
+> - *dadoQueExisteUnZoologicoConLocalDeComidasQueUnVisitantePuedaComprarSiTieneSuficienteDineroYSiElLocalTieneStockSuficienteDeLaComida();*
+> Comprueba si un visitante tiene el suficiente dinero para poder comprar cierta cantidad de comida al local, también verifica si el local tiene el suficiente stock para poder vender la 
+> comida solicitada.
+> - *dadoQueExisteUnZoologicoConLocalDeComidasSaberLaRecaudacionTotal();*
+> Verifica el total dado de todo lo vendido en la hamburgueseria.
+
+
+
+
 ### Uso de:
 - [x] Clases Abstractas
 - [x] Colecciones (list y set)
