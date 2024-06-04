@@ -18,8 +18,8 @@ En resumen, nuestro objetivo es crear un proyecto integral que optimice la gesti
 ### EXPLICACIÓN DE LOS TEST DE ARIAS SOL
 
 > [!NOTE]
-> - *dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerSiElPesoDelAnimalAumentoAlSerAlimentadoConSuComidaCorrespondiente();
-> En este test analizamos los registros de alimentación ingresados, los cuales solamente se crean si se alimento de una forma "correcta" al animal, ya que podria ser que el veterinario > se confunda y al ser animales en cautiverio, comen de igual forma esa comida (CARNE O PLANTA). Una vez alimentado debemos consultar su peso para averiguar si realmente comio lo que > > debia y si engordo por esa comida.*
+> - *dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerSiElPesoDelAnimalAumentoAlSerAlimentadoConSuComidaCorrespondiente();*
+> En este test analizamos los registros de alimentación ingresados, los cuales solamente se crean si se alimento de una forma "correcta" al animal, ya que podria ser que el veterinario > se confunda y al ser animales en cautiverio, comen de igual forma esa comida (CARNE O PLANTA). Una vez alimentado debemos consultar su peso para averiguar si realmente comio lo que > > debia y si engordo por esa comida.
 > - *dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerLosRegistrosQueContenganUnAnimalEspecifico();*
 > En este test volveremos a analizar dichos registros y buscaremos en cada uno de ellos si se encuentra el animal que esperamos que este alli adentro, en caso de que este lo agregamos a > una lista para luego ser analizada si fue agregado de forma correcta.
 > - *dadoQueExisteUnZoologicoConRegistrosDeAlimentacionConocerALosAnimalesQueFueronAlimentadosConCarne();*
