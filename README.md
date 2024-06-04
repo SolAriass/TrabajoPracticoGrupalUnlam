@@ -143,7 +143,7 @@ En resumen, nuestro objetivo es crear un proyecto integral que optimice la gesti
 > En el caso de que una estructura este en mal estado o le falta mantenimiento que no pueda arreglarlo otro personal diferente al de Mantenimiento.
 > - *dadoQueExisteUnZoologicoQueUnAnimalPuedaEmitirUnSonido();*
 > Dado que un animal sabe como emitir un sonido(animal especifico) lo comparamos con un string para corroborar si el sonido que hace es el que esperamos.
-- *dadoQueExisteUnZoologicoQueUnAnimalSePuedaMover();*
+> - *dadoQueExisteUnZoologicoQueUnAnimalSePuedaMover();*
 > De la misma forma que el sonido, un animal especifico sabe como moverde y deberiamos comprarar el movimiento esperado con el obtenido por el.
 > - *dadoQueExisteUnZoologicoSiEstaSucioQueSePuedaLimpiarPorUnPersonalDeMantenimiento();*
 > El estado del Zoologico depende del personal de Mantenimiento, cuando el Zoologico se encuentre en un estado Sucio solo este mismo personal lo debe limpiar.
