@@ -71,6 +71,32 @@ En resumen, nuestro objetivo es crear un proyecto integral que optimice la gesti
 > En este test debemos presentar una excepcion ya que no podriamos guardar un registro el cual no tenga una cantidad de comida mayor a 0.
 
 
+### EXPLICACIÓN DE LOS TEST DE BON NICOLAS
+
+> [!NOTE]
+> -	*dadoQueExisteUnZoologicoConAnimalesQueSePuedaObtenerUnAnimalPorId();*
+> En este test se busca y obtiene un animal del zoológico por su código de reconocimiento (id).
+> -	*dadoQueExisteUnZoologicoConAnimalesQueAlBuscarUnAnimalPorIdInexistenteArrojeUnaException();*
+> En este test se prueba que al buscar un animal por código inexistente, arroje la excepción “AnimalNoEncontradoException”.
+> -	*dadoQueExisteUnZoologicoConPersonalQueSePuedaObtenerLaPersonaPorId();*
+> En este test se busca y obtiene una persona que trabaja en el zoológico por su código de reconocimiento (id).
+> -	*dadoQueExisteUnZoologicoConPersonalQueAlBuscarUnaPersonaPorIdInexistenteSeaNull();*
+> En este test se prueba que al buscar una persona por código inexistente, arroje la excepción “PersonaNoEncontradaException”.
+> - *dadoQueExisteUnZoologicoConEstructurasQueSePuedaObtenerLaEstructuraPorId();*
+> En este test se busca y obtiene una estructura del zoológico por su código de reconocimiento (id).
+> - *dadoQueExisteUnZoologicoConEstructurasQueAlBuscarUnaEstructuraPorIdInexistenteSeaNull();*
+> En este test se prueba que al buscar una estructura por un código inexistente, arroje la excepción “EstructuraNoEncontradaException”.
+> - *dadoQueExisteUnZoologicoConAnimalesQueNoSePuedaAgregarDosAnimalesConMismoCodigo();*
+> En este test se prueba que al agregar dos animales con un mismo código, solo uno de ellos sea agregado y arroje la excepción “NoSePudoAgregarAnimalInexistenteException”.
+> - *dadoQueExisteUnZoologicoConPersonalQueNoSePuedaAgregarDosPersonasConMismoCodigo();*
+> En este test se prueba que al agregar dos personas con un mismo código, solo una de ellas sea agregada.
+> - *dadoQueExisteUnZoologicoConEstructurasQueNoSePuedaAgregarDosEstructurasConMismoCodigo();*
+> En este test se prueba que al agregar dos estructuras con un mismo código, solo una de ellas sea agregada.
+> - *dadoQueExisteUnZoologicoConAnimalesEnUnHabitatQueSePuedanObtenerLosAnimalesDeUnHabitatOrdenadosPorEdadDecreciente();*
+> - *dadoQueExisteUnZoologicoConAnimalesEnUnHabitatQueSePuedanObtenerLosAnimalesDeUnHabitatOrdenadosPorEdadAscendente();*
+> En estos test se obtienen los animales de un hábitat y se los ordena de forma decreciente y ascendente, basándonos en una clase que implementa la interfaz comparator para así sobrescribir el método compare de acuerdo a la edad del animal
+
+
 ### EXPLICACIÓN DE LOS TEST DE GOMEZ JIMENA
 
 > [!NOTE]
