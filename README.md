@@ -138,7 +138,7 @@ En resumen, nuestro objetivo es crear un proyecto integral que optimice la gesti
 > - *dadoQueExisteUnZoologicoQueUnPersonalDeMantenimientoPuedaArreglarUnaEstructuraSiSuEstadoEstaRoto();*
 > Cuando una estructura este rota o le falte mantenimento que se encargue el personal correspondiente para arreglar esa estructura.
 > - *dadoQueExisteUnZoologicoQueUnPersonalDeMantenimientoNoPuedaArreglarUnaEstructuraSiSuEstadoEstaBien();*
-> - Si todo esta correcto y ninguna estructura esta en mal estado no se debe arreglar ni reparar nada por el personal de mantenimiento.
+> Si todo esta correcto y ninguna estructura esta en mal estado no se debe arreglar ni reparar nada por el personal de mantenimiento.
 > - *dadoQueExisteUnZoologicoQueUnPersonalQueNoSeaDeMantenimientoNoPuedaArreglarUnaEstructuraSiSuEstadoEstaRoto();*
 > En el caso de que una estructura este en mal estado o le falta mantenimiento que no pueda arreglarlo otro personal diferente al de Mantenimiento.
 > - *dadoQueExisteUnZoologicoQueUnAnimalPuedaEmitirUnSonido();*
