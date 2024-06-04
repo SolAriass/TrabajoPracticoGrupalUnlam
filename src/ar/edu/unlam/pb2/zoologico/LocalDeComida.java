@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.ArrayList;
 
 import ar.edu.unlam.pb2.enums.ComidaHumanos;
+import ar.edu.unlam.pb2.excepciones.SaldoInsuficienteParaComprarComidaException;
+import ar.edu.unlam.pb2.excepciones.StockInsuficienteDeComidaException;
 
 public class LocalDeComida extends Estructura {
-	
+
 	private List<ComidaHumanos> comidas;
 	private Double papasFritas = 150.0;
 	private Double precioHamburguesa = 200.0;
@@ -20,32 +22,32 @@ public class LocalDeComida extends Estructura {
 		// TODO Auto-generated constructor stub
 		this.comidas = new ArrayList<>();
 	}
+
+	public void agregarAlLocalStockDe(ComidaHumanos comida, Integer cantidadAAgregar) {
+			for (int i = 0; i < cantidadAAgregar; i++) {
+				this.comidas.add(comida);
+			}
 	
-	public void agregarAlLocalStockDe(ComidaHumanos comida, Integer cantidadAAgregar) {	
-		for (int i = 0; i < cantidadAAgregar; i++) {
-			
-			this.comidas.add(comida);
-		}
 	}
 
-	public Boolean comprarComida(Visitante visitante, ComidaHumanos comida, Integer cantidad) {
+	public Boolean comprarComida(Visitante visitante, ComidaHumanos comida, Integer cantidad) throws SaldoInsuficienteParaComprarComidaException, StockInsuficienteDeComidaException {
 		// TODO Auto-generated method stub
 		Double precioTotal = calcularCantidadAPagar(comida, cantidad);
-		
-		if( comprobarStock(cantidad, comida) ) {
-			if(visitante.getDineroQueDispone() > precioTotal) {
-				recaudacion+=precioTotal;
+
+		if (comprobarStock(cantidad, comida)) {
+			if (visitante.getDineroQueDispone() > precioTotal) {
+				recaudacion += precioTotal;
 				return true;
 			}
+			throw new SaldoInsuficienteParaComprarComidaException();
 		}
-		
-		return false;
+		throw new StockInsuficienteDeComidaException();
 	}
 
 	public Double calcularCantidadAPagar(ComidaHumanos comida, Integer cantidad) {
 		Double precioTotal = 0.0;
-		
-		switch(comida) {
+
+		switch (comida) {
 		case PAPAS_FRITAS:
 			precioTotal = cantidad * papasFritas;
 			break;
@@ -64,31 +66,29 @@ public class LocalDeComida extends Estructura {
 		}
 		return precioTotal;
 	}
-	
 
-	public  Boolean comprobarStock(Integer cantidad, ComidaHumanos comidaAbuscar) {
+	public Boolean comprobarStock(Integer cantidad, ComidaHumanos comidaAbuscar) {
 		// TODO Auto-generated method stub
 		Integer contadorDeTipoDeComida = comprobarStockPorTipoDeComida(comidaAbuscar);
-		
-		if(contadorDeTipoDeComida > cantidad) {
+
+		if (contadorDeTipoDeComida > cantidad) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
 	public Integer comprobarStockPorTipoDeComida(ComidaHumanos comidaAbuscar) {
 		Integer contadorDeTipoDeComida = 0;
-		
+
 		for (ComidaHumanos comida : comidas) {
-			if(comida.equals(comidaAbuscar)) {
+			if (comida.equals(comidaAbuscar)) {
 				contadorDeTipoDeComida++;
 			}
-			
+
 		}
 		return contadorDeTipoDeComida;
 	}
-
 
 	public List<ComidaHumanos> getComidas() {
 		return comidas;

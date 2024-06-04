@@ -11,10 +11,10 @@ public interface IZoologico {
 
 	Boolean agregarAnimalAlZoo(Animal animal) throws NoSePudoAgregarAnimalInexistenteException;
 
-	Boolean agregarPersonaAlZoo(Persona persona) throws NoSePudoAgregarPersonaInexistenteException,
+	Boolean agregarPersonaAlZoo(Persona persona) throws NoFueEncontradaPersonaInexistenteException,
 			NoSePuedenAgregarMenoresDeEdadException, NoTieneEntradaException;
 
-	Boolean agregarEstructuraAlZoo(Estructura estructura) throws NoSePudoAgregarEstructuraInexistenteExcepcion;
+	Boolean agregarEstructuraAlZoo(Estructura estructura) throws NoFueEncontradaEstructuraInexistenteExcepcion;
 
 	List<Animal> obtenerLosAnimalesConTipoAlimentacionOmnivora();
 
@@ -27,8 +27,8 @@ public interface IZoologico {
 	List<Animal> obtenerALosAnimalesEnfermosPorTemperaturaBaja();
 
 	Boolean agregarUnVeterinarioAUnHospital(Estructura hospital, Persona personal)
-			throws NoSePudoAgregarAlVeterinarioAlHospitalException, NoSePudoAgregarEstructuraInexistenteExcepcion,
-			NoSePudoAgregarPersonaInexistenteException;
+			throws NoSePudoAgregarAlVeterinarioAlHospitalException, NoFueEncontradaEstructuraInexistenteExcepcion,
+			NoFueEncontradaPersonaInexistenteException;
 
 	Estructura encontrarSiExisteLaEstructuraEnElZoo(Estructura estructura);
 
@@ -39,7 +39,7 @@ public interface IZoologico {
 	Animal encontrarSiExisteElAnimalEnElZoo(Animal animal);
 
 	RegistroAlimentacion cargarAlimentacion(Persona personal, Animal animal, ComidaAnimales comida,
-			Integer cantidadComida) throws NoFueCreadoElRegistroExcepcion, NoSePudoAgregarPersonaInexistenteException,
+			Integer cantidadComida) throws NoFueCreadoElRegistroExcepcion, NoFueEncontradaPersonaInexistenteException,
 			NoSePudoAgregarAnimalInexistenteException, NoSePudoAgregarPersonalInvalidoExcepcion,
 			NoSePudoAlimentarException;
 
@@ -126,4 +126,16 @@ public interface IZoologico {
 	Animal buscarAnimalPorId(Integer codigoDeReconocimiento) throws AnimalNoEncontradoException;
 
 	Estructura buscarEstructuraPorId(Integer codigoEstructural) throws EstructuraNoEncontradaException;
+
+	Boolean comprarComidaEnLaTiendaConDineroYStockSuficiente(Estructura hamburgueseria, Persona visitante,
+			ComidaHumanos comida, Integer cantidad) throws SaldoInsuficienteParaComprarComidaException,
+			NoFueEncontradaEstructuraInexistenteExcepcion, NoFueEncontradaPersonaInexistenteException;
+
+	void agregarStockAlLocalDeComida(LocalDeComida hamburgueseria, ComidaHumanos comida, Integer cantidad)
+			throws NoFueEncontradaEstructuraInexistenteExcepcion, NoSePudoAgregarStockAlLocalException;
+
+	Integer comprarStockPorTipoDeComida(LocalDeComida hamburgueseria, ComidaHumanos pizza)
+			throws NoFueEncontradaEstructuraInexistenteExcepcion;
+
+	
 }

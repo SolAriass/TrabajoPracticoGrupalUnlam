@@ -26,6 +26,9 @@ public abstract class Animal {
 		this.tipoSexo = sexo;
 		this.categoriaAnimal = clase;
 		this.estaEnfermo = false;
+		this.estaDormido = false;
+		this.temperaturaAnimal = 36.1;
+		this.alimentacionInapropiada = false;
 	}
 
 	public TipoAlimentacion getTipoAlimentacion() {
