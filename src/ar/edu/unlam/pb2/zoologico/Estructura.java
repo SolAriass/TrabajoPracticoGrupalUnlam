@@ -1,33 +1,28 @@
 package ar.edu.unlam.pb2.zoologico;
 
-import java.util.Objects;
-
 public class Estructura {
-
+	
 	private Integer codigoEstructural;
 	private String nombreEstructura;
+	private Boolean estaRoto;
 
-	public Estructura(Integer codigoEstructural, String nombreEstructura) {
+
+	public Estructura(Integer codigoEstructural, String nombreEstructura, Boolean estadoEstructura) {
 		this.codigoEstructural = codigoEstructural;
 		this.nombreEstructura = nombreEstructura;
+		this.estaRoto = estadoEstructura;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(codigoEstructural);
+
+	public Boolean getEstaRoto() {
+		return estaRoto;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Estructura other = (Estructura) obj;
-		return Objects.equals(codigoEstructural, other.codigoEstructural);
+
+	public void setEstaRoto(Boolean estadoEstructura) {
+		this.estaRoto = estadoEstructura;
 	}
+
 
 	public Integer getCodigoEstructural() {
 		return codigoEstructural;
@@ -35,6 +30,14 @@ public class Estructura {
 
 	public void setCodigoEstructural(Integer codigoEstructural) {
 		this.codigoEstructural = codigoEstructural;
+	}
+
+	public String getNombreEstructura() {
+		return nombreEstructura;
+	}
+
+	public void setNombreEstructura(String nombreEstructura) {
+		this.nombreEstructura = nombreEstructura;
 	}
 
 }
