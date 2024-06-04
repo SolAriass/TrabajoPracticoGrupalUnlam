@@ -69,86 +69,85 @@ En resumen, nuestro objetivo es crear un proyecto integral que optimice la gesti
 > Simplemente tendremos que esperar excepciones ya que por algun motivo no pueden ser agregados (por ser inexistentes-> nulos).
 
 
-### -- EXPLICACIÓN DE LOS TEST DE GOMEZ JIMENA --
+### EXPLICACIÓN DE LOS TEST DE GOMEZ JIMENA
 
-- *dadoQueExisteUnZoologicoNoSePuedenAgregarPersonasSiEstasSonMenores();*
-Al intentar agregar a una persona sola (es decir, no en grupo) y que esta sea menor de 18 años, se lanzará una excepción de tipo NoSePuedenAgregarMenoresDeEdadException. Esto se debe a que, los empleados (veterinarios y de mantenimiento) no pueden trabajar siendo menores, y los visitantes pueden ingresar solos si es que son mayores. Los menores solo pueden ingresar acompañados de al menos un mayor.
-
-- *dadoQueExisteUnZoologicoConAnimalesEstosSePuedenIngresarAHabitats();*
-En caso de que en el zoologico exista un hábitat, y un animal, podemos agregar el animal al habitat.
-
-- *dadoQueExisteUnZoologicoConAnimalesDentroDeHabitatsPodemosObtenerUnAnimalDeUnHabitatParticular();* 
-En caso de que el animal exista dentro del habitat se nos retornará el mismo.
-
-- *dadoQueExisteUnZoologicoConAnimalesDentroDeHabitatsNoPodemosAgregarAnimalesSiElHabitatNoEstaEnElZoologico();*
-En caso de que el habitat no se encuentre dentro del zoológico, al intentar agregar un animal al mismo se lanzará una NoExisteObjetoDondeSeBuscaException.
-
-- *dadoQueExisteUnZoologicoConAnimalesDentroDeHabitatsNoPodemosAgregarAnimalesSiNoEstanEnElZoologico();* 
-Similar a la situación anterior, pero ahora verifica lo que sucede al intentar agregar animales que no se encuentran dentro del zoo. También se lanza una NoExisteObjetoDondeSeBuscaException.
-
-- *dadoQueExisteUnZoologicoConHabitatsEstosNoDebenAlbergarDistintasEspecies();*
-Cada hábitat puede albergar una sola especie, ya que al mezclarlas esto podría generar un desbalance en la naturaleza, puesto que podría depredarse u otras situaciones similares. Al ingresar al primer animal, se lo almacena y posteriormente se compara su clase con la de los nuevos animales a ingresar. Si la clase del nuevo no coincide con la del primer animal, este no se podrá agregar, y se lanzará una EspecieDiferenteException.
-
-- *dadoQueExisteUnZoologicoConHabitatsNoSePuedenIngresarMasAnimalesSiEsteEstaLleno();* 
-Cada hábitat tiene una capacidad limitada para albergar animales. En caso de que intentemos agregar un animal y resulte que el size de la colección de animales del habitat ya es igual al límite, no se agregará. Además, se lanzará una HabitatLlenoException.
-
-- *dadoQueExisteUnZoologicoConAnimalesPodemosObtenerTodosLosDeUnaMismaCategoria();*
-Al ejecutar el método se pasará por parámetro una categoría (MAMIFERO, AVE, REPTIL, ANFIBIO, PEZ), y a través de un bucle foreach se agregarán a una lista auxiliar todos aquellos que posean igual categoría a la pasada.
-
-- *dadoQueExisteUnZoologicoConAnimalesPodemosObtenerTodosLosDeUnMismoSexo();*
-Al ejecutar el método se pasará por parámetro un tipo de sexo (FEMENINO, MASCULINO), y a través de un bucle foreach se agregarán a una lista auxiliar todos aquellos que posean igual sexo al pasado.
-
-- *dadoQueExisteUnZoologicoConHabitatsSusAnimalesePuedenReproducir();* 
-Si dos animales están en el mismo hábitat, esos pueden reproducirse. De esto resultaría una nueva instancia de su especie, a la cual solo le podemos asignar un número para identificarlo y un nombre. Atributos como peso y edad se inicializan con valores bajos, ya que es una cría, y el sexo se asigna mediante la clase Random. La categoría y tipo de alimentación se toma de uno de sus progenitores. La nueva instancia debe ser agregada al habitat donde viven sus padres y se reproducieron.
-
-- *dadoQueExisteUnZoologicoConHabitatsSusAnimalesNoSePuedenReproducirSiSonDelMismoSexo();* 
-Para que dos animales se puedan reproducir, tal y como en la vida real, deben ser de distinto sexo. Si son del mismo, no se ejecutará el método, y se lanzará una ProgenitoresDelMismoSexoException.class.
-
-- *dadoQueExisteUnZoologicoConHabitatsSusAnimalesNoSePuedenReproducirSiElHabitatYaEstaLleno();*
-Al igual que no podemos agregar animales cuando un habitat está lleno, dos animales no pueden reproducirse ya que no habrá espacio para albergar a la cría. En este caso, también se lanza una HabitatLlenoException.
-
-- *dadoQueExisteUnZoologicoConHabitatsSusAnimalesNoSePuedenReproducirSiEstanEnDistintoHabitat();*
-Los animales deben reproducirse en un habitat que se pasa oor parámetro, y es imprescindible que ambos existan en el mismo, tanto para verificar que sean de la misma especie (subclase) y que la cría se pueda ubicar junto con ellos. Si no están en el mismo, se lanza una ProgenitoresEnDistintoHabitatException.
-
-- *dadoQueExisteUnZoologicoConVeterinariosQueEstanEnHospitalesPodemosObtenerUnVeterinarioDeUnHospital();* 
-En caso de que el veterinario exista dentro del hospital se nos retornará el mismo.
-
-- *dadoQueExisteUnZoologicoConUnHospitalQueSePuedaCrearUnRegistroDeTratamientoAlCurarUnVeterinarioAUnAnimal();*
-Al ejecutar el método para que un veterinario cure un animal enfermo en un hospital veterinario, se retira al animal de su habitat, se lo trata (su atributo estaEnfermo pasa a ser false), y se crea un registro donde se almacena qué veterinario y qué animal participaron de la acción. Luego, se devuelve al animal a su habitat
-
-- *dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiYaEstaSano();*
-Antes de llevarse a cabo el método, se verifica que el estado del animal sea el correcto (estaEnfermo == true). De no ser así, no es posible curarlo, ya que no hay de qué. Se lanzará una EstadoDelObjetoEsIncorrectoException.
-
-- *dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiLaPersonaQueAtiendeNoEsUnVeterinario();* 
-Sabemos que para atender a un animal se necesitan estudios, por lo que la única instancia de Persona que puede atenderlo es el veterinario. Si se ingresa una instancia distinta, se ejecutará una InstanciaIncorrectaException.
-
-- *dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiElVeterinarioNoEstaEnElZoologico();* 
-Si el veterinario no existe dentro del zoologico, no se lo podrá agregar al hospital, y no se ejecutará el método. Se lanzará una NoExisteObjetoDondeSeBuscaException.
-
-- *dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiElVeterinarioNoEstaEnElHospital();*
-Si el veterinario no está en el hospital donde se llevará a cabo la atención, no se ejecutará el método, y se lanzará una NoExisteObjetoDondeSeBuscaException.
-
-- *dadoQueExisteUnZoologicoConUnHospitalSePuedenObtenerTodosLosAnimalesQueTratoUnVeterinarioParticular();*
-Debido a que los tratamientos se almacenan dentro de registros, se pueden obtener a todos los animales que trató un veterinario. Se recorren los registros con un bucle foreach, y aquellas posiciones en las que el veterinario coincida con el del parámetro, se agregará el animal a una lista auxiliar, la cual se retornará.
-
-- *dadoQueExisteUnZoologicoConUnHospitalSePuedenObtenerTodosLosVeterinariosQueAtendieronAUnAnimalParticular();* 
-Similar al test anterior, se pueden obtener a todos los veterinarios que atendieron a un animal. Se recorren los registros con un bucle foreach, y aquellas posiciones en las que el animal coincida con el del parámetro, se agregará el veterinario a una lista auxiliar, la cual se retornará.
+> [!NOTE]
+> - *dadoQueExisteUnZoologicoNoSePuedenAgregarPersonasSiEstasSonMenores();*
+> Al intentar agregar a una persona sola (es decir, no en grupo) y que esta sea menor de 18 años, se lanzará una excepción de tipo NoSePuedenAgregarMenoresDeEdadException. Esto se debe > a que, los empleados (veterinarios y de mantenimiento) no pueden trabajar siendo menores, y los visitantes pueden ingresar solos si es que son mayores. Los menores solo pueden 
+> ingresar acompañados de al menos un mayor.
+> - *dadoQueExisteUnZoologicoConAnimalesEstosSePuedenIngresarAHabitats();*
+> En caso de que en el zoologico exista un hábitat, y un animal, podemos agregar el animal al habitat.
+> - *dadoQueExisteUnZoologicoConAnimalesDentroDeHabitatsPodemosObtenerUnAnimalDeUnHabitatParticular();* 
+> En caso de que el animal exista dentro del habitat se nos retornará el mismo.
+> - *dadoQueExisteUnZoologicoConAnimalesDentroDeHabitatsNoPodemosAgregarAnimalesSiElHabitatNoEstaEnElZoologico();*
+> En caso de que el habitat no se encuentre dentro del zoológico, al intentar agregar un animal al mismo se lanzará una NoExisteObjetoDondeSeBuscaException.
+> - *dadoQueExisteUnZoologicoConAnimalesDentroDeHabitatsNoPodemosAgregarAnimalesSiNoEstanEnElZoologico();* 
+> Similar a la situación anterior, pero ahora verifica lo que sucede al intentar agregar animales que no se encuentran dentro del zoo. También se lanza una 
+> NoExisteObjetoDondeSeBuscaException.
+> - *dadoQueExisteUnZoologicoConHabitatsEstosNoDebenAlbergarDistintasEspecies();*
+> Cada hábitat puede albergar una sola especie, ya que al mezclarlas esto podría generar un desbalance en la naturaleza, puesto que podría depredarse u otras situaciones similares. Al 
+> ingresar al primer animal, se lo almacena y posteriormente se compara su clase con la de los nuevos animales a ingresar. Si la clase del nuevo no coincide con la del primer animal, 
+> este no se podrá agregar, y se lanzará una EspecieDiferenteException.
+> - *dadoQueExisteUnZoologicoConHabitatsNoSePuedenIngresarMasAnimalesSiEsteEstaLleno();* 
+> Cada hábitat tiene una capacidad limitada para albergar animales. En caso de que intentemos agregar un animal y resulte que el size de la colección de animales del habitat ya es igual > al límite, no se agregará. Además, se lanzará una HabitatLlenoException.
+> - *dadoQueExisteUnZoologicoConAnimalesPodemosObtenerTodosLosDeUnaMismaCategoria();*
+> Al ejecutar el método se pasará por parámetro una categoría (MAMIFERO, AVE, REPTIL, ANFIBIO, PEZ), y a través de un bucle foreach se agregarán a una lista auxiliar todos aquellos que 
+> posean igual categoría a la pasada.
+> - *dadoQueExisteUnZoologicoConAnimalesPodemosObtenerTodosLosDeUnMismoSexo();*
+> Al ejecutar el método se pasará por parámetro un tipo de sexo (FEMENINO, MASCULINO), y a través de un bucle foreach se agregarán a una lista auxiliar todos aquellos que posean igual 
+>  sexo al pasado.
+> - *dadoQueExisteUnZoologicoConHabitatsSusAnimalesePuedenReproducir();* 
+> Si dos animales están en el mismo hábitat, esos pueden reproducirse. De esto resultaría una nueva instancia de su especie, a la cual solo le podemos asignar un número para 
+> identificarlo y un nombre. Atributos como peso y edad se inicializan con valores bajos, ya que es una cría, y el sexo se asigna mediante la clase Random. La categoría y tipo de 
+> alimentación se toma de uno de sus progenitores. La nueva instancia debe ser agregada al habitat donde viven sus padres y se reproducieron.
+> - *dadoQueExisteUnZoologicoConHabitatsSusAnimalesNoSePuedenReproducirSiSonDelMismoSexo();* 
+> Para que dos animales se puedan reproducir, tal y como en la vida real, deben ser de distinto sexo. Si son del mismo, no se ejecutará el método, y se lanzará una 
+> ProgenitoresDelMismoSexoException.class.
+> - *dadoQueExisteUnZoologicoConHabitatsSusAnimalesNoSePuedenReproducirSiElHabitatYaEstaLleno();*
+> Al igual que no podemos agregar animales cuando un habitat está lleno, dos animales no pueden reproducirse ya que no habrá espacio para albergar a la cría. En este caso, también se 
+> lanza una HabitatLlenoException.
+> - *dadoQueExisteUnZoologicoConHabitatsSusAnimalesNoSePuedenReproducirSiEstanEnDistintoHabitat();*
+> Los animales deben reproducirse en un habitat que se pasa oor parámetro, y es imprescindible que ambos existan en el mismo, tanto para verificar que sean de la misma especie 
+> (subclase) y que la cría se pueda ubicar junto con ellos. Si no están en el mismo, se lanza una ProgenitoresEnDistintoHabitatException.
+> - *dadoQueExisteUnZoologicoConVeterinariosQueEstanEnHospitalesPodemosObtenerUnVeterinarioDeUnHospital();* 
+> En caso de que el veterinario exista dentro del hospital se nos retornará el mismo.
+> - *dadoQueExisteUnZoologicoConUnHospitalQueSePuedaCrearUnRegistroDeTratamientoAlCurarUnVeterinarioAUnAnimal();*
+> Al ejecutar el método para que un veterinario cure un animal enfermo en un hospital veterinario, se retira al animal de su habitat, se lo trata (su atributo estaEnfermo pasa a ser 
+> false), y se crea un registro donde se almacena qué veterinario y qué animal participaron de la acción. Luego, se devuelve al animal a su habitat
+> - *dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiYaEstaSano();*
+> Antes de llevarse a cabo el método, se verifica que el estado del animal sea el correcto (estaEnfermo == true). De no ser así, no es posible curarlo, ya que no hay de qué. Se lanzará 
+> una EstadoDelObjetoEsIncorrectoException.
+> - *dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiLaPersonaQueAtiendeNoEsUnVeterinario();* 
+> Sabemos que para atender a un animal se necesitan estudios, por lo que la única instancia de Persona que puede atenderlo es el veterinario. Si se ingresa una instancia distinta, se 
+> ejecutará una InstanciaIncorrectaException.
+> - *dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiElVeterinarioNoEstaEnElZoologico();* 
+> Si el veterinario no existe dentro del zoologico, no se lo podrá agregar al hospital, y no se ejecutará el método. Se lanzará una NoExisteObjetoDondeSeBuscaException.
+> - *dadoQueExisteUnZoologicoConUnHospitalQueNoSePuedaCurarUnAnimalSiElVeterinarioNoEstaEnElHospital();*
+> Si el veterinario no está en el hospital donde se llevará a cabo la atención, no se ejecutará el método, y se lanzará una NoExisteObjetoDondeSeBuscaException.
+> - *dadoQueExisteUnZoologicoConUnHospitalSePuedenObtenerTodosLosAnimalesQueTratoUnVeterinarioParticular();*
+> Debido a que los tratamientos se almacenan dentro de registros, se pueden obtener a todos los animales que trató un veterinario. Se recorren los registros con un bucle foreach, y 
+> aquellas posiciones en las que el veterinario coincida con el del parámetro, se agregará el animal a una lista auxiliar, la cual se retornará.
+> - *dadoQueExisteUnZoologicoConUnHospitalSePuedenObtenerTodosLosVeterinariosQueAtendieronAUnAnimalParticular();* 
+> Similar al test anterior, se pueden obtener a todos los veterinarios que atendieron a un animal. Se recorren los registros con un bucle foreach, y aquellas posiciones en las que el 
+> animal coincida con el del parámetro, se agregará el veterinario a una lista auxiliar, la cual se retornará.
 
 
-
-#### Uso de:
-- [x] Herencia
-- [x] Polimorfismo
-- [x] Excepciones
+### Uso de:
 - [x] Clases Abstractas
-- [x] Uso de JUNIT 4
-- [x] Uso de ordenamiento con comparator
-- [x] Listas (set y list)
+- [x] Colecciones (list y set)
+- [x] Excepciones
+- [x] Hashcode / Equals
+- [x] Herencia
+- [x] Implementacion de addAll
+- [x] Implementacion de relaciones
 - [x] Interfaces
-
+- [x] Interfaz comparator
+- [x] JUNIT 4
+- [x] LocalTime (uso de isBefore, isAfter)
+- [x] Polimorfismo
 
 ## Creadores
-[Arias, Sol Macarena](https://github.com/SolAriass) ::
+[Arias, Sol Macarena](https://github.com/SolAriass) 
 
 [Bon, Nicolás Agustín](https://github.com/nicolassbon)
 
