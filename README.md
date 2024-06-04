@@ -166,6 +166,33 @@ En resumen, nuestro objetivo es crear un proyecto integral que optimice la gesti
 > Verifica el total dado de todo lo vendido en la hamburgueseria.
 
 
+### EXPLICACIÓN DE LOS TEST DE RECCHIA JAVIER
+
+> [!NOTE]
+> - *queUnVisitantePuedaComprarEntradaTeniendoSaldoSuficiente();*
+> Verifica que un visititante al tener dinero suficiente para comprar su boleto(el valor del boleto es fijo de $2500) pueda ingresar al zoologico. 
+> - *queUnVisitanteNoPuedaComprarEntradaPorSerMenorDeEdad();*
+> Verifica que si el visitante es menor de edad(menor de 18 años) y no tiene un acompañante mayor de edad no le permita comprar un boleto por lo que no podra ingresar y saltara la 
+> exception NoSePuedenAgregarMenoresDeEdadException.
+> - *queUnVisitanteNoPuedaComprarEntradaTeniendoSaldoInsuficiente();*
+> Verifica que si el visitante al no tener el dinero suficiente para comprar su boleto, no se le permita ingresar saltando la exception NoTieneEntradaException.
+> - *queUnGrupoDeVisitantePuedaComprarEntradaTeniendoSaldoSuficiente();*
+> Cuando se intenten comprar entradas en grupo, se verifica que todos dispongan del dinero para pagar su entrada.
+> - *queUnGrupoDePersonasPuedaIngresarConMenoresDeEdad();*
+> Cuando un grupo intente comprar entradas y ademas de verificar si disponen de dinero, tambien se tendra en cuenta que por lo menos un ingresante sea mayor de edad para dejar pasar a 
+> los menores.
+> - *queSePuedaConocerElTotalRecaudadoEnBaseALaCantidadDeEntradasVendidas();*
+> Al ir vendiendo entradas se va almacenando el dato de cuanto dinero se va recaudando y luego al obtener la recaudacion se verifica si el dato era el esperado.
+> - *queUnVisitantePuedaUsarUnaInstalacionComunTeniendoEntrada();*
+> Registraremos cada uso que de cada visitantes de las instalaciones comúnes tales como (baño, estacionamiento, zona de comidas, etc).
+> - *queUnVisitanteNoPuedaUsarUnaInstalacionComunPorNoTenerEntrada();*
+> Controlaremos que no se puedan dejar usar las instalaciones si la persona no dispone de entrada al zoologico, saltando una exception NoTieneEntradaException.
+> - *queUnVisitantePuedaVerUnAnimalTeniendoEntrada();*
+> Registraremos las visitas de los visitantes a los diferentes habitat de animales para llevar control de su recorrido por el zoo.
+> - *queUnVisitanteNoPuedaVerUnAnimalPorNoTenerEntrada();*
+> Controlaremos que las personas sin entrada no puedan visitar los habitats de los animales provocando una exception NoTieneEntradaException.
+> - *queUnVisitanteNoPuedaVerUnHabitatVacio();*
+> Tambien controlaremos que no se registren las visitas de los visitantes a los habitats donde no haya animales para observar provocando una exception HabitatVacioException.
 
 
 ### Uso de:
