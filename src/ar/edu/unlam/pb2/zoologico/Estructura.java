@@ -40,4 +40,33 @@ public class Estructura {
 		this.nombreEstructura = nombreEstructura;
 	}
 
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigoEstructural == null) ? 0 : codigoEstructural.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Estructura other = (Estructura) obj;
+		if (codigoEstructural == null) {
+			if (other.codigoEstructural != null)
+				return false;
+		} else if (!codigoEstructural.equals(other.codigoEstructural))
+			return false;
+		return true;
+	}
+
+	
+
 }

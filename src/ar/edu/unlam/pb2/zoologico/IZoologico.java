@@ -120,4 +120,10 @@ public interface IZoologico {
 
 	RegistroVisitaInstalacionComun registrarVisitaDeUnVisitanteAUnaInstalacionComun(Persona visitante,
 			Estructura instalacionComun) throws NoTieneEntradaException;
+
+	Persona buscarPersonaPorId(Integer id) throws PersonaNoEncontradaException;
+
+	Animal buscarAnimalPorId(Integer codigoDeReconocimiento) throws AnimalNoEncontradoException;
+
+	Estructura buscarEstructuraPorId(Integer codigoEstructural) throws EstructuraNoEncontradaException;
 }

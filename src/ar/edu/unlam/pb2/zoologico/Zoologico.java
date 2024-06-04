@@ -882,4 +882,37 @@ public class Zoologico implements IZoologico{
 		this.registrosVisitasHabitatsAnimales = registrosVisitasHabitatsAnimales;
 	}
 
+	@Override
+    public Persona buscarPersonaPorId(Integer id) throws PersonaNoEncontradaException {
+        for (Persona persona : this.personas) {
+            if (persona.getIdentificacion().equals(id)) {
+                return persona;
+            }
+        }
+
+        throw new PersonaNoEncontradaException();
+    }
+
+    @Override
+    public Animal buscarAnimalPorId(Integer codigoDeReconocimiento) throws AnimalNoEncontradoException {
+        for (Animal animal : this.animales) {
+            if (animal.getCodigoDeReconocimiento().equals(codigoDeReconocimiento)) {
+                return animal;
+            }
+        }
+
+        throw new AnimalNoEncontradoException();
+    }
+
+    @Override
+    public Estructura buscarEstructuraPorId(Integer codigoEstructural) throws EstructuraNoEncontradaException {
+        for (Estructura estructura : this.estructuras) {
+            if (estructura.getCodigoEstructural().equals(codigoEstructural)) {
+                return estructura;
+            }
+        }
+
+        throw new EstructuraNoEncontradaException();
+    }
+
 }
