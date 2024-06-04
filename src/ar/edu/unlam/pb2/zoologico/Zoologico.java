@@ -91,6 +91,12 @@ public class Zoologico implements IZoologico{
 	@Override
 	public Boolean agregarPersonaAlZoo(Persona persona) throws NoSePuedenAgregarMenoresDeEdadException, NoSePudoAgregarPersonaInexistenteException, NoTieneEntradaException {
 
+		for (Persona p : this.personas) {
+			if (p.equals(persona)) {
+				return false;
+			}
+		}
+		
 		if (persona == null) {
 			throw new NoSePudoAgregarPersonaInexistenteException("la persona ingresado no existe");
 		}
@@ -117,6 +123,12 @@ public class Zoologico implements IZoologico{
 	}
 	@Override
     public Boolean agregarAnimalAlZoo(Animal animal) throws NoSePudoAgregarAnimalInexistenteException {
+		
+		for (Animal a : this.animales) {
+			if (a.equals(animal)) {
+				return false;
+			}
+		}
 
         if (animal != null) {
             return animales.add(animal);
@@ -128,6 +140,12 @@ public class Zoologico implements IZoologico{
 	@Override
     public Boolean agregarEstructuraAlZoo(Estructura estructura) throws NoSePudoAgregarEstructuraInexistenteExcepcion {
 
+		for (Estructura e : this.estructuras) {
+			if (e.equals(estructura)) {
+				return false;
+			}
+		}
+		
         if (estructura != null) {
             return estructuras.add(estructura);
         }
@@ -247,20 +265,16 @@ public class Zoologico implements IZoologico{
 
 	@Override
 	public Boolean agregarAnimalAlHabitat(Animal animal, Estructura habitat)
-			throws HabitatVacioException, NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException, EspecieDiferenteException, HabitatLlenoException {
+			throws NoExisteObjetoDondeSeBuscaException, InstanciaIncorrectaException, EspecieDiferenteException, HabitatLlenoException {
 
-		try {
-			this.obtenerAnimal(animal);
-
-		} catch (NoExisteObjetoDondeSeBuscaException e) {
-			throw new HabitatVacioException("No hay Animal a ingresar, por lo tanto el habitat estara vacio");
-		}
-		
 		this.obtenerEstructura(habitat);
+		this.obtenerAnimal(animal);
 		
 		if (!(habitat instanceof Habitat)) {
 			throw new InstanciaIncorrectaException("La estructura ingresada no es un habitat");
 		}
+		
+		
 		Habitat habitatVerificado = (Habitat) habitat;
 		return habitatVerificado.agregarAnimal(animal);
 	}
@@ -355,7 +369,10 @@ public class Zoologico implements IZoologico{
 		}
 
 	public RegistroVisitaHabitatAnimal registrarVisitaDeUnVisitanteAUnHabitat(Persona visitante, Estructura habitat)
-			throws NoTieneEntradaException {
+			throws NoTieneEntradaException, HabitatVacioException, NoExisteObjetoDondeSeBuscaException {
+		
+		((Habitat) habitat).getAnimales();
+		
 		if (visitante instanceof Visitante) {
 
 			if (((Visitante) visitante).getBoleto() == null) {
@@ -754,7 +771,7 @@ public class Zoologico implements IZoologico{
 	}
 
 	private void retirarAnimalDeSuHabitat(Animal animal, Estructura habitat)
-			throws NoExisteObjetoDondeSeBuscaException {
+			throws NoExisteObjetoDondeSeBuscaException, HabitatVacioException {
 		Habitat habitatNuevo = (Habitat) this.obtenerEstructura(habitat);
 		habitatNuevo.getAnimales().remove(animal);
 	}
@@ -811,7 +828,7 @@ public class Zoologico implements IZoologico{
 	
 	@Override
 	public TreeSet<Animal> obtenerAnimalesDeUnHabitatOrdenadosOrdenEspecifico(Comparator<Animal> OrdenEspecifico,
-			Estructura habitat) throws InstanciaIncorrectaException {
+			Estructura habitat) throws InstanciaIncorrectaException, HabitatVacioException {
 		
 		TreeSet<Animal> animalesNoRepetidos = new TreeSet<Animal>(OrdenEspecifico);
 		

@@ -12,9 +12,8 @@ public class Panda extends Animal {
 	}
 
     @Override
-    public Animal crearCria(Integer idCria, String nombreCria, TipoSexo tipoSexo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'crearCria'");
+    public Animal crearCria(Integer idCria, String nombreCria, TipoSexo sexo) {
+        return new Panda(idCria, nombreCria, 0, 1.5, this.getTipoAlimentacion(), sexo, this.getCategoriaAnimal());
     }
 
 

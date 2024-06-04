@@ -62,7 +62,12 @@ public class Habitat extends Estructura {
 
 	}
 
-	public ArrayList<Animal> getAnimales() {
+	public ArrayList<Animal> getAnimales() throws HabitatVacioException {
+		
+		if (animales.isEmpty()) {
+			throw new HabitatVacioException("El habitat está vacío");
+		}
+		
 		return animales;
 	}
 

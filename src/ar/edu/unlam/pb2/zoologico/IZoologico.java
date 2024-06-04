@@ -91,7 +91,7 @@ public interface IZoologico {
 			throws NoExisteObjetoDondeSeBuscaException;
 
 	TreeSet<Animal> obtenerAnimalesDeUnHabitatOrdenadosOrdenEspecifico(Comparator<Animal> OrdenEspecifico,
-			Estructura habitat) throws InstanciaIncorrectaException;
+			Estructura habitat) throws InstanciaIncorrectaException, HabitatVacioException;
 
 	Boolean agregarMantenimientoEstructura(MantenimientoEstructura mantenimietoEstructura);
 
@@ -110,7 +110,7 @@ public interface IZoologico {
 	Boolean agregarVariosVisitantes(List<Persona> visitantesAIngresar);
 
 	RegistroVisitaHabitatAnimal registrarVisitaDeUnVisitanteAUnHabitat(Persona visitante, Estructura habitat)
-			throws NoTieneEntradaException;
+			throws NoTieneEntradaException, HabitatVacioException, NoExisteObjetoDondeSeBuscaException;
 
 	Double obtenerRecaudacion();
 
