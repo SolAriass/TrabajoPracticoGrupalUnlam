@@ -67,6 +67,8 @@ En resumen, nuestro objetivo es crear un proyecto integral que optimice la gesti
 > - *dadoQueExisteUnZoologicoQueNoSePuedanAgregarPersonasAlMismoSiEstaNoExiste();*
 > - *dadoQueExisteUnZoologicoQueNoSePuedanAgregarAnimalInexistente();*
 > Simplemente tendremos que esperar excepciones ya que por algun motivo no pueden ser agregados (por ser inexistentes-> nulos).
+> - *dadoQueExisteUnZoologicoConRegistrosDeAlimentacionQueNoSePuedaCrearUnRegistroSiLaCantidadDeComidaEsMenorOIgualACero();*
+> En este test debemos presentar una excepcion ya que no podriamos guardar un registro el cual no tenga una cantidad de comida mayor a 0.
 
 
 ### EXPLICACIÓN DE LOS TEST DE GOMEZ JIMENA
