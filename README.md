@@ -1,10 +1,10 @@
 # *BIENVENIDOS A NUESTRO PROYECTO DE ZOOLOGICO*
-![me](https://static.vecteezy.com/system/resources/previews/008/615/594/non_2x/zoo-animals-group-in-flat-cartoon-style-free-vector.jpg)
+![me](https://static.vecteezy.com/system/resources/previews/008/615/594/non_2x/zoo-animals-group-in-flat-cartoon-style-free-vector.jpg) 
 
 
 
 
-**Zoológico**
+**Zoológico** :shipit:
 
 *En este proyecto desarrollamos un sistema de gestión para un zoológico, que abarca diversas funcionalidades para asegurar el bienestar de los animales, la comodidad de los visitantes y el funcionamiento eficiente de las operaciones diarias. El programa está preparado para la comodidad tanto de los animales como la de los visitantes, se pueden manejar diversas funcionalidades de ambos al igual que las demás personas de el zoológico.
 Para garantizar el cuidado óptimo de los animales al igual que su alimentación, el programa permite registrar información detallada sobre cada especie y su hábitat (como por ejemplo aclarar que es un mamífero el cual esta en un habitat específico, por ejemplo los monos se encontrarían solo con los monos) así como llevar un seguimiento de la salud de los animales individualmente (de esta forma podemos conocer si se enfermo por algún cambio en su temperatura corporal o porque fue alimentado de una forma que no debía).
