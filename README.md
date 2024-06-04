@@ -150,7 +150,7 @@ Similar al test anterior, se pueden obtener a todos los veterinarios que atendie
 
 
 ##Colaboradores
-https://github.com/SergioDanRam
+SergioDanRam https://github.com/SergioDanRam
 
 
 CREADORES:
