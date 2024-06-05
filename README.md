@@ -229,6 +229,7 @@ En resumen, nuestro objetivo es crear un proyecto integral que optimice la gesti
 - [x] Herencia
 - [x] Implementacion de addAll
 - [x] Implementacion de relaciones
+- [x] Instanceof
 - [x] Interfaces
 - [x] Interfaz comparator
 - [x] JUNIT 4
